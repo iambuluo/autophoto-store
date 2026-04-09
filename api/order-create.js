@@ -89,8 +89,8 @@ module.exports = async function handler(req, res) {
       title: `AutoPhoto - ${plugins.map(p => PLUGIN_NAMES[p] || p).join('+')} (${PLAN_LABELS[plan]})`,
       time: Math.floor(Date.now() / 1000).toString(),
       nonce_str: require('crypto').randomBytes(16).toString('hex'),
-      return_url: `https://www.autophoto.store/success.html?order=${orderNo}`,
-      notify_url: `https://www.autophoto.store/api/xunhupay/callback`,
+      return_url: `https://autophoto-store.vercel.app/success.html?order=${orderNo}`,
+      notify_url: `https://autophoto-store.vercel.app/api/xunhupay/callback`,
       attach: JSON.stringify({ plugins: plugins.join(','), plan, name, email, wechat })
     };
     
