@@ -83,7 +83,8 @@ function apiRequest(method, endpoint, data = null) {
 }
 
 async function getFileSha(filePath) {
-  const result = await apiRequest('GET', `/repos/${OWNER}/${REPO}/contents/${filePath.replace(/\\/g, '/')}?ref=${BRANCH}`);
+  const encodedPath = encodeURIComponent(filePath.replace(/\\/g, '/'));
+  const result = await apiRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}?ref=${BRANCH}`);
   return result.status === 200 ? result.data.sha : null;
 }
 
@@ -91,7 +92,8 @@ async function uploadFile(filePath) {
   const content = getFileContent(filePath);
   const base64 = content.toString('base64');
   const sha = await getFileSha(filePath);
-  const apiPath = `/repos/${OWNER}/${REPO}/contents/${filePath.replace(/\\/g, '/')}`;
+  const encodedPath = encodeURIComponent(filePath.replace(/\\/g, '/'));
+  const apiPath = `/repos/${OWNER}/${REPO}/contents/${encodedPath}`;
   
   const payload = {
     message: `Add/update ${filePath}`,
