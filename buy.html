@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>购买 · AutoPhoto 图库插件</title>
+  <!-- Baidu Tongji - ID待填 -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?831c86d9e9f695d415d2c0807057c2ed";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">AutoPhoto<span class="logo-dot">.store</span></a>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="index.html#plugins">插件</a>
+        <a href="pricing.html">定价</a>
+        <a href="about.html">关于</a>
+      </div>
+      <a href="buy.html" class="btn btn-primary btn-sm">立即购买</a>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container checkout-section">
+      <div class="page-hero" style="padding-bottom:20px;">
+        <h1>选择您的方案</h1>
+        <p>选择需要的插件和授权类型，填写联系方式即可下单</p>
+      </div>
+
+      <!-- 插件选择 -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">第一步：选择插件（可多选）</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;" id="plugin-selector">
+          <label class="plugin-select-card" data-plugin="shijuezhongguo" data-name="视觉中国自动提交">
+            <input type="checkbox" name="plugins" value="shijuezhongguo">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#e63946,#c1121f);">VCG</span>
+            <span class="psc-name">视觉中国自动提交</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="guangchang" data-name="光厂批量提交助手">
+            <input type="checkbox" name="plugins" value="guangchang">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#2d6a4f,#40916c);">VJ</span>
+            <span class="psc-name">光厂批量提交助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="xinchangchang" data-name="新片场 AIGC 助手">
+            <input type="checkbox" name="plugins" value="xinchangchang">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#f77f00,#ea6c00);">XC</span>
+            <span class="psc-name">新片场 AIGC 助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="dreamstime" data-name="Dreamstime 自动提交">
+            <input type="checkbox" name="plugins" value="dreamstime">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#3a86ff,#0055d4);">DT</span>
+            <span class="psc-name">Dreamstime 自动提交</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="adobe-stock" data-name="Adobe Stock 关键词点击器">
+            <input type="checkbox" name="plugins" value="adobe-stock">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#e63946,#b5179e);">AS</span>
+            <span class="psc-name">Adobe Stock 关键词点击器</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="qingying-image" data-name="清影批量生图助手">
+            <input type="checkbox" name="plugins" value="qingying-image">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#7209b7,#560bad);">QY</span>
+            <span class="psc-name">清影批量生图助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="qingying-video" data-name="清影批量生视频助手">
+            <input type="checkbox" name="plugins" value="qingying-video">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#4361ee,#3a0ca3);">QV</span>
+            <span class="psc-name">清影批量生视频助手</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 授权类型 -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">第二步：选择授权类型</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;" id="plan-selector">
+          <!-- 🔧 调试专用套餐，上线后删除 -->
+          <label class="plan-select-card" data-plan="test001" data-price="0.01" style="border-color:#f59e0b;">
+            <input type="radio" name="plan" value="test001">
+            <div class="psc-name" style="color:#f59e0b;">🔧 调试测试</div>
+            <div class="psc-price" style="color:#f59e0b;">¥0.01</div>
+            <div class="psc-desc">跑通支付流程专用</div>
+          </label>
+          <label class="plan-select-card" data-plan="trial" data-price="9.9">
+            <input type="radio" name="plan" value="trial">
+            <div class="psc-name">1天试用</div>
+            <div class="psc-price">¥9.9</div>
+            <div class="psc-desc">适合尝鲜</div>
+          </label>
+          <label class="plan-select-card selected" data-plan="annual" data-price="199">
+            <input type="radio" name="plan" value="annual" checked>
+            <div class="psc-name">年度授权</div>
+            <div class="psc-price">¥199<span>/插件/年</span></div>
+            <div class="psc-desc">性价比最高</div>
+          </label>
+          <label class="plan-select-card" data-plan="permanent" data-price="399">
+            <input type="radio" name="plan" value="permanent">
+            <div class="psc-name">永久授权</div>
+            <div class="psc-price">¥399<span>/插件</span></div>
+            <div class="psc-desc">买断终身</div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 订单摘要 -->
+      <div class="checkout-summary" id="order-summary" style="margin-bottom:24px;">
+        <h4>📋 订单摘要</h4>
+        <div class="checkout-line"><span>已选插件</span><span id="summary-plugins">请选择插件</span></div>
+        <div class="checkout-line"><span>授权类型</span><span id="summary-plan">年度授权</span></div>
+        <div class="checkout-line"><span>折扣</span><span id="summary-discount">—</span></div>
+        <div class="checkout-total"><span>应付总额</span><span id="summary-total">¥0.00</span></div>
+      </div>
+
+      <!-- 联系信息 -->
+      <form class="checkout-form" id="checkout-form" onsubmit="handleCheckout(event)">
+        <h3 style="font-size:18px;font-weight:700;">第三步：填写联系方式</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="form-group">
+            <label for="name">姓名 *</label>
+            <input type="text" id="name" name="name" placeholder="您的姓名" required>
+          </div>
+          <div class="form-group">
+            <label for="email">邮箱 *</label>
+            <input type="email" id="email" name="email" placeholder="接收授权码" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wechat">微信号（选填）</label>
+          <input type="text" id="wechat" name="wechat" placeholder="有问题方便联系您">
+        </div>
+        <div class="form-group">
+          <label for="notes">备注（选填）</label>
+          <input type="text" id="notes" name="notes" placeholder="如需要特定插件组合、特殊要求等">
+        </div>
+        <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:14px;font-size:13px;color:var(--text-muted);">
+          ⚠️ 支付成功后，授权码将发送到您的邮箱。同时可加微信 <strong>auto_photo2025</strong> 获取技术支持。
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-btn">
+          🛒 前往支付（¥<span id="btn-price">0.00</span>）
+        </button>
+        <p class="text-sm text-muted text-center">💳 支付方式：微信 / 支付宝（通过虎皮椒安全支付）</p>
+      </form>
+
+    </div>
+  </section>
+
+  <style>
+    .plugin-select-card {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.03); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 10px 12px; cursor: pointer;
+      transition: 0.2s;
+    }
+    .plugin-select-card:hover { border-color: var(--border-light); background: rgba(255,255,255,0.05); }
+    .plugin-select-card.selected { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+    .plugin-select-card input { display: none; }
+    .psc-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #fff; flex-shrink: 0; }
+    .psc-name { font-size: 13px; font-weight: 500; }
+    .psc-price { font-size: 18px; font-weight: 800; color: var(--primary-light); }
+    .psc-price span { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+    .psc-desc { font-size: 11px; color: var(--text-dim); }
+    .plan-select-card {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.03); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 16px; cursor: pointer; text-align: center;
+      transition: 0.2s;
+    }
+    .plan-select-card:hover { border-color: var(--border-light); }
+    .plan-select-card.selected { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+    .plan-select-card input { display: none; }
+    @media(max-width:600px){ .plan-select-card { flex-direction:row;justify-content:space-between;text-align:left; } }
+  </style>
+
+  <script src="/js/main.js"></script>
+  <script>
+    // 定价配置（与 pricing-config.json 同步）
+    const PLAN_PRICES = { test001: 0.01, trial: 9.9, annual: 199, permanent: 399 };
+    const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
+    const PLAN_LABELS = { test001: '🔧调试测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
+    const PLAN_NAME_MAP = { test001: '测试', trial: '试用', annual: '年付', permanent: '永久' };
+    const PLUGIN_NAMES = {
+      shijuezhongguo: '视觉中国自动提交',
+      guangchang: '光厂批量提交助手',
+      xinchangchang: '新片场 AIGC 助手',
+      dreamstime: 'Dreamstime 自动提交',
+      'adobe-stock': 'Adobe Stock 关键词点击器',
+      'qingying-image': '清影批量生图助手',
+      'qingying-video': '清影批量生视频助手'
+    };
+
+    let selectedPlugins = [];
+    let selectedPlan = 'annual';
+
+    // 插件选择
+    document.querySelectorAll('.plugin-select-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.tagName === 'INPUT') return;
+        const cb = card.querySelector('input[type="checkbox"]');
+        cb.checked = !cb.checked;
+        card.classList.toggle('selected', cb.checked);
+        updateSummary();
+      });
+    });
+
+    // 方案选择
+    document.querySelectorAll('.plan-select-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.tagName === 'INPUT') return;
+        document.querySelectorAll('.plan-select-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedPlan = card.dataset.plan;
+        document.getElementById('summary-plan').textContent = PLAN_LABELS[selectedPlan];
+        updateSummary();
+      });
+    });
+
+    function updateSummary() {
+      selectedPlugins = Array.from(document.querySelectorAll('input[name="plugins"]:checked')).map(cb => cb.value);
+      const count = selectedPlugins.length;
+      const isTest = selectedPlan === 'test001';
+      const discount = isTest ? 1.0 : (DISCOUNTS[count] || 1.0);
+      const unitPrice = PLAN_PRICES[selectedPlan];
+      const total = isTest ? (0.01).toFixed(2) : (unitPrice * count * discount).toFixed(2);
+      const saving = isTest ? '0.00' : (unitPrice * count * (1 - discount)).toFixed(2);
+
+      document.getElementById('summary-plugins').textContent = count === 0 ? '请选择插件' :
+        `${count}个插件${PLAN_NAME_MAP[selectedPlan]}`;
+      document.getElementById('summary-discount').textContent = isTest ? '调试专用' : (count <= 1 ? '—' :
+        `${Math.round(discount * 100)}折（节省¥${saving}）`);
+      document.getElementById('summary-total').textContent = `¥${total}`;
+      document.getElementById('btn-price').textContent = total;
+    }
+
+    // 初始
+    updateSummary();
+
+    async function handleCheckout(e) {
+      e.preventDefault();
+      if (selectedPlugins.length === 0) {
+        alert('请至少选择一个插件！');
+        return;
+      }
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const wechat = document.getElementById('wechat').value;
+      const notes = document.getElementById('notes').value;
+      const isTest = selectedPlan === 'test001';
+      const count = selectedPlugins.length;
+      const discount = isTest ? 1.0 : (DISCOUNTS[count] || 1.0);
+      const total = isTest ? (0.01).toFixed(2) : (PLAN_PRICES[selectedPlan] * count * discount).toFixed(2);
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '⏳ 正在创建订单...';
+
+      try {
+        // Vercel Serverless API（前后端同域，CORS 无忧）
+        const API_BASE = 'https://www.autophoto.store';
+        const resp = await fetch(API_BASE + '/api/order-create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plugins: selectedPlugins, plan: selectedPlan, name, email, wechat, notes })
+        });
+        const data = await resp.json();
+
+        if (!data.success) {
+          alert('订单创建失败: ' + (data.error || '未知错误'));
+          submitBtn.disabled = false;
+          submitBtn.textContent = `🛒 前往支付（¥${total}）`;
+          return;
+        }
+
+        if (data.mode === 'demo') {
+          // 演示模式：显示授权码
+          showDemoResult({ plugins: selectedPlugins, plan: selectedPlan, planName: PLAN_LABELS[selectedPlan], count, discount, total, name, email }, data.demoLicenseCodes);
+        } else if (data.mode === 'xunhu') {
+          // 真实支付：先保存订单信息到 localStorage，成功页需要用到
+          localStorage.setItem('autophoto_order_' + data.orderNo, JSON.stringify({
+            plugins: selectedPlugins, plan: selectedPlan,
+            planName: PLAN_LABELS[selectedPlan],
+            count, discount, total, name, email, wechat, notes
+          }));
+          // 跳转到虎皮椒
+          window.location.href = data.paymentUrl;
+        }
+      } catch (err) {
+        alert('网络错误，请稍后重试');
+        submitBtn.disabled = false;
+        submitBtn.textContent = `🛒 前往支付（¥${total}）`;
+      }
+    }
+
+    function showDemoResult(orderInfo, codes) {
+      const demoHtml = `
+<div class="result-page">
+  <div class="result-card">
+    <div class="result-icon">🎉</div>
+    <h2>演示模式：订单已创建</h2>
+    <p>虎皮椒后端未配置，此为演示效果。<br>正式版将跳转至虎皮椒完成支付。</p>
+    <div style="background:rgba(99,102,241,0.08);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:left;font-size:14px;color:var(--text-muted);">
+      <div style="margin-bottom:6px;"><strong>插件：</strong>${orderInfo.plugins.map(p=>PLUGIN_NAMES[p]||p).join('、')}</div>
+      <div style="margin-bottom:6px;"><strong>授权：</strong>${orderInfo.planName} × ${orderInfo.count}个</div>
+      <div style="margin-bottom:6px;"><strong>应付：</strong>¥${orderInfo.total}</div>
+      <div style="margin-bottom:6px;"><strong>邮箱：</strong>${orderInfo.email}</div>
+      <div style="margin-top:12px;color:var(--success);font-weight:700;">🎁 授权码（演示）：</div>
+      ${codes.map(c=>`<div style="font-family:monospace;color:var(--primary-light);margin-top:4px;">${c}</div>`).join('')}
+    </div>
+    <div style="display:flex;gap:12px;margin-top:20px;">
+      <a href="pricing.html" class="btn btn-outline btn-block">返回定价页</a>
+      <a href="index.html" class="btn btn-primary btn-block">返回首页</a>
+    </div>
+  </div>
+</div>`;
+      document.querySelector('.checkout-section').innerHTML = demoHtml;
+    }
+  </script>
+</body>
+</html>
