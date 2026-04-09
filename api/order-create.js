@@ -111,6 +111,10 @@ module.exports = async function handler(req, res) {
 
     // 正式模式：调用虎皮椒 API
     // 注意：虎皮椒API要求参数名为小写
+    // 先预生成授权码，把编码后的码放到 return_url，成功页直接显示无需等待回调
+    const licenseCodes = plugins.map(p => generateLicenseCode(p, plan));
+    const codesBase64 = Buffer.from(JSON.stringify(licenseCodes)).toString('base64');
+    
     const postData = {
       version: '1.1',
       appid: process.env.XUNHU_APP_ID,
@@ -119,7 +123,7 @@ module.exports = async function handler(req, res) {
       title: `AutoPhoto - ${plugins.map(p => PLUGIN_NAMES[p] || p).join('+')} (${PLAN_LABELS[plan]})`,
       time: Math.floor(Date.now() / 1000).toString(),
       nonce_str: require('crypto').randomBytes(16).toString('hex'),
-      return_url: `https://autophoto-store.vercel.app/success.html?order=${orderNo}`,
+      return_url: `https://autophoto-store.vercel.app/success.html?order=${orderNo}&codes=${encodeURIComponent(codesBase64)}`,
       notify_url: `https://autophoto-store.vercel.app/api/xunhupay/callback`,
       attach: JSON.stringify({ plugins: plugins.join(','), plan, name, email, wechat })
     };
@@ -169,14 +173,13 @@ module.exports = async function handler(req, res) {
     console.log('[DEBUG] Xunhu result:', JSON.stringify(result));
 
     if (result.errcode === 0 && result.url) {
-      // 虎皮椒下单成功：预先生成授权码并保存，这样即使回调失败，用户也能查询
-      const licenseCodes = plugins.map(p => generateLicenseCode(p, plan));
+      // 虎皮椒下单成功：预生成授权码已保存在上面
       await saveLicenseRecord({
         orderNo, plugins, plan, planName: PLAN_LABELS[plan],
         email, name, wechat, total,
         licenseCodes, createdAt: new Date().toISOString()
       });
-      return res.json({ success: true, mode: 'xunhu', paymentUrl: result.url, orderNo, total });
+      return res.json({ success: true, mode: 'xunhu', paymentUrl: result.url, orderNo, total, licenseCodes });
     } else if (result.errcode === 500) {
       // 虎皮椒系统错误，降级到演示模式
       console.log('[DEBUG] Xunhu API error, falling back to demo mode');
