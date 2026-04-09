@@ -104,7 +104,7 @@ function generateLicenseCode(pluginId, plan) {
 // 发送邮件（调用后端处理）
 async function processOrder(params, orderInfo, licenseCodes) {
   try {
-    const resp = await fetch('https://www.autophoto.store/api/xunhupay/process', {
+    const resp = await fetch('https://autophoto-store.vercel.app/api/xunhupay/process', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
