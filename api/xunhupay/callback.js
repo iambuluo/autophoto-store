@@ -110,8 +110,6 @@ async function processOrder(params, orderInfo, licenseCodes) {
       body: JSON.stringify({
         trade_order_id: params.trade_order_id,
         total_fee: params.total_fee,
-        attach: params.attach,
-        hash: params.hash,
         plugins: orderInfo.plugins,
         plan: orderInfo.plan,
         planName: orderInfo.planName,
@@ -121,12 +119,12 @@ async function processOrder(params, orderInfo, licenseCodes) {
         licenseCodes
       })
     });
-    const result = await resp.text();
-    console.log('后端处理结果:', result);
+    const result = await resp.json();
+    console.log('后端处理结果:', JSON.stringify(result));
     return result;
   } catch (e) {
     console.error('转发失败:', e.message);
-    return 'error: ' + e.message;
+    return { success: false, error: e.message };
   }
 }
 
@@ -169,8 +167,13 @@ export default async function handler(req) {
   // 解析订单信息
   let orderInfo = {};
   try {
-    if (attach) orderInfo = JSON.parse(attach);
-  } catch (e) {}
+    if (attach) {
+      orderInfo = JSON.parse(attach);
+      console.log('✅ attach 解析成功:', JSON.stringify(orderInfo).substring(0, 200));
+    }
+  } catch (e) {
+    console.error('❌ attach 解析失败:', e.message);
+  }
 
   const plugins = typeof orderInfo.plugins === 'string'
     ? orderInfo.plugins.split(',').filter(Boolean)
@@ -182,10 +185,11 @@ export default async function handler(req) {
   // 生成授权码
   const licenseCodes = plugins.map(p => generateLicenseCode(p, plan));
   console.log(`✅ 订单 ${trade_order_id} 支付成功! 授权码: ${licenseCodes.join(', ')}`);
-  console.log(`   收件人: ${orderInfo.email}`);
+  console.log(`   收件人: ${orderInfo.email}, 插件: ${plugins.join(', ')}`);
 
   // 转发给后端处理邮件发送
-  await processOrder(params, orderInfo, licenseCodes);
+  const processResult = await processOrder(params, orderInfo, licenseCodes);
+  console.log('📧 邮件发送结果:', JSON.stringify(processResult));
 
   return new Response('success', { status: 200 });
 }
