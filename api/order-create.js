@@ -44,6 +44,30 @@ function generateLicenseCode(pluginId, plan) {
   return `AP-${prefix}-${planChar}${rand}-${ts}`;
 }
 
+// 保存授权码到临时数据库（/tmp，Vercel Serverless 临时存储）
+async function saveLicenseRecord(order) {
+  const fs = require('fs');
+  const DB_PATH = '/tmp/autophoto-licenses.json';
+  try {
+    let db = { orders: [] };
+    if (fs.existsSync(DB_PATH)) {
+      try { db = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8')); } catch (e) {}
+    }
+    const existing = db.orders.findIndex(o => o.orderNo === order.orderNo);
+    if (existing >= 0) {
+      db.orders[existing] = order;
+    } else {
+      db.orders.push(order);
+    }
+    fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
+    console.log(`[DB] 保存授权码: ${order.orderNo}, ${order.licenseCodes.length}个码`);
+    return true;
+  } catch (e) {
+    console.error('[DB] 保存失败:', e.message);
+    return false;
+  }
+}
+
 module.exports = async function handler(req, res) {
   console.log('[DEBUG] create-order called');
   
@@ -73,6 +97,12 @@ module.exports = async function handler(req, res) {
     if (!process.env.XUNHU_APP_ID || !process.env.XUNHU_APP_SECRET) {
       console.log('[DEBUG] Demo mode - no Xunhu credentials');
       const demoCodes = plugins.map(p => generateLicenseCode(p, plan));
+      // 同时保存到数据库
+      await saveLicenseRecord({
+        orderNo, plugins, plan, planName: PLAN_LABELS[plan],
+        email, name, wechat, total,
+        licenseCodes: demoCodes, createdAt: new Date().toISOString()
+      });
       return res.json({
         success: true, mode: 'demo', orderNo, total,
         demoLicenseCodes: demoCodes
@@ -139,11 +169,23 @@ module.exports = async function handler(req, res) {
     console.log('[DEBUG] Xunhu result:', JSON.stringify(result));
 
     if (result.errcode === 0 && result.url) {
+      // 虎皮椒下单成功：预先生成授权码并保存，这样即使回调失败，用户也能查询
+      const licenseCodes = plugins.map(p => generateLicenseCode(p, plan));
+      await saveLicenseRecord({
+        orderNo, plugins, plan, planName: PLAN_LABELS[plan],
+        email, name, wechat, total,
+        licenseCodes, createdAt: new Date().toISOString()
+      });
       return res.json({ success: true, mode: 'xunhu', paymentUrl: result.url, orderNo, total });
     } else if (result.errcode === 500) {
       // 虎皮椒系统错误，降级到演示模式
       console.log('[DEBUG] Xunhu API error, falling back to demo mode');
       const demoCodes = plugins.map(p => generateLicenseCode(p, plan));
+      await saveLicenseRecord({
+        orderNo, plugins, plan, planName: PLAN_LABELS[plan],
+        email, name, wechat, total,
+        licenseCodes: demoCodes, createdAt: new Date().toISOString()
+      });
       return res.json({
         success: true, mode: 'demo', orderNo, total, fallback: true,
         message: '支付通道临时维护中，已为您生成试用授权码',
