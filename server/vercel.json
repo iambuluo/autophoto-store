@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "buildCommand": "npm install",
+  "installCommand": "npm install",
+  "framework": null,
+  "functions": {
+    "api/create-order.js": {
+      "method": "POST",
+      "runtime": "nodejs18.x"
+    },
+    "api/order/[orderNo].js": {
+      "method": "GET",
+      "runtime": "nodejs18.x"
+    },
+    "api/xunhupay/callback.js": {
+      "method": ["POST", "GET"],
+      "runtime": "nodejs18.x"
+    },
+    "api/health.js": {
+      "method": "GET",
+      "runtime": "nodejs18.x"
+    }
+  }
+}
