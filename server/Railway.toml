@@ -1,0 +1,2 @@
+[railway]
+entrypoint = "node server.js"
