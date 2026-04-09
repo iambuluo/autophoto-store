@@ -286,13 +286,15 @@
           localStorage.setItem('autophoto_order_' + data.orderNo, JSON.stringify(demoOrder));
           showDemoResult(demoOrder, data.demoLicenseCodes);
         } else if (data.mode === 'xunhu') {
-          // 真实支付：先保存订单信息到 localStorage，成功页需要用到
+          // 真实支付：虎皮椒支付后会自动跳转回 success.html（授权码已在 return_url 中编码）
+          // 存储到 localStorage 作为兜底
           localStorage.setItem('autophoto_order_' + data.orderNo, JSON.stringify({
             plugins: selectedPlugins, plan: selectedPlan,
             planName: PLAN_LABELS[selectedPlan],
-            count, discount, total, name, email, wechat, notes
+            count, discount, total, name, email, wechat, notes,
+            licenseCodes: data.licenseCodes || []
           }));
-          // 跳转到虎皮椒
+          // 跳转到虎皮椒支付
           window.location.href = data.paymentUrl;
         }
       } catch (err) {
