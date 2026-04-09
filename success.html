@@ -78,8 +78,22 @@
     const params = new URLSearchParams(window.location.search);
     const orderNo = params.get('order');
     const status = params.get('status');
+    const codesParam = params.get('codes');
 
-    // 尝试从 localStorage 恢复订单信息
+    // 尝试从 URL 参数读取授权码（虎皮椒回调后通过 return_url 传来）
+    if (codesParam) {
+      try {
+        const codes = JSON.parse(atob(decodeURIComponent(codesParam)));
+        if (codes && codes.length > 0) {
+          showCodes(codes);
+          console.log('[Success] 从URL参数读取到授权码:', codes);
+        }
+      } catch (e) {
+        console.warn('[Success] 解析URL授权码失败:', e.message);
+      }
+    }
+
+    // 尝试从 localStorage 恢复订单信息（兜底）
     const orderData = orderNo ? localStorage.getItem('autophoto_order_' + orderNo) : null;
 
     if (orderNo) {
@@ -95,19 +109,13 @@
           document.getElementById('email').textContent = o.email || '—';
           document.getElementById('query-email').value = o.email || '';
 
-          // 如果有预存的授权码（演示模式），直接显示
-          if (o.licenseCodes && o.licenseCodes.length > 0) {
+          // 如果URL没有授权码，但localStorage有，显示它
+          if (!codesParam && o.licenseCodes && o.licenseCodes.length > 0) {
             showCodes(o.licenseCodes);
           }
         } catch (e) {
           console.warn('无法解析订单数据');
         }
-      }
-
-      // 已支付状态：清理 localStorage
-      if (status === 'paid' || status === 'demo') {
-        // 保留一会儿，让查询功能还能用
-        // localStorage.removeItem('autophoto_order_' + orderNo);
       }
     }
 
