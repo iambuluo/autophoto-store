@@ -226,6 +226,7 @@
     function updateSummary() {
       selectedPlugins = Array.from(document.querySelectorAll('input[name="plugins"]:checked')).map(cb => cb.value);
       const count = selectedPlugins.length;
+      console.log(`[DEBUG] 选中 ${count} 个插件:`, selectedPlugins);
       const isTest = selectedPlan === 'test001';
       const discount = isTest ? 1.0 : (DISCOUNTS[count] || 1.0);
       const unitPrice = PLAN_PRICES[selectedPlan];
