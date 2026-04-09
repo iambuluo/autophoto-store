@@ -1,0 +1,13 @@
+{
+  "name": "autophoto-store",
+  "version": "1.0.0",
+  "description": "AutoPhoto Chrome Plugin Store",
+  "main": "api/health.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.9",
+    "resend": "^3.2.0"
+  }
+}
