@@ -83,6 +83,12 @@
       <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;">
         <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">第二步：选择授权类型</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;" id="plan-selector">
+          <label class="plan-select-card" data-plan="testpay" data-price="0.01" style="border-color:#22c55e;">
+            <input type="radio" name="plan" value="testpay">
+            <div class="psc-name" style="color:#22c55e;">¥0.01 测试</div>
+            <div class="psc-price" style="color:#22c55e;">¥0.01</div>
+            <div class="psc-desc">真实支付，验证全流程</div>
+          </label>
           <label class="plan-select-card" data-plan="trial" data-price="9.9">
             <input type="radio" name="plan" value="trial">
             <div class="psc-name">1天试用</div>
@@ -176,10 +182,10 @@
   <script src="/js/main.js"></script>
   <script>
     // 定价配置（与 api/_lib/pricing-config.js 保持同步，修改时两端都要改）
-    const PLAN_PRICES = { trial: 9.9, annual: 199, permanent: 399 };
+    const PLAN_PRICES = { testpay: 0.01, trial: 9.9, annual: 199, permanent: 399 };
     const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
-    const PLAN_LABELS = { trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
-    const PLAN_NAME_MAP = { trial: '试用', annual: '年付', permanent: '永久' };
+    const PLAN_LABELS = { testpay: '¥0.01 测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
+    const PLAN_NAME_MAP = { testpay: '测试', trial: '试用', annual: '年付', permanent: '永久' };
     const PLUGIN_NAMES = {
       shijuezhongguo: '视觉中国自动提交',
       guangchang: '光厂批量提交助手',
@@ -237,7 +243,7 @@
           `${count}个插件（${selectedPlugins.map(p => PLUGIN_NAMES[p] || p).join('、')}）`;
       }
       document.getElementById('summary-discount').textContent = count <= 1 ? '—' :
-        `${Math.round(discount * 100)}折（节省¥${saving}）`);
+        `${Math.round(discount * 100)}折（节省¥${saving}）`;
       document.getElementById('summary-total').textContent = `¥${total}`;
       document.getElementById('btn-price').textContent = total;
     }
