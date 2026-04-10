@@ -5,6 +5,9 @@
  */
 const { PLAN_LABELS, PLUGIN_NAMES, getCodeLabel } = require('../_lib/pricing-config');
 
+// 强制使用 Node.js Runtime（process.js 使用 CommonJS require）
+export const config = { runtime: 'nodejs' };
+
 async function sendLicenseEmail(toEmail, orderInfo, licenseCodes) {
   console.log('[sendLicenseEmail] 开始发送邮件到:', toEmail);
   if (!toEmail) { console.log('⚠️ 无收件人邮箱'); return; }
