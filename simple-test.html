@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>简化API测试</title>
+  <title>API测试</title>
   <style>
     body { font-family: -apple-system, system-ui, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f5f5f5; }
     .card { background: white; border-radius: 12px; padding: 24px; margin: 16px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
@@ -22,19 +22,12 @@
   </style>
 </head>
 <body>
-  <h1>🔧 简化API测试</h1>
-  <p class="subtitle">测试订单创建流程（不依赖虎皮椒）</p>
+  <h1>🔧 API测试</h1>
+  <p class="subtitle">测试订单创建API</p>
 
   <div class="card">
-    <h3>测试内容</h3>
-    <p>点击按钮发送POST请求到 <code>/api/order-create-simple</code></p>
-    <p>此API：</p>
-    <ul>
-      <li>✅ 不调用虎皮椒支付</li>
-      <li>✅ 不调用任何外部API</li>
-      <li>✅ 直接返回成功响应</li>
-      <li>✅ 生成真实的授权码</li>
-    </ul>
+    <h3>API 端点</h3>
+    <p>POST <code>/api/order-test</code></p>
   </div>
 
   <button onclick="runTest()" id="testBtn">
@@ -43,15 +36,7 @@
 
   <div id="result" class="result"></div>
 
-  <div class="card info">
-    <h3>💡 诊断说明</h3>
-    <p>如果这个测试<strong>成功</strong>：前端代码正常，问题在虎皮椒API</p>
-    <p>如果这个测试<strong>失败</strong>：Vercel函数配置有问题，需要检查Runtime设置</p>
-  </div>
-
   <script>
-    const API_URL = window.location.origin;
-
     async function runTest() {
       const btn = document.getElementById('testBtn');
       const result = document.getElementById('result');
@@ -63,22 +48,19 @@
       const startTime = Date.now();
 
       try {
-        console.log('发送请求到:', `${API_URL}/api/order-create-simple`);
-
-        const response = await fetch(`${API_URL}/api/order-create-simple`, {
+        const response = await fetch('/api/order-test', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             plugins: ['qingying-image'],
             plan: 'testpay',
-            name: '测试用户',
+            name: '测试',
             email: 'test@example.com'
           })
         });
 
         const endTime = Date.now();
         const duration = endTime - startTime;
-
         const data = await response.json();
 
         if (response.ok && data.success) {
@@ -87,7 +69,6 @@
               <h2>✅ 测试成功!</h2>
               <p><strong>HTTP状态:</strong> ${response.status}</p>
               <p><strong>响应时间:</strong> ${duration}ms</p>
-              <p><strong>API模式:</strong> ${data.mode}</p>
               <p><strong>订单号:</strong> ${data.orderNo}</p>
               <p><strong>金额:</strong> ¥${data.total}</p>
               <p><strong>授权码:</strong></p>
@@ -108,14 +89,7 @@
         result.innerHTML = `
           <div class="card error">
             <h2>❌ 请求失败</h2>
-            <p><strong>错误类型:</strong> ${error.name}</p>
-            <p><strong>错误信息:</strong> ${error.message}</p>
-            <p><strong>说明:</strong></p>
-            <ul>
-              <li><strong>TypeError: Failed to fetch</strong> = 网络问题或CORS</li>
-              <li><strong>net::ERR_CONNECTION_TIMED_OUT</strong> = Vercel函数超时</li>
-              <li><strong>net::ERR_CONNECTION_REFUSED</strong> = Vercel无法连接</li>
-            </ul>
+            <p><strong>错误:</strong> ${error.message}</p>
           </div>
         `;
       }
