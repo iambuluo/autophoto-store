@@ -6,6 +6,9 @@
  */
 const { PLAN_LABELS, PLAN_PRICES, PLUGIN_NAMES, calcPrice, generateLicenseCode } = require('../_lib/pricing-config');
 
+// 强制使用 Node.js Runtime（Vercel 默认是 Edge Runtime，不支持 require）
+export const config = { runtime: 'nodejs' };
+
 function signXunhu(params, secret) {
   const crypto = require('crypto');
   const entries = Object.entries(params)
@@ -114,8 +117,8 @@ module.exports = async function handler(req, res) {
           catch (e) { resolve({ raw: data }); }
         });
       });
-      req.on('error', reject);
-      req.setTimeout(10000, () => { req.destroy(); reject(new Error('请求超时')); });
+    req.on('error', reject);
+    req.setTimeout(8000, () => { req.destroy(); reject(new Error('虎皮椒API超时')); });
       req.write(formData);
       req.end();
     });
