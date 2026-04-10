@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head><title>API测试</title></head>
+<head><title>API Test</title></head>
 <body>
-<h2>测试 order-create API</h2>
-<button onclick="testApi()">点击测试</button>
-<pre id="result">点击按钮开始测试...</pre>
+<h2>API Test</h2>
+<div id="result">Testing...</div>
 <script>
-async function testApi() {
-  const result = document.getElementById('result');
-  result.textContent = '正在测试...';
-  try {
-    const r = await fetch('https://autophoto-store.vercel.app/api/order-create', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        plugins: ['shijuezhongguo'],
-        plan: 'testpay',
-        name: '测试',
-        email: 'test@test.com'
-      })
-    });
-    const data = await r.json();
-    result.textContent = '✅ mode: ' + data.mode + '\n' + JSON.stringify(data, null, 2);
-  } catch(e) {
-    result.textContent = '❌ ERROR: ' + e.message;
+const payload = JSON.stringify({
+  plugins: ['shijuezhongguo'],
+  plan: 'trial',
+  name: '测试用户',
+  email: 'test@example.com'
+});
+
+fetch('/api/order-create', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: payload
+})
+.then(r => r.json())
+.then(d => {
+  document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(d, null, 2) + '</pre>';
+  if (d.success) {
+    document.body.style.background = '#d4edda';
+    document.title = '✅ API OK - ' + d.mode;
+  } else {
+    document.body.style.background = '#f8d7da';
+    document.title = '❌ API Error';
   }
-}
+})
+.catch(e => {
+  document.getElementById('result').innerHTML = '<pre style="color:red">Error: ' + e.message + '</pre>';
+  document.body.style.background = '#fff3cd';
+  document.title = '❌ Network Error';
+});
 </script>
 </body>
 </html>
