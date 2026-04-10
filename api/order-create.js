@@ -7,7 +7,7 @@
 const { PLAN_LABELS, PLAN_PRICES, PLUGIN_NAMES, calcPrice, generateLicenseCode } = require('../_lib/pricing-config');
 
 // 强制使用 Node.js Runtime（Vercel 默认是 Edge Runtime，不支持 require）
-export const config = { runtime: 'nodejs' };
+// export const config = { runtime: 'nodejs' }; // 改用 vercel.json 全局配置
 
 function signXunhu(params, secret) {
   const crypto = require('crypto');
@@ -40,7 +40,7 @@ async function saveLicenseRecord(order) {
   }
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   console.log('[create-order] 调用');
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
