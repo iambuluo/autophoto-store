@@ -40,7 +40,7 @@ async function saveLicenseRecord(order) {
   }
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   console.log('[create-order] 调用');
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
