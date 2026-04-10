@@ -5,7 +5,7 @@
  */
 export const config = { runtime: 'edge' };
 
-const PLAN_LABELS = { test001: '调试测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
+const PLAN_LABELS = { test001: '调试测试', testpay: '真实支付测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
 const PLUGIN_NAMES = {
   shijuezhongguo: '视觉中国自动提交',
   guangchang: '光厂批量提交助手',
@@ -94,7 +94,7 @@ function generateLicenseCode(pluginId, plan) {
     dreamstime: 'DT', 'adobe-stock': 'AS', 'qingying-image': 'QY', 'qingying-video': 'QV'
   };
   const prefix = prefixes[pluginId] || 'XX';
-  const planChar = plan === 'permanent' ? 'P' : plan === 'annual' ? 'Y' : plan === 'trial' ? 'T' : 'X';
+  const planChar = plan === 'permanent' ? 'P' : plan === 'annual' ? 'Y' : plan === 'trial' || plan === 'testpay' ? 'T' : 'X';
   const rand = Array.from(crypto.getRandomValues(new Uint8Array(6)))
     .map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
   const ts = Date.now().toString(36).toUpperCase().slice(-4);
