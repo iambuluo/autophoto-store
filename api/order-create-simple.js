@@ -1,13 +1,10 @@
 /**
- * 简化的订单创建API - 用于测试
+ * 简化的订单创建API - 用于测试（纯CommonJS格式）
  * 不依赖虎皮椒，直接返回成功
  */
 const { PLAN_LABELS, PLAN_PRICES, PLUGIN_NAMES, calcPrice, generateLicenseCode } = require('../_lib/pricing-config');
 
-// 强制 Node.js Runtime
-export const config = { runtime: 'nodejs' };
-
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   console.log('[simple-order] 调用时间:', new Date().toISOString());
   console.log('[simple-order] 方法:', req.method);
   
@@ -51,4 +48,4 @@ export default async function handler(req, res) {
     console.error('[simple-order] 错误:', err.message);
     res.status(500).json({ success: false, error: '错误: ' + err.message });
   }
-}
+};
