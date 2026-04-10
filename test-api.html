@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>API 测试</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #1a1a2e; color: #fff; }
+    button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+    .result { background: #16213e; padding: 15px; margin: 10px 0; border-radius: 8px; white-space: pre-wrap; }
+    .error { color: #ff6b6b; }
+    .success { color: #51cf66; }
+  </style>
+</head>
+<body>
+  <h1>🧪 API 测试工具</h1>
+  <button onclick="testOrderCreate()">测试 /api/order-create</button>
+  <button onclick="testPricingConfig()">测试 /api/_lib/pricing-config</button>
+  <div id="output"></div>
+
+  <script>
+    const API_BASE = 'https://autophoto-store.vercel.app';
+
+    function log(msg, type = 'info') {
+      const div = document.createElement('div');
+      div.className = 'result ' + type;
+      div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      document.getElementById('output').appendChild(div);
+    }
+
+    async function testOrderCreate() {
+      log('开始测试 order-create...');
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+
+        const resp = await fetch(API_BASE + '/api/order-create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            plugins: ['qingtool'],
+            plan: 'testpay',
+            name: '测试',
+            email: 'test@example.com'
+          }),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeout);
+
+        log(`HTTP 状态: ${resp.status}`, resp.ok ? 'success' : 'error');
+        log(`响应头: ${JSON.stringify([...resp.headers])}`);
+
+        const text = await resp.text();
+        log(`原始响应:\n${text}`);
+
+        try {
+          const data = JSON.parse(text);
+          log(`解析成功: ${JSON.stringify(data, null, 2)}`, 'success');
+        } catch (e) {
+          log(`JSON 解析失败: ${e.message}`, 'error');
+        }
+      } catch (err) {
+        log(`请求失败: ${err.name} - ${err.message}`, 'error');
+        if (err.name === 'AbortError') {
+          log('⚠️ 请求超时（15秒）', 'error');
+        }
+      }
+    }
+
+    async function testPricingConfig() {
+      log('开始测试 pricing-config...');
+      try {
+        const resp = await fetch(API_BASE + '/api/_lib/pricing-config');
+        log(`HTTP 状态: ${resp.status}`, resp.ok ? 'success' : 'error');
+        const text = await resp.text();
+        log(`响应:\n${text.substring(0, 500)}`);
+      } catch (err) {
+        log(`请求失败: ${err.message}`, 'error');
+      }
+    }
+  </script>
+</body>
+</html>
