@@ -188,7 +188,7 @@
 
   <script src="/js/main.js"></script>
   <script>
-    // 定价配置（与 pricing-config.json 同步）
+    // 定价配置（与 api/_lib/pricing-config.js 保持同步，修改时两端都要改）
     const PLAN_PRICES = { test001: 0.01, testpay: 0.01, trial: 9.9, annual: 199, permanent: 399 };
     const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
     const PLAN_LABELS = { test001: '🔧调试测试', testpay: '🔷真实支付测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
@@ -297,10 +297,11 @@
         }
 
         if (data.mode === 'demo') {
-          // 演示模式：显示授权码，并存入 localStorage 供成功页查询
-          const demoOrder = { plugins: selectedPlugins, plan: selectedPlan, planName: PLAN_LABELS[selectedPlan], count, discount, total, name, email, licenseCodes: data.demoLicenseCodes };
+          // 演示模式：显示授权码（带插件标注）
+          const labeledCodes = data.licenseCodesLabeled || [];
+          const demoOrder = { plugins: selectedPlugins, plan: selectedPlan, planName: PLAN_LABELS[selectedPlan], count, discount, total, name, email, licenseCodes: data.licenseCodes || [] };
           localStorage.setItem('autophoto_order_' + data.orderNo, JSON.stringify(demoOrder));
-          showDemoResult(demoOrder, data.demoLicenseCodes);
+          showDemoResult(demoOrder, labeledCodes);
         } else if (data.mode === 'xunhu') {
           // 真实支付：虎皮椒支付后会自动跳转回 success.html（授权码已在 return_url 中编码）
           // 存储到 localStorage 作为兜底
