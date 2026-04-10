@@ -189,10 +189,10 @@
   <script src="/js/main.js"></script>
   <script>
     // 定价配置（与 pricing-config.json 同步）
-    const PLAN_PRICES = { test001: 0.01, trial: 9.9, annual: 199, permanent: 399 };
+    const PLAN_PRICES = { test001: 0.01, testpay: 0.01, trial: 9.9, annual: 199, permanent: 399 };
     const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
-    const PLAN_LABELS = { test001: '🔧调试测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
-    const PLAN_NAME_MAP = { test001: '测试', trial: '试用', annual: '年付', permanent: '永久' };
+    const PLAN_LABELS = { test001: '🔧调试测试', testpay: '🔷真实支付测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
+    const PLAN_NAME_MAP = { test001: '测试', testpay: '测试', trial: '试用', annual: '年付', permanent: '永久' };
     const PLUGIN_NAMES = {
       shijuezhongguo: '视觉中国自动提交',
       guangchang: '光厂批量提交助手',
@@ -270,9 +270,10 @@
       const wechat = document.getElementById('wechat').value;
       const notes = document.getElementById('notes').value;
       const isTest = selectedPlan === 'test001';
+      const isRealTest = selectedPlan === 'testpay';
       const count = selectedPlugins.length;
       const discount = isTest ? 1.0 : (DISCOUNTS[count] || 1.0);
-      const total = isTest ? (0.01).toFixed(2) : (PLAN_PRICES[selectedPlan] * count * discount).toFixed(2);
+      const total = isTest ? (0.01).toFixed(2) : isRealTest ? (0.01).toFixed(2) : (PLAN_PRICES[selectedPlan] * count * discount).toFixed(2);
 
       const submitBtn = document.getElementById('submit-btn');
       submitBtn.disabled = true;
