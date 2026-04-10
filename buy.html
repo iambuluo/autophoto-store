@@ -277,7 +277,15 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ plugins: selectedPlugins, plan: selectedPlan, name, email, wechat, notes })
         });
-        const data = await resp.json();
+        let data;
+        try {
+          data = await resp.json();
+        } catch (e) {
+          alert('服务器响应格式错误，请稍后重试');
+          submitBtn.disabled = false;
+          submitBtn.textContent = `🛒 前往支付（¥${total}）`;
+          return;
+        }
 
         if (!data.success) {
           alert('订单创建失败: ' + (data.error || '未知错误'));
@@ -305,7 +313,11 @@
           window.location.href = data.paymentUrl;
         }
       } catch (err) {
-        alert('网络错误，请稍后重试');
+        // 详细错误诊断
+        let errDetail = '网络错误，请稍后重试';
+        if (err.name === 'AbortError') errDetail = '请求超时，请重试';
+        else if (!navigator.onLine) errDetail = '网络已断开，请检查网络连接';
+        alert('错误: ' + errDetail + '\n\n详情: ' + err.message);
         submitBtn.disabled = false;
         submitBtn.textContent = `🛒 前往支付（¥${total}）`;
       }
