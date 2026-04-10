@@ -200,21 +200,21 @@
     let selectedPlugins = [];
     let selectedPlan = 'annual';
 
-    // 插件选择
+    // 插件选择：监听 change 事件（避免 label+checkbox 双重触发 bug）
     document.querySelectorAll('.plugin-select-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (e.target.tagName === 'INPUT') return;
-        const cb = card.querySelector('input[type="checkbox"]');
-        cb.checked = !cb.checked;
+      const cb = card.querySelector('input[type="checkbox"]');
+      // 监听 checkbox change（label 点击会触发 checkbox change）
+      cb.addEventListener('change', () => {
         card.classList.toggle('selected', cb.checked);
         updateSummary();
       });
     });
 
-    // 方案选择
+    // 方案选择：监听 change 事件（避免 label+radio 双重触发 bug）
     document.querySelectorAll('.plan-select-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (e.target.tagName === 'INPUT') return;
+      const radio = card.querySelector('input[type="radio"]');
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
         document.querySelectorAll('.plan-select-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
         selectedPlan = card.dataset.plan;
@@ -233,8 +233,17 @@
       const total = isTest ? (0.01).toFixed(2) : (unitPrice * count * discount).toFixed(2);
       const saving = isTest ? '0.00' : (unitPrice * count * (1 - discount)).toFixed(2);
 
-      document.getElementById('summary-plugins').textContent = count === 0 ? '请选择插件' :
-        `${count}个插件${PLAN_NAME_MAP[selectedPlan]}`;
+      if (count === 0) {
+        document.getElementById('summary-plugins').textContent = '请选择插件';
+      } else if (count <= 3) {
+        // 少于等于3个时显示名称
+        document.getElementById('summary-plugins').textContent =
+          selectedPlugins.map(p => PLUGIN_NAMES[p] || p).join('、');
+      } else {
+        // 超过3个时显示数量
+        document.getElementById('summary-plugins').textContent =
+          `${count}个插件（${selectedPlugins.map(p => PLUGIN_NAMES[p] || p).join('、')}）`;
+      }
       document.getElementById('summary-discount').textContent = isTest ? '调试专用' : (count <= 1 ? '—' :
         `${Math.round(discount * 100)}折（节省¥${saving}）`);
       document.getElementById('summary-total').textContent = `¥${total}`;
