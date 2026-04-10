@@ -3,7 +3,7 @@
  * 接收 Edge Function 转发的订单处理请求，发送邮件
  * 这个是内部 API，只允许来自同域的调用
  */
-const PLAN_LABELS = { test001: '调试测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
+const PLAN_LABELS = { test001: '调试测试', testpay: '真实支付测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
 const PLUGIN_NAMES = {
   shijuezhongguo: '视觉中国自动提交',
   guangchang: '光厂批量提交助手',
