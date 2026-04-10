@@ -2,8 +2,8 @@
  * POST /api/create-order
  * 创建虎皮椒支付订单
  */
-const PLAN_PRICES = { test001: 0.01, trial: 9.9, annual: 199, permanent: 399 };
-const PLAN_LABELS = { test001: '调试测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
+const PLAN_PRICES = { test001: 0.01, testpay: 0.01, trial: 9.9, annual: 199, permanent: 399 };
+const PLAN_LABELS = { test001: '调试测试', testpay: '🔷真实支付测试(¥0.01)', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
 const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
 const PLUGIN_NAMES = {
   shijuezhongguo: '视觉中国自动提交',
@@ -38,7 +38,8 @@ function generateLicenseCode(pluginId, plan) {
     dreamstime: 'DT', 'adobe-stock': 'AS', 'qingying-image': 'QY', 'qingying-video': 'QV'
   };
   const prefix = prefixes[pluginId] || 'XX';
-  const planChar = plan === 'permanent' ? 'P' : plan === 'annual' ? 'Y' : plan === 'trial' ? 'T' : 'X';
+  const planChar = plan === 'permanent' ? 'P' : plan === 'annual' ? 'Y' : plan === 'trial' || plan === 'testpay' ? 'T' : 'X';
+  // 注意：testpay 用 T（1天试用），test001 用 X（测试1小时）
   const rand = crypto.randomBytes(6).toString('hex').toUpperCase();
   const ts = Date.now().toString(36).toUpperCase().slice(-4);
   return `AP-${prefix}-${planChar}${rand}-${ts}`;
