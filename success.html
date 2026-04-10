@@ -70,10 +70,29 @@
       'qingying-image': '清影批量生图助手',
       'qingying-video': '清影批量生视频助手'
     };
-    const PLAN_LABELS = {
-      test001: '🔧调试测试', trial: '1天试用',
-      annual: '年度授权', permanent: '永久授权'
+    const PLUGIN_PREFIXES = {
+      VCG: 'shijuezhongguo', VJ: 'guangchang', XC: 'xinchangchang',
+      DT: 'dreamstime', AS: 'adobe-stock', QY: 'qingying-image', QV: 'qingying-video'
     };
+    const PLAN_LABELS = {
+      test001: '🔧调试测试', testpay: '🔷真实支付测试',
+      trial: '1天试用', annual: '年度授权', permanent: '永久授权'
+    };
+
+    // 从码前缀还原插件标注
+    function getCodeLabel(code, plugins) {
+      if (!code) return '[未知]';
+      const prefix = code.split('-')[1]; // e.g. "VCG"
+      const pid = PLUGIN_PREFIXES[prefix];
+      if (pid) return `[${PLUGIN_NAMES[pid] || pid}]`;
+      if (plugins && plugins.length > 0) {
+        return `[${PLUGIN_NAMES[plugins[0]] || plugins[0]}]`;
+      }
+      return '[未知插件]';
+    }
+
+    // 当前页面的插件列表（从 localStorage 恢复）
+    let pagePlugins = [];
 
     const params = new URLSearchParams(window.location.search);
     const orderNo = params.get('order');
@@ -94,6 +113,7 @@
     }
 
     // 尝试从 localStorage 恢复订单信息（兜底）
+    // 尝试从 localStorage 恢复订单信息（兜底）
     const orderData = orderNo ? localStorage.getItem('autophoto_order_' + orderNo) : null;
 
     if (orderNo) {
@@ -102,8 +122,9 @@
       if (orderData) {
         try {
           const o = JSON.parse(orderData);
+          pagePlugins = o.plugins || [];
           document.getElementById('plugins-list').textContent =
-            (o.plugins || []).map(p => PLUGIN_NAMES[p] || p).join('、');
+            pagePlugins.map(p => PLUGIN_NAMES[p] || p).join('、');
           document.getElementById('plan-name').textContent = o.planName || PLAN_LABELS[o.plan] || o.plan || '—';
           document.getElementById('amount').textContent = o.total ? `¥${o.total}` : '—';
           document.getElementById('email').textContent = o.email || '—';
@@ -119,13 +140,18 @@
       }
     }
 
+    // 显示授权码（带插件标注）
     function showCodes(codes) {
       const section = document.getElementById('codes-section');
       const list = document.getElementById('codes-list');
       section.style.display = 'block';
-      list.innerHTML = codes.map(c =>
-        `<div style="background:#1a1a2e;padding:8px 16px;border-radius:6px;margin:4px 0;font-family:monospace;color:#818cf8;font-size:16px;letter-spacing:1px;">${c}</div>`
-      ).join('');
+      list.innerHTML = codes.map(c => {
+        const label = getCodeLabel(c, pagePlugins);
+        return `<div style="margin:4px 0;">
+          <span style="color:#94a3b8;font-size:12px;">${label}</span><br>
+          <span style="background:#1a1a2e;padding:8px 16px;border-radius:6px;display:inline-block;margin-top:2px;font-family:monospace;color:#818cf8;font-size:15px;letter-spacing:1px;">${c}</span>
+        </div>`;
+      }).join('');
     }
 
     // 手动查询授权码
