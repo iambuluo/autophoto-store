@@ -1,25 +1,10 @@
 /**
  * POST /api/create-order
  * 创建虎皮椒支付订单
+ *
+ * 定价/折扣/插件配置 → pricing-config.js（全站唯一数据源）
  */
-const PLAN_PRICES = { test001: 0.01, testpay: 0.01, trial: 9.9, annual: 199, permanent: 399 };
-const PLAN_LABELS = { test001: '调试测试', testpay: '🔷真实支付测试(¥0.01)', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
-const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
-const PLUGIN_NAMES = {
-  shijuezhongguo: '视觉中国自动提交',
-  guangchang: '光厂批量提交助手',
-  xinchangchang: '新片场 AIGC 助手',
-  dreamstime: 'Dreamstime 自动提交',
-  'adobe-stock': 'Adobe Stock 关键词点击器',
-  'qingying-image': '清影批量生图助手',
-  'qingying-video': '清影批量生视频助手'
-};
-
-function calcPrice(plugins, plan) {
-  if (plan === 'test001') return 0.01;
-  const discount = DISCOUNTS[plugins.length] || 1.0;
-  return parseFloat((PLAN_PRICES[plan] * plugins.length * discount).toFixed(2));
-}
+const { PLAN_LABELS, PLAN_PRICES, PLUGIN_NAMES, calcPrice, generateLicenseCode } = require('../_lib/pricing-config');
 
 function signXunhu(params, secret) {
   const crypto = require('crypto');
@@ -27,22 +12,8 @@ function signXunhu(params, secret) {
     .filter(([k, v]) => k !== 'hash' && v !== '' && v !== null && v !== undefined)
     .sort(([a], [b]) => a.localeCompare(b));
   const str = entries.map(([k, v]) => `${k}=${v}`).join('&') + secret;
-  console.log('[DEBUG] sign string:', str);
+  console.log('[sign string]:', str);
   return crypto.createHash('md5').update(str).digest('hex');
-}
-
-function generateLicenseCode(pluginId, plan) {
-  const crypto = require('crypto');
-  const prefixes = {
-    shijuezhongguo: 'VCG', guangchang: 'VJ', xinchangchang: 'XC',
-    dreamstime: 'DT', 'adobe-stock': 'AS', 'qingying-image': 'QY', 'qingying-video': 'QV'
-  };
-  const prefix = prefixes[pluginId] || 'XX';
-  const planChar = plan === 'permanent' ? 'P' : plan === 'annual' ? 'Y' : plan === 'trial' || plan === 'testpay' ? 'T' : 'X';
-  // 注意：testpay 用 T（1天试用），test001 用 X（测试1小时）
-  const rand = crypto.randomBytes(6).toString('hex').toUpperCase();
-  const ts = Date.now().toString(36).toUpperCase().slice(-4);
-  return `AP-${prefix}-${planChar}${rand}-${ts}`;
 }
 
 // 保存授权码到临时数据库（/tmp，Vercel Serverless 临时存储）
@@ -55,13 +26,10 @@ async function saveLicenseRecord(order) {
       try { db = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8')); } catch (e) {}
     }
     const existing = db.orders.findIndex(o => o.orderNo === order.orderNo);
-    if (existing >= 0) {
-      db.orders[existing] = order;
-    } else {
-      db.orders.push(order);
-    }
+    if (existing >= 0) { db.orders[existing] = order; }
+    else { db.orders.push(order); }
     fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
-    console.log(`[DB] 保存授权码: ${order.orderNo}, ${order.licenseCodes.length}个码`);
+    console.log(`[DB] 保存: ${order.orderNo}, ${order.licenseCodes.length}个码`);
     return true;
   } catch (e) {
     console.error('[DB] 保存失败:', e.message);
@@ -70,16 +38,15 @@ async function saveLicenseRecord(order) {
 }
 
 module.exports = async function handler(req, res) {
-  console.log('[DEBUG] create-order called');
-  
+  console.log('[create-order] 调用');
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 
   try {
     const { plugins, plan, name, email, wechat } = req.body || {};
-    console.log('[DEBUG] body:', JSON.stringify(req.body));
-    
+    console.log('[create-order] body:', JSON.stringify(req.body));
+
     // 验证参数
     if (!plugins || !Array.isArray(plugins) || plugins.length === 0) {
       return res.status(400).json({ success: false, error: '请至少选择一个插件' });
@@ -94,28 +61,26 @@ module.exports = async function handler(req, res) {
     const total = calcPrice(plugins, plan);
     const orderNo = 'AP' + Date.now() + Math.floor(Math.random() * 9000 + 1000);
 
-    // 演示模式：虎皮椒未配置时，直接返回授权码
-    if (!process.env.XUNHU_APP_ID || !process.env.XUNHU_APP_SECRET) {
-      console.log('[DEBUG] Demo mode - no Xunhu credentials');
-      const demoCodes = plugins.map(p => generateLicenseCode(p, plan));
-      // 同时保存到数据库
-      await saveLicenseRecord({
-        orderNo, plugins, plan, planName: PLAN_LABELS[plan],
-        email, name, wechat, total,
-        licenseCodes: demoCodes, createdAt: new Date().toISOString()
-      });
-      return res.json({
-        success: true, mode: 'demo', orderNo, total,
-        demoLicenseCodes: demoCodes
-      });
+    // 生成授权码（带插件标注）
+    const codeEntries = plugins.map(p => generateLicenseCode(p, plan));
+    const licenseCodes = codeEntries.map(e => e.code);  // 纯码数组
+    const licenseCodesLabeled = codeEntries.map(e => `${e.label} ${e.code}`); // 带标注
+    const codesBase64 = Buffer.from(JSON.stringify(licenseCodes)).toString('base64');
+
+    console.log('[授权码]', licenseCodesLabeled.join(' | '));
+
+    // 检查虎皮椒配置
+    const xunhuConfigured = !!(process.env.XUNHU_APP_ID && process.env.XUNHU_APP_SECRET);
+    console.log('[虎皮椒配置] APP_ID:', !!process.env.XUNHU_APP_ID, 'APP_SECRET:', !!process.env.XUNHU_APP_SECRET);
+
+    if (!xunhuConfigured) {
+      // demo模式（虎皮椒未配置）
+      await saveLicenseRecord({ orderNo, plugins, plan, planName: PLAN_LABELS[plan], email, name, wechat, total, licenseCodes, createdAt: new Date().toISOString() });
+      return res.json({ success: true, mode: 'demo', orderNo, total, licenseCodesLabeled });
     }
 
     // 正式模式：调用虎皮椒 API
-    // 注意：虎皮椒API要求参数名为小写
-    // 先预生成授权码，把编码后的码放到 return_url，成功页直接显示无需等待回调
-    const licenseCodes = plugins.map(p => generateLicenseCode(p, plan));
-    const codesBase64 = Buffer.from(JSON.stringify(licenseCodes)).toString('base64');
-    
+    const https = require('https');
     const postData = {
       version: '1.1',
       appid: process.env.XUNHU_APP_ID,
@@ -128,78 +93,45 @@ module.exports = async function handler(req, res) {
       notify_url: `https://autophoto-store.vercel.app/api/xunhupay/callback`,
       attach: JSON.stringify({ plugins: plugins.join(','), plan, name, email, wechat })
     };
-    
     postData.hash = signXunhu(postData, process.env.XUNHU_APP_SECRET);
 
-    // 使用原生 https 调用
-    const https = require('https');
     const formData = Object.entries(postData)
       .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
       .join('&');
 
-    console.log('[DEBUG] Calling Xunhu API...');
-    
+    console.log('[调用虎皮椒 API...]');
+
     const result = await new Promise((resolve, reject) => {
       const req = https.request({
-        hostname: 'api.xunhupay.com',
-        port: 443,
-        path: '/payment/do.html',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Content-Length': Buffer.byteLength(formData)
-        }
+        hostname: 'api.xunhupay.com', port: 443, path: '/payment/do.html', method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': Buffer.byteLength(formData) }
       }, (res) => {
         let data = '';
         res.on('data', chunk => data += chunk);
         res.on('end', () => {
-          console.log('[DEBUG] Xunhu response status:', res.statusCode);
-          console.log('[DEBUG] Xunhu response data:', data);
+          console.log('[虎皮椒响应]:', data);
           try { resolve(JSON.parse(data)); }
           catch (e) { resolve({ raw: data }); }
         });
       });
-      req.on('error', (e) => {
-        console.error('[DEBUG] Xunhu request error:', e.message);
-        reject(e);
-      });
-      req.setTimeout(10000, () => {
-        req.destroy();
-        reject(new Error('请求超时'));
-      });
+      req.on('error', reject);
+      req.setTimeout(10000, () => { req.destroy(); reject(new Error('请求超时')); });
       req.write(formData);
       req.end();
     });
 
-    console.log('[DEBUG] Xunhu result:', JSON.stringify(result));
-
     if (result.errcode === 0 && result.url) {
-      // 虎皮椒下单成功：预生成授权码已保存在上面
-      await saveLicenseRecord({
-        orderNo, plugins, plan, planName: PLAN_LABELS[plan],
-        email, name, wechat, total,
-        licenseCodes, createdAt: new Date().toISOString()
-      });
-      return res.json({ success: true, mode: 'xunhu', paymentUrl: result.url, orderNo, total, licenseCodes });
+      await saveLicenseRecord({ orderNo, plugins, plan, planName: PLAN_LABELS[plan], email, name, wechat, total, licenseCodes, createdAt: new Date().toISOString() });
+      return res.json({ success: true, mode: 'xunhu', paymentUrl: result.url, orderNo, total, licenseCodes, licenseCodesLabeled });
     } else if (result.errcode === 500) {
-      // 虎皮椒系统错误，降级到演示模式
-      console.log('[DEBUG] Xunhu API error, falling back to demo mode');
-      const demoCodes = plugins.map(p => generateLicenseCode(p, plan));
-      await saveLicenseRecord({
-        orderNo, plugins, plan, planName: PLAN_LABELS[plan],
-        email, name, wechat, total,
-        licenseCodes: demoCodes, createdAt: new Date().toISOString()
-      });
-      return res.json({
-        success: true, mode: 'demo', orderNo, total, fallback: true,
-        message: '支付通道临时维护中，已为您生成试用授权码',
-        demoLicenseCodes: demoCodes
-      });
+      // 降级demo模式
+      await saveLicenseRecord({ orderNo, plugins, plan, planName: PLAN_LABELS[plan], email, name, wechat, total, licenseCodes, createdAt: new Date().toISOString() });
+      return res.json({ success: true, mode: 'demo', orderNo, total, licenseCodesLabeled, fallback: true, message: '支付通道临时维护' });
     } else {
-      return res.status(500).json({ success: false, error: result.errmsg || '支付创建失败: ' + JSON.stringify(result) });
+      return res.status(500).json({ success: false, error: result.errmsg || '支付创建失败' });
     }
   } catch (err) {
-    console.error('[DEBUG] create-order error:', err.message);
+    console.error('[create-order] 错误:', err.message);
     return res.status(500).json({ success: false, error: 'API-ERROR: ' + err.message });
   }
 };
