@@ -119,8 +119,8 @@
         });
 
         // 步骤4: 调用API
-        const apiResult = await testStep(4, '调用 /api/order-create-simple', async () => {
-          const response = await fetch(`${API_URL}/api/order-create-simple`, {
+        const apiResult = await testStep(4, '调用 /api/order-test', async () => {
+          const response = await fetch(`${API_URL}/api/order-test`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
