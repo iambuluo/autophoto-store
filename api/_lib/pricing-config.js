@@ -15,12 +15,14 @@
  */
 
 const PLAN_LABELS = {
+  testpay: '¥0.01 测试',
   trial: '1天试用',
   annual: '年度授权',
   permanent: '永久授权'
 };
 
 const PLAN_PRICES = {
+  testpay: 0.01,   // 真实支付测试
   trial: 9.9,      // 1天试用
   annual: 199,     // 年度
   permanent: 399  // 永久
@@ -61,6 +63,7 @@ const PLUGIN_PREFIXES = {
 
 // 授权码方案字符
 const PLAN_CHARS = {
+  testpay: 'T',    // 测试
   trial: 'T',      // 1天试用
   annual: 'Y',     // 年付
   permanent: 'P'   // 永久
@@ -78,6 +81,7 @@ function calcExpiry(plan) {
   const now = Math.floor(Date.now() / 1000);
   const DAY = 86400;
   switch (plan) {
+    case 'testpay':
     case 'trial':     return now + 1 * DAY;       // 1天
     case 'annual':    return now + 365 * DAY;     // 365天
     case 'permanent': return now + 99 * 365 * DAY;// 99年
