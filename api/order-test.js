@@ -118,7 +118,7 @@ module.exports = async (req, res) => {
     
     return res.status(200).json({
       success: true,
-      mode: 'test',
+      mode: 'demo',  // 必须用 demo 或 xunhu，buy.html 不处理其他 mode
       message: '测试成功！授权码已生成',
       orderNo,
       total,
