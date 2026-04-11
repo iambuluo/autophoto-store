@@ -1,1 +1,33 @@
-Ly8g566A5YyW54mI6K6i5Y2VQVBJIC0g5a6M5YWo54us56uL77yM5LiN5L6d6LWW5Lu75L2V5qih5Z2XDQpjb25zdCBQTEFOX0xBQkVMUyA9IHsNCiAgdGVzdHBheTogJ8KlMC4wMSDmtYvor5UnLA0KICB0cmlhbDogJzHlpKnor5XnlKgnLA0KICBhbm51YWw6ICflubTluqbmjojmnYMnLA0KICBwZXJtYW5lbnQ6ICfmsLjkuYXmjojmnYMnDQp9Ow0KDQpjb25zdCBQTEFOX1BSSUNFUyA9IHsNCiAgdGVzdHBheTogMC4wMSwNCiAgdHJpYWw6IDkuOSwNCiAgYW5udWFsOiAxOTksDQogIHBlcm1hbmVudDogMzk5DQp9Ow0KDQpjb25zdCBQTFVHSU5fTkFNRVMgPSB7DQogICdxaW5neWluZy1pbWFnZSc6ICfmuIXlvbHmibnph4/nlJ/lm77liqnmiYsnLA0KICAncWluZ3lpbmctdmlkZW8nOiAn5riF5b2x5om56YeP55Sf6KeG6aKR5Yqp5omLJywNCiAgJ3NoaWp1ZXpob25nZ3VvJzogJ+inhuinieS4reWbveiHquWKqOaPkOS6pCcsDQogICdndWFuZ2NoYW5nJzogJ+WFieWOguaJuemHj+aPkOS6pOWKqeaJiycsDQogICd4aW5jaGFuZ2NoYW5nJzogJ+aWsOeJh+WcuiBBSUdDIOWKqeaJiycsDQogICdkcmVhbXN0aW1lJzogJ0RyZWFtc3RpbWUg6Ieq5Yqo5o+Q5LqkJywNCiAgJ2Fkb2JlLXN0b2NrJzogJ0Fkb2JlIFN0b2NrIOWFs+mUruivjeeCueWHu+WZqCcNCn07DQoNCmZ1bmN0aW9uIHJhbmRvbUhleChieXRlcykgew0KICBjb25zdCBjaGFycyA9ICcwMTIzNDU2Nzg5QUJDREVGJzsNCiAgbGV0IHJlc3VsdCA9ICcnOw0KICBmb3IgKGxldCBpID0gMDsgaSA8IGJ5dGVzICogMjsgaSsrKSB7DQogICAgcmVzdWx0ICs9IGNoYXJzW01hdGguZmxvb3IoTWF0aC5yYW5kb20oKSAqIDE2KV07DQogIH0NCiAgcmV0dXJuIHJlc3VsdDsNCn0NCg0KZnVuY3Rpb24gZ2VuZXJhdGVMaWNlbnNlQ29kZShwbHVnaW5JZCwgcGxhbikgew0KICBjb25zdCBwcmVmaXggPSBwbHVnaW5JZCA9PT0gJ3Fpbmd5aW5nLWltYWdlJyA/ICdRWScgOiANCiAgICAgICAgICAgICAgICAgcGx1Z2luSWQgPT09ICdxaW5neWluZy12aWRlbycgPyAnUVYnIDogJ1hYJzsNCiAgY29uc3QgcGxhbkNoYXIgPSBwbGFuID09PSAndGVzdHBheScgPyAnVCcgOiANCiAgICAgICAgICAgICAgICAgICBwbGFuID09PSAnYW5udWFsJyA/ICdZJyA6IA0KICAgICAgICAgICAgICAgICAgIHBsYW4gPT09ICdwZXJtYW5lbnQnID8gJ1AnIDogJ1QnOw0KICBjb25zdCBub3cgPSBNYXRoLmZsb29yKERhdGUubm93KCkgLyAxMDAwKTsNCiAgY29uc3QgZXhwaXJ5ID0gKG5vdyArIDg2NDAwKS50b1N0cmluZygzNikudG9VcHBlckNhc2UoKTsNCiAgY29uc3QgcmFuZCA9IHJhbmRvbUhleCg2KTsNCiAgcmV0dXJuIGBBUC0ke3ByZWZpeH0tJHtwbGFuQ2hhcn0ke2V4cGlyeX0tJHtyYW5kfWA7DQp9DQoNCm1vZHVsZS5leHBvcnRzID0gYXN5bmMgKHJlcSwgcmVzKSA9PiB7DQogIC8vIOiuvue9riBDT1JTDQogIHJlcy5zZXRIZWFkZXIoJ0FjY2Vzcy1Db250cm9sLUFsbG93LU9yaWdpbicsICcqJyk7DQogIHJlcy5zZXRIZWFkZXIoJ0NvbnRlbnQtVHlwZScsICdhcHBsaWNhdGlvbi9qc29uJyk7DQogIA0KICBpZiAocmVxLm1ldGhvZCA9PT0gJ09QVElPTlMnKSB7DQogICAgcmV0dXJuIHJlcy5zdGF0dXMoMjAwKS5lbmQoKTsNCiAgfQ0KICANCiAgaWYgKHJlcS5tZXRob2QgIT09ICdQT1NUJykgew0KICAgIHJldHVybiByZXMuc3RhdHVzKDQwNSkuanNvbih7IGVycm9yOiAn5Y+q5pSv5oyBUE9TVCcgfSk7DQogIH0NCiAgDQogIHRyeSB7DQogICAgY29uc3QgeyBwbHVnaW5zLCBwbGFuLCBuYW1lLCBlbWFpbCB9ID0gcmVxLmJvZHkgfHwge307DQogICAgDQogICAgaWYgKCFwbHVnaW5zIHx8ICFBcnJheS5pc0FycmF5KHBsdWdpbnMpIHx8IHBsdWdpbnMubGVuZ3RoID09PSAwKSB7DQogICAgICByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBzdWNjZXNzOiBmYWxzZSwgZXJyb3I6ICfor7foh7PlsJHpgInmi6nkuIDkuKrmj5Lku7YnIH0pOw0KICAgIH0NCiAgICBpZiAoIVBMQU5fUFJJQ0VTW3BsYW5dKSB7DQogICAgICByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBzdWNjZXNzOiBmYWxzZSwgZXJyb3I6ICfml6DmlYjnmoTmjojmnYPnsbvlnosnIH0pOw0KICAgIH0NCiAgICANCiAgICBjb25zdCB0b3RhbCA9IFBMQU5fUFJJQ0VTW3BsYW5dICogcGx1Z2lucy5sZW5ndGg7DQogICAgY29uc3Qgb3JkZXJObyA9ICdURVNUXycgKyBEYXRlLm5vdygpOw0KICAgIGNvbnN0IGxpY2Vuc2VDb2Rlc0xhYmVsZWQgPSBwbHVnaW5zLm1hcChwID0+IHsNCiAgICAgIGNvbnN0IGNvZGUgPSBnZW5lcmF0ZUxpY2Vuc2VDb2RlKHAsIHBsYW4pOw0KICAgICAgcmV0dXJuIGBbJHtQTFVHSU5fTkFNRVNbcF0gfHwgcH1dICR7Y29kZX1gOw0KICAgIH0pOw0KICAgIA0KICAgIHJldHVybiByZXMuc3RhdHVzKDIwMCkuanNvbih7DQogICAgICBzdWNjZXNzOiB0cnVlLA0KICAgICAgbW9kZTogJ3Rlc3QnLA0KICAgICAgbWVzc2FnZTogJ+a1i+ivleaIkOWKnycsDQogICAgICBvcmRlck5vLA0KICAgICAgdG90YWwsDQogICAgICBwbHVnaW5zOiBwbHVnaW5zLm1hcChwID0+IFBMVUdJTl9OQU1FU1twXSB8fCBwKSwNCiAgICAgIHBsYW5OYW1lOiBQTEFOX0xBQkVMU1twbGFuXSwNCiAgICAgIGxpY2Vuc2VDb2Rlc0xhYmVsZWQNCiAgICB9KTsNCiAgICANCiAgfSBjYXRjaCAoZXJyKSB7DQogICAgcmV0dXJuIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgc3VjY2VzczogZmFsc2UsIGVycm9yOiBlcnIubWVzc2FnZSB9KTsNCiAgfQ0KfTsNCg==
+// 简化版订单API - 零依赖
+const PLAN_PRICES = { testpay: 0.01, trial: 9.9, annual: 199, permanent: 399 };
+const PLAN_LABELS = { testpay: '¥0.01 测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' };
+const PLUGIN_NAMES = { 'qingying-image': '清影批量生图', 'qingying-video': '清影批量生视频', 'shijuezhongguo': '视觉中国' };
+
+function genCode() {
+  return 'AP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+}
+
+module.exports = async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
+  
+  try {
+    const { plugins, plan } = req.body || {};
+    if (!plugins?.length) return res.status(400).json({ success: false, error: '请选择插件' });
+    if (!PLAN_PRICES[plan]) return res.status(400).json({ success: false, error: '无效方案' });
+    
+    res.status(200).json({
+      success: true,
+      mode: 'test',
+      orderNo: 'TEST_' + Date.now(),
+      total: PLAN_PRICES[plan] * plugins.length,
+      planName: PLAN_LABELS[plan],
+      licenseCodes: plugins.map(p => genCode())
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
