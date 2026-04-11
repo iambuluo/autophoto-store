@@ -272,7 +272,7 @@
       try {
         // Vercel Serverless API（前后端同域，CORS 无忧）
         const API_BASE = 'https://autophoto-store.vercel.app';
-        const resp = await fetch(API_BASE + '/api/order-create', {
+        const resp = await fetch(API_BASE + '/api/order-test', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ plugins: selectedPlugins, plan: selectedPlan, name, email, wechat, notes })
