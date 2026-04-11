@@ -1,12 +1,1 @@
-module.exports = (req, res) => {
-  console.log('test API called at', new Date().toISOString());
-  res.json({ 
-    success: true, 
-    message: 'test API works',
-    time: new Date().toISOString(),
-    env: {
-      xunhu_app_id: process.env.XUNHU_APP_ID ? 'set' : 'not set',
-      xunhu_secret: process.env.XUNHU_APP_SECRET ? 'set' : 'not set'
-    }
-  });
-};
+bW9kdWxlLmV4cG9ydHMgPSAocmVxLCByZXMpID0+IHsNCiAgY29uc29sZS5sb2coJ3Rlc3QgQVBJIGNhbGxlZCBhdCcsIG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSk7DQogIHJlcy5qc29uKHsgDQogICAgc3VjY2VzczogdHJ1ZSwgDQogICAgbWVzc2FnZTogJ3Rlc3QgQVBJIHdvcmtzJywNCiAgICB0aW1lOiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksDQogICAgZW52OiB7DQogICAgICB4dW5odV9hcHBfaWQ6IHByb2Nlc3MuZW52LlhVTkhVX0FQUF9JRCA/ICdzZXQnIDogJ25vdCBzZXQnLA0KICAgICAgeHVuaHVfc2VjcmV0OiBwcm9jZXNzLmVudi5YVU5IVV9BUFBfU0VDUkVUID8gJ3NldCcgOiAnbm90IHNldCcNCiAgICB9DQogIH0pOw0KfTsNCg==

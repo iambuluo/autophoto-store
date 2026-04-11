@@ -1,9 +1,1 @@
-module.exports = (req, res) => {
-  res.json({
-    status: 'ok',
-    version: 'v2-' + new Date().toISOString(),
-    xunhu: process.env.XUNHU_APP_ID ? '✅ 已配置' : '⚠️ 未配置',
-    email: process.env.SMTP_USER ? '✅ ' + process.env.SMTP_USER : '⚠️ 未配置',
-    time: new Date().toISOString()
-  });
-};
+bW9kdWxlLmV4cG9ydHMgPSAocmVxLCByZXMpID0+IHsNCiAgcmVzLmpzb24oew0KICAgIHN0YXR1czogJ29rJywNCiAgICB2ZXJzaW9uOiAndjItJyArIG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSwNCiAgICB4dW5odTogcHJvY2Vzcy5lbnYuWFVOSFVfQVBQX0lEID8gJ+KchSDlt7LphY3nva4nIDogJ+KaoO+4jyDmnKrphY3nva4nLA0KICAgIGVtYWlsOiBwcm9jZXNzLmVudi5TTVRQX1VTRVIgPyAn4pyFICcgKyBwcm9jZXNzLmVudi5TTVRQX1VTRVIgOiAn4pqg77iPIOacqumFjee9ricsDQogICAgdGltZTogbmV3IERhdGUoKS50b0lTT1N0cmluZygpDQogIH0pOw0KfTsNCg==
