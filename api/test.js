@@ -1,1 +1,4 @@
-bW9kdWxlLmV4cG9ydHMgPSAocmVxLCByZXMpID0+IHsNCiAgY29uc29sZS5sb2coJ3Rlc3QgQVBJIGNhbGxlZCBhdCcsIG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSk7DQogIHJlcy5qc29uKHsgDQogICAgc3VjY2VzczogdHJ1ZSwgDQogICAgbWVzc2FnZTogJ3Rlc3QgQVBJIHdvcmtzJywNCiAgICB0aW1lOiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksDQogICAgZW52OiB7DQogICAgICB4dW5odV9hcHBfaWQ6IHByb2Nlc3MuZW52LlhVTkhVX0FQUF9JRCA/ICdzZXQnIDogJ25vdCBzZXQnLA0KICAgICAgeHVuaHVfc2VjcmV0OiBwcm9jZXNzLmVudi5YVU5IVV9BUFBfU0VDUkVUID8gJ3NldCcgOiAnbm90IHNldCcNCiAgICB9DQogIH0pOw0KfTsNCg==
+module.exports = (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.status(200).json({ status: 'ok', time: Date.now() });
+};
