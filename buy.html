@@ -1,1 +1,426 @@
-77u/PCFET0NUWVBFIGh0bWw+DQo8aHRtbCBsYW5nPSJ6aC1DTiI+DQo8aGVhZD4NCiAgPG1ldGEgY2hhcnNldD0iVVRGLTgiPg0KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+DQogIDx0aXRsZT7otK3kubAgwrcgQXV0b1Bob3RvIOWbvuW6k+aPkuS7tjwvdGl0bGU+DQogIDwhLS0gQmFpZHUgVG9uZ2ppIC0gSUTlvoXloasgLS0+DQogIDxzY3JpcHQ+DQogIHZhciBfaG10ID0gX2htdCB8fCBbXTsNCiAgKGZ1bmN0aW9uKCkgew0KICAgIHZhciBobSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpOw0KICAgIGhtLnNyYyA9ICJodHRwczovL2htLmJhaWR1LmNvbS9obS5qcz84MzFjODZkOWU5ZjY5NWQ0MTVkMmMwODA3MDU3YzJlZCI7DQogICAgdmFyIHMgPSBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgic2NyaXB0IilbMF07DQogICAgcy5wYXJlbnROb2RlLmluc2VydEJlZm9yZShobSwgcyk7DQogIH0pKCk7DQogIDwvc2NyaXB0Pg0KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9jc3Mvc3R5bGUuY3NzIj4NCjwvaGVhZD4NCjxib2R5Pg0KICA8bmF2IGNsYXNzPSJuYXZiYXIiPg0KICAgIDxkaXYgY2xhc3M9ImNvbnRhaW5lciBuYXYtaW5uZXIiPg0KICAgICAgPGEgaHJlZj0iaW5kZXguaHRtbCIgY2xhc3M9ImxvZ28iPkF1dG9QaG90bzxzcGFuIGNsYXNzPSJsb2dvLWRvdCI+LnN0b3JlPC9zcGFuPjwvYT4NCiAgICAgIDxkaXYgY2xhc3M9Im5hdi1saW5rcyI+DQogICAgICAgIDxhIGhyZWY9ImluZGV4Lmh0bWwiPummlumhtTwvYT4NCiAgICAgICAgPGEgaHJlZj0iaW5kZXguaHRtbCNwbHVnaW5zIj7mj5Lku7Y8L2E+DQogICAgICAgIDxhIGhyZWY9InByaWNpbmcuaHRtbCI+5a6a5Lu3PC9hPg0KICAgICAgICA8YSBocmVmPSJhYm91dC5odG1sIj7lhbPkuo48L2E+DQogICAgICA8L2Rpdj4NCiAgICAgIDxhIGhyZWY9ImJ1eS5odG1sIiBjbGFzcz0iYnRuIGJ0bi1wcmltYXJ5IGJ0bi1zbSI+56uL5Y2z6LSt5LmwPC9hPg0KICAgIDwvZGl2Pg0KICA8L25hdj4NCg0KICA8c2VjdGlvbiBjbGFzcz0ic2VjdGlvbiI+DQogICAgPGRpdiBjbGFzcz0iY29udGFpbmVyIGNoZWNrb3V0LXNlY3Rpb24iPg0KICAgICAgPGRpdiBjbGFzcz0icGFnZS1oZXJvIiBzdHlsZT0icGFkZGluZy1ib3R0b206MjBweDsiPg0KICAgICAgICA8aDE+6YCJ5oup5oKo55qE5pa55qGIPC9oMT4NCiAgICAgICAgPHA+6YCJ5oup6ZyA6KaB55qE5o+S5Lu25ZKM5o6I5p2D57G75Z6L77yM5aGr5YaZ6IGU57O75pa55byP5Y2z5Y+v5LiL5Y2VPC9wPg0KICAgICAgPC9kaXY+DQoNCiAgICAgIDwhLS0g5o+S5Lu26YCJ5oupIC0tPg0KICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZDp2YXIoLS1iZy1jYXJkKTtib3JkZXI6MXB4IHNvbGlkIHZhcigtLWJvcmRlcik7Ym9yZGVyLXJhZGl1czoxMnB4O3BhZGRpbmc6MjhweDttYXJnaW4tYm90dG9tOjI0cHg7Ij4NCiAgICAgICAgPGgzIHN0eWxlPSJmb250LXNpemU6MThweDtmb250LXdlaWdodDo3MDA7bWFyZ2luLWJvdHRvbToxNnB4OyI+56ys5LiA5q2l77ya6YCJ5oup5o+S5Lu277yI5Y+v5aSa6YCJ77yJPC9oMz4NCiAgICAgICAgPGRpdiBzdHlsZT0iZGlzcGxheTpncmlkO2dyaWQtdGVtcGxhdGUtY29sdW1uczpyZXBlYXQoYXV0by1maWxsLG1pbm1heCgyMDBweCwxZnIpKTtnYXA6MTBweDsiIGlkPSJwbHVnaW4tc2VsZWN0b3IiPg0KICAgICAgICAgIDxsYWJlbCBjbGFzcz0icGx1Z2luLXNlbGVjdC1jYXJkIiBkYXRhLXBsdWdpbj0ic2hpanVlemhvbmdndW8iIGRhdGEtbmFtZT0i6KeG6KeJ5Lit5Zu96Ieq5Yqo5o+Q5LqkIj4NCiAgICAgICAgICAgIDxpbnB1dCB0eXBlPSJjaGVja2JveCIgbmFtZT0icGx1Z2lucyIgdmFsdWU9InNoaWp1ZXpob25nZ3VvIj4NCiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJwc2MtaWNvbiIgc3R5bGU9ImJhY2tncm91bmQ6bGluZWFyLWdyYWRpZW50KDEzNWRlZywjZTYzOTQ2LCNjMTEyMWYpOyI+VkNHPC9zcGFuPg0KICAgICAgICAgICAgPHNwYW4gY2xhc3M9InBzYy1uYW1lIj7op4bop4nkuK3lm73oh6rliqjmj5DkuqQ8L3NwYW4+DQogICAgICAgICAgPC9sYWJlbD4NCiAgICAgICAgICA8bGFiZWwgY2xhc3M9InBsdWdpbi1zZWxlY3QtY2FyZCIgZGF0YS1wbHVnaW49Imd1YW5nY2hhbmciIGRhdGEtbmFtZT0i5YWJ5Y6C5om56YeP5o+Q5Lqk5Yqp5omLIj4NCiAgICAgICAgICAgIDxpbnB1dCB0eXBlPSJjaGVja2JveCIgbmFtZT0icGx1Z2lucyIgdmFsdWU9Imd1YW5nY2hhbmciPg0KICAgICAgICAgICAgPHNwYW4gY2xhc3M9InBzYy1pY29uIiBzdHlsZT0iYmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCMyZDZhNGYsIzQwOTE2Yyk7Ij5WSjwvc3Bhbj4NCiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJwc2MtbmFtZSI+5YWJ5Y6C5om56YeP5o+Q5Lqk5Yqp5omLPC9zcGFuPg0KICAgICAgICAgIDwvbGFiZWw+DQogICAgICAgICAgPGxhYmVsIGNsYXNzPSJwbHVnaW4tc2VsZWN0LWNhcmQiIGRhdGEtcGx1Z2luPSJ4aW5jaGFuZ2NoYW5nIiBkYXRhLW5hbWU9IuaWsOeJh+WcuiBBSUdDIOWKqeaJiyI+DQogICAgICAgICAgICA8aW5wdXQgdHlwZT0iY2hlY2tib3giIG5hbWU9InBsdWdpbnMiIHZhbHVlPSJ4aW5jaGFuZ2NoYW5nIj4NCiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJwc2MtaWNvbiIgc3R5bGU9ImJhY2tncm91bmQ6bGluZWFyLWdyYWRpZW50KDEzNWRlZywjZjc3ZjAwLCNlYTZjMDApOyI+WEM8L3NwYW4+DQogICAgICAgICAgICA8c3BhbiBjbGFzcz0icHNjLW5hbWUiPuaWsOeJh+WcuiBBSUdDIOWKqeaJizwvc3Bhbj4NCiAgICAgICAgICA8L2xhYmVsPg0KICAgICAgICAgIDxsYWJlbCBjbGFzcz0icGx1Z2luLXNlbGVjdC1jYXJkIiBkYXRhLXBsdWdpbj0iZHJlYW1zdGltZSIgZGF0YS1uYW1lPSJEcmVhbXN0aW1lIOiHquWKqOaPkOS6pCI+DQogICAgICAgICAgICA8aW5wdXQgdHlwZT0iY2hlY2tib3giIG5hbWU9InBsdWdpbnMiIHZhbHVlPSJkcmVhbXN0aW1lIj4NCiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJwc2MtaWNvbiIgc3R5bGU9ImJhY2tncm91bmQ6bGluZWFyLWdyYWRpZW50KDEzNWRlZywjM2E4NmZmLCMwMDU1ZDQpOyI+RFQ8L3NwYW4+DQogICAgICAgICAgICA8c3BhbiBjbGFzcz0icHNjLW5hbWUiPkRyZWFtc3RpbWUg6Ieq5Yqo5o+Q5LqkPC9zcGFuPg0KICAgICAgICAgIDwvbGFiZWw+DQogICAgICAgICAgPGxhYmVsIGNsYXNzPSJwbHVnaW4tc2VsZWN0LWNhcmQiIGRhdGEtcGx1Z2luPSJhZG9iZS1zdG9jayIgZGF0YS1uYW1lPSJBZG9iZSBTdG9jayDlhbPplK7or43ngrnlh7vlmagiPg0KICAgICAgICAgICAgPGlucHV0IHR5cGU9ImNoZWNrYm94IiBuYW1lPSJwbHVnaW5zIiB2YWx1ZT0iYWRvYmUtc3RvY2siPg0KICAgICAgICAgICAgPHNwYW4gY2xhc3M9InBzYy1pY29uIiBzdHlsZT0iYmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCNlNjM5NDYsI2I1MTc5ZSk7Ij5BUzwvc3Bhbj4NCiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJwc2MtbmFtZSI+QWRvYmUgU3RvY2sg5YWz6ZSu6K+N54K55Ye75ZmoPC9zcGFuPg0KICAgICAgICAgIDwvbGFiZWw+DQogICAgICAgICAgPGxhYmVsIGNsYXNzPSJwbHVnaW4tc2VsZWN0LWNhcmQiIGRhdGEtcGx1Z2luPSJxaW5neWluZy1pbWFnZSIgZGF0YS1uYW1lPSLmuIXlvbHmibnph4/nlJ/lm77liqnmiYsiPg0KICAgICAgICAgICAgPGlucHV0IHR5cGU9ImNoZWNrYm94IiBuYW1lPSJwbHVnaW5zIiB2YWx1ZT0icWluZ3lpbmctaW1hZ2UiPg0KICAgICAgICAgICAgPHNwYW4gY2xhc3M9InBzYy1pY29uIiBzdHlsZT0iYmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCM3MjA5YjcsIzU2MGJhZCk7Ij5RWTwvc3Bhbj4NCiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJwc2MtbmFtZSI+5riF5b2x5om56YeP55Sf5Zu+5Yqp5omLPC9zcGFuPg0KICAgICAgICAgIDwvbGFiZWw+DQogICAgICAgICAgPGxhYmVsIGNsYXNzPSJwbHVnaW4tc2VsZWN0LWNhcmQiIGRhdGEtcGx1Z2luPSJxaW5neWluZy12aWRlbyIgZGF0YS1uYW1lPSLmuIXlvbHmibnph4/nlJ/op4bpopHliqnmiYsiPg0KICAgICAgICAgICAgPGlucHV0IHR5cGU9ImNoZWNrYm94IiBuYW1lPSJwbHVnaW5zIiB2YWx1ZT0icWluZ3lpbmctdmlkZW8iPg0KICAgICAgICAgICAgPHNwYW4gY2xhc3M9InBzYy1pY29uIiBzdHlsZT0iYmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCM0MzYxZWUsIzNhMGNhMyk7Ij5RVjwvc3Bhbj4NCiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJwc2MtbmFtZSI+5riF5b2x5om56YeP55Sf6KeG6aKR5Yqp5omLPC9zcGFuPg0KICAgICAgICAgIDwvbGFiZWw+DQogICAgICAgIDwvZGl2Pg0KICAgICAgPC9kaXY+DQoNCiAgICAgIDwhLS0g5o6I5p2D57G75Z6LIC0tPg0KICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZDp2YXIoLS1iZy1jYXJkKTtib3JkZXI6MXB4IHNvbGlkIHZhcigtLWJvcmRlcik7Ym9yZGVyLXJhZGl1czoxMnB4O3BhZGRpbmc6MjhweDttYXJnaW4tYm90dG9tOjI0cHg7Ij4NCiAgICAgICAgPGgzIHN0eWxlPSJmb250LXNpemU6MThweDtmb250LXdlaWdodDo3MDA7bWFyZ2luLWJvdHRvbToxNnB4OyI+56ys5LqM5q2l77ya6YCJ5oup5o6I5p2D57G75Z6LPC9oMz4NCiAgICAgICAgPGRpdiBzdHlsZT0iZGlzcGxheTpncmlkO2dyaWQtdGVtcGxhdGUtY29sdW1uczpyZXBlYXQoYXV0by1maWxsLG1pbm1heCgxNTBweCwxZnIpKTtnYXA6MTJweDsiIGlkPSJwbGFuLXNlbGVjdG9yIj4NCiAgICAgICAgICA8bGFiZWwgY2xhc3M9InBsYW4tc2VsZWN0LWNhcmQiIGRhdGEtcGxhbj0idGVzdHBheSIgZGF0YS1wcmljZT0iMC4wMSIgc3R5bGU9ImJvcmRlci1jb2xvcjojMjJjNTVlOyI+DQogICAgICAgICAgICA8aW5wdXQgdHlwZT0icmFkaW8iIG5hbWU9InBsYW4iIHZhbHVlPSJ0ZXN0cGF5Ij4NCiAgICAgICAgICAgIDxkaXYgY2xhc3M9InBzYy1uYW1lIiBzdHlsZT0iY29sb3I6IzIyYzU1ZTsiPsKlMC4wMSDmtYvor5U8L2Rpdj4NCiAgICAgICAgICAgIDxkaXYgY2xhc3M9InBzYy1wcmljZSIgc3R5bGU9ImNvbG9yOiMyMmM1NWU7Ij7CpTAuMDE8L2Rpdj4NCiAgICAgICAgICAgIDxkaXYgY2xhc3M9InBzYy1kZXNjIj7nnJ/lrp7mlK/ku5jvvIzpqozor4HlhajmtYHnqIs8L2Rpdj4NCiAgICAgICAgICA8L2xhYmVsPg0KICAgICAgICAgIDxsYWJlbCBjbGFzcz0icGxhbi1zZWxlY3QtY2FyZCIgZGF0YS1wbGFuPSJ0cmlhbCIgZGF0YS1wcmljZT0iOS45Ij4NCiAgICAgICAgICAgIDxpbnB1dCB0eXBlPSJyYWRpbyIgbmFtZT0icGxhbiIgdmFsdWU9InRyaWFsIj4NCiAgICAgICAgICAgIDxkaXYgY2xhc3M9InBzYy1uYW1lIj4x5aSp6K+V55SoPC9kaXY+DQogICAgICAgICAgICA8ZGl2IGNsYXNzPSJwc2MtcHJpY2UiPsKlOS45PC9kaXY+DQogICAgICAgICAgICA8ZGl2IGNsYXNzPSJwc2MtZGVzYyI+6YCC5ZCI5bCd6bKcPC9kaXY+DQogICAgICAgICAgPC9sYWJlbD4NCiAgICAgICAgICA8bGFiZWwgY2xhc3M9InBsYW4tc2VsZWN0LWNhcmQgc2VsZWN0ZWQiIGRhdGEtcGxhbj0iYW5udWFsIiBkYXRhLXByaWNlPSIxOTkiPg0KICAgICAgICAgICAgPGlucHV0IHR5cGU9InJhZGlvIiBuYW1lPSJwbGFuIiB2YWx1ZT0iYW5udWFsIiBjaGVja2VkPg0KICAgICAgICAgICAgPGRpdiBjbGFzcz0icHNjLW5hbWUiPuW5tOW6puaOiOadgzwvZGl2Pg0KICAgICAgICAgICAgPGRpdiBjbGFzcz0icHNjLXByaWNlIj7CpTE5OTxzcGFuPi/mj5Lku7Yv5bm0PC9zcGFuPjwvZGl2Pg0KICAgICAgICAgICAgPGRpdiBjbGFzcz0icHNjLWRlc2MiPuaAp+S7t+avlOacgOmrmDwvZGl2Pg0KICAgICAgICAgIDwvbGFiZWw+DQogICAgICAgICAgPGxhYmVsIGNsYXNzPSJwbGFuLXNlbGVjdC1jYXJkIiBkYXRhLXBsYW49InBlcm1hbmVudCIgZGF0YS1wcmljZT0iMzk5Ij4NCiAgICAgICAgICAgIDxpbnB1dCB0eXBlPSJyYWRpbyIgbmFtZT0icGxhbiIgdmFsdWU9InBlcm1hbmVudCI+DQogICAgICAgICAgICA8ZGl2IGNsYXNzPSJwc2MtbmFtZSI+5rC45LmF5o6I5p2DPC9kaXY+DQogICAgICAgICAgICA8ZGl2IGNsYXNzPSJwc2MtcHJpY2UiPsKlMzk5PHNwYW4+L+aPkuS7tjwvc3Bhbj48L2Rpdj4NCiAgICAgICAgICAgIDxkaXYgY2xhc3M9InBzYy1kZXNjIj7kubDmlq3nu4jouqs8L2Rpdj4NCiAgICAgICAgICA8L2xhYmVsPg0KICAgICAgICA8L2Rpdj4NCiAgICAgIDwvZGl2Pg0KDQogICAgICA8IS0tIOiuouWNleaRmOimgSAtLT4NCiAgICAgIDxkaXYgY2xhc3M9ImNoZWNrb3V0LXN1bW1hcnkiIGlkPSJvcmRlci1zdW1tYXJ5IiBzdHlsZT0ibWFyZ2luLWJvdHRvbToyNHB4OyI+DQogICAgICAgIDxoND7wn5OLIOiuouWNleaRmOimgTwvaDQ+DQogICAgICAgIDxkaXYgY2xhc3M9ImNoZWNrb3V0LWxpbmUiPjxzcGFuPuW3sumAieaPkuS7tjwvc3Bhbj48c3BhbiBpZD0ic3VtbWFyeS1wbHVnaW5zIj7or7fpgInmi6nmj5Lku7Y8L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXYgY2xhc3M9ImNoZWNrb3V0LWxpbmUiPjxzcGFuPuaOiOadg+exu+Weizwvc3Bhbj48c3BhbiBpZD0ic3VtbWFyeS1wbGFuIj7lubTluqbmjojmnYM8L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXYgY2xhc3M9ImNoZWNrb3V0LWxpbmUiPjxzcGFuPuaKmOaJozwvc3Bhbj48c3BhbiBpZD0ic3VtbWFyeS1kaXNjb3VudCI+4oCUPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2IGNsYXNzPSJjaGVja291dC10b3RhbCI+PHNwYW4+5bqU5LuY5oC76aKdPC9zcGFuPjxzcGFuIGlkPSJzdW1tYXJ5LXRvdGFsIj7CpTAuMDA8L3NwYW4+PC9kaXY+DQogICAgICA8L2Rpdj4NCg0KICAgICAgPCEtLSDogZTns7vkv6Hmga8gLS0+DQogICAgICA8Zm9ybSBjbGFzcz0iY2hlY2tvdXQtZm9ybSIgaWQ9ImNoZWNrb3V0LWZvcm0iIG9uc3VibWl0PSJoYW5kbGVDaGVja291dChldmVudCkiPg0KICAgICAgICA8aDMgc3R5bGU9ImZvbnQtc2l6ZToxOHB4O2ZvbnQtd2VpZ2h0OjcwMDsiPuesrOS4ieatpe+8muWhq+WGmeiBlOezu+aWueW8jzwvaDM+DQogICAgICAgIDxkaXYgc3R5bGU9ImRpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6MWZyIDFmcjtnYXA6MTZweDsiPg0KICAgICAgICAgIDxkaXYgY2xhc3M9ImZvcm0tZ3JvdXAiPg0KICAgICAgICAgICAgPGxhYmVsIGZvcj0ibmFtZSI+5aeT5ZCNICo8L2xhYmVsPg0KICAgICAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIGlkPSJuYW1lIiBuYW1lPSJuYW1lIiBwbGFjZWhvbGRlcj0i5oKo55qE5aeT5ZCNIiByZXF1aXJlZD4NCiAgICAgICAgICA8L2Rpdj4NCiAgICAgICAgICA8ZGl2IGNsYXNzPSJmb3JtLWdyb3VwIj4NCiAgICAgICAgICAgIDxsYWJlbCBmb3I9ImVtYWlsIj7pgq7nrrEgKjwvbGFiZWw+DQogICAgICAgICAgICA8aW5wdXQgdHlwZT0iZW1haWwiIGlkPSJlbWFpbCIgbmFtZT0iZW1haWwiIHBsYWNlaG9sZGVyPSLmjqXmlLbmjojmnYPnoIEiIHJlcXVpcmVkPg0KICAgICAgICAgIDwvZGl2Pg0KICAgICAgICA8L2Rpdj4NCiAgICAgICAgPGRpdiBjbGFzcz0iZm9ybS1ncm91cCI+DQogICAgICAgICAgPGxhYmVsIGZvcj0id2VjaGF0Ij7lvq7kv6Hlj7fvvIjpgInloavvvIk8L2xhYmVsPg0KICAgICAgICAgIDxpbnB1dCB0eXBlPSJ0ZXh0IiBpZD0id2VjaGF0IiBuYW1lPSJ3ZWNoYXQiIHBsYWNlaG9sZGVyPSLmnInpl67popjmlrnkvr/ogZTns7vmgqgiPg0KICAgICAgICA8L2Rpdj4NCiAgICAgICAgPGRpdiBjbGFzcz0iZm9ybS1ncm91cCI+DQogICAgICAgICAgPGxhYmVsIGZvcj0ibm90ZXMiPuWkh+azqO+8iOmAieWhq++8iTwvbGFiZWw+DQogICAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIGlkPSJub3RlcyIgbmFtZT0ibm90ZXMiIHBsYWNlaG9sZGVyPSLlpoLpnIDopoHnibnlrprmj5Lku7bnu4TlkIjjgIHnibnmroropoHmsYLnrYkiPg0KICAgICAgICA8L2Rpdj4NCiAgICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZDpyZ2JhKDM0LDE5Nyw5NCwwLjA4KTtib3JkZXI6MXB4IHNvbGlkIHJnYmEoMzQsMTk3LDk0LDAuMik7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxNHB4O2ZvbnQtc2l6ZToxM3B4O2NvbG9yOnZhcigtLXRleHQtbXV0ZWQpOyI+DQogICAgICAgICAg4pqg77iPIOaUr+S7mOaIkOWKn+WQju+8jOaOiOadg+eggeWwhuWPkemAgeWIsOaCqOeahOmCrueuseOAguWQjOaXtuWPr+WKoOW+ruS/oSA8c3Ryb25nPmF1dG9fcGhvdG8yMDI1PC9zdHJvbmc+IOiOt+WPluaKgOacr+aUr+aMgeOAgg0KICAgICAgICA8L2Rpdj4NCiAgICAgICAgPGJ1dHRvbiB0eXBlPSJzdWJtaXQiIGNsYXNzPSJidG4gYnRuLXByaW1hcnkgYnRuLWxnIGJ0bi1ibG9jayIgaWQ9InN1Ym1pdC1idG4iPg0KICAgICAgICAgIPCfm5Ig5YmN5b6A5pSv5LuY77yIwqU8c3BhbiBpZD0iYnRuLXByaWNlIj4wLjAwPC9zcGFuPu+8iQ0KICAgICAgICA8L2J1dHRvbj4NCiAgICAgICAgPHAgY2xhc3M9InRleHQtc20gdGV4dC1tdXRlZCB0ZXh0LWNlbnRlciI+8J+SsyDmlK/ku5jmlrnlvI/vvJrlvq7kv6EgLyDmlK/ku5jlrp3vvIjpgJrov4fomY7nmq7mpJLlronlhajmlK/ku5jvvIk8L3A+DQogICAgICA8L2Zvcm0+DQoNCiAgICA8L2Rpdj4NCiAgPC9zZWN0aW9uPg0KDQogIDxzdHlsZT4NCiAgICAucGx1Z2luLXNlbGVjdC1jYXJkIHsNCiAgICAgIGRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiBjZW50ZXI7IGdhcDogMTBweDsNCiAgICAgIGJhY2tncm91bmQ6IHJnYmEoMjU1LDI1NSwyNTUsMC4wMyk7IGJvcmRlcjogMS41cHggc29saWQgdmFyKC0tYm9yZGVyKTsNCiAgICAgIGJvcmRlci1yYWRpdXM6IDhweDsgcGFkZGluZzogMTBweCAxMnB4OyBjdXJzb3I6IHBvaW50ZXI7DQogICAgICB0cmFuc2l0aW9uOiAwLjJzOw0KICAgIH0NCiAgICAucGx1Z2luLXNlbGVjdC1jYXJkOmhvdmVyIHsgYm9yZGVyLWNvbG9yOiB2YXIoLS1ib3JkZXItbGlnaHQpOyBiYWNrZ3JvdW5kOiByZ2JhKDI1NSwyNTUsMjU1LDAuMDUpOyB9DQogICAgLnBsdWdpbi1zZWxlY3QtY2FyZC5zZWxlY3RlZCB7IGJvcmRlci1jb2xvcjogdmFyKC0tcHJpbWFyeSk7IGJhY2tncm91bmQ6IHJnYmEoOTksMTAyLDI0MSwwLjEpOyB9DQogICAgLnBsdWdpbi1zZWxlY3QtY2FyZCBpbnB1dCB7IGRpc3BsYXk6IG5vbmU7IH0NCiAgICAucHNjLWljb24geyB3aWR0aDogMzZweDsgaGVpZ2h0OiAzNnB4OyBib3JkZXItcmFkaXVzOiA4cHg7IGRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiBjZW50ZXI7IGp1c3RpZnktY29udGVudDogY2VudGVyOyBmb250LXdlaWdodDogNzAwOyBmb250LXNpemU6IDEycHg7IGNvbG9yOiAjZmZmOyBmbGV4LXNocmluazogMDsgfQ0KICAgIC5wc2MtbmFtZSB7IGZvbnQtc2l6ZTogMTNweDsgZm9udC13ZWlnaHQ6IDUwMDsgfQ0KICAgIC5wc2MtcHJpY2UgeyBmb250LXNpemU6IDE4cHg7IGZvbnQtd2VpZ2h0OiA4MDA7IGNvbG9yOiB2YXIoLS1wcmltYXJ5LWxpZ2h0KTsgfQ0KICAgIC5wc2MtcHJpY2Ugc3BhbiB7IGZvbnQtc2l6ZTogMTJweDsgZm9udC13ZWlnaHQ6IDQwMDsgY29sb3I6IHZhcigtLXRleHQtbXV0ZWQpOyB9DQogICAgLnBzYy1kZXNjIHsgZm9udC1zaXplOiAxMXB4OyBjb2xvcjogdmFyKC0tdGV4dC1kaW0pOyB9DQogICAgLnBsYW4tc2VsZWN0LWNhcmQgew0KICAgICAgZGlzcGxheTogZmxleDsgZmxleC1kaXJlY3Rpb246IGNvbHVtbjsgYWxpZ24taXRlbXM6IGNlbnRlcjsgZ2FwOiA0cHg7DQogICAgICBiYWNrZ3JvdW5kOiByZ2JhKDI1NSwyNTUsMjU1LDAuMDMpOyBib3JkZXI6IDEuNXB4IHNvbGlkIHZhcigtLWJvcmRlcik7DQogICAgICBib3JkZXItcmFkaXVzOiA4cHg7IHBhZGRpbmc6IDE2cHg7IGN1cnNvcjogcG9pbnRlcjsgdGV4dC1hbGlnbjogY2VudGVyOw0KICAgICAgdHJhbnNpdGlvbjogMC4yczsNCiAgICB9DQogICAgLnBsYW4tc2VsZWN0LWNhcmQ6aG92ZXIgeyBib3JkZXItY29sb3I6IHZhcigtLWJvcmRlci1saWdodCk7IH0NCiAgICAucGxhbi1zZWxlY3QtY2FyZC5zZWxlY3RlZCB7IGJvcmRlci1jb2xvcjogdmFyKC0tcHJpbWFyeSk7IGJhY2tncm91bmQ6IHJnYmEoOTksMTAyLDI0MSwwLjEpOyB9DQogICAgLnBsYW4tc2VsZWN0LWNhcmQgaW5wdXQgeyBkaXNwbGF5OiBub25lOyB9DQogICAgQG1lZGlhKG1heC13aWR0aDo2MDBweCl7IC5wbGFuLXNlbGVjdC1jYXJkIHsgZmxleC1kaXJlY3Rpb246cm93O2p1c3RpZnktY29udGVudDpzcGFjZS1iZXR3ZWVuO3RleHQtYWxpZ246bGVmdDsgfSB9DQogIDwvc3R5bGU+DQoNCiAgPHNjcmlwdCBzcmM9Ii9qcy9tYWluLmpzIj48L3NjcmlwdD4NCiAgPHNjcmlwdD4NCiAgICAvLyDlrprku7fphY3nva7vvIjkuI4gYXBpL19saWIvcHJpY2luZy1jb25maWcuanMg5L+d5oyB5ZCM5q2l77yM5L+u5pS55pe25Lik56uv6YO96KaB5pS577yJDQogICAgY29uc3QgUExBTl9QUklDRVMgPSB7IHRlc3RwYXk6IDAuMDEsIHRyaWFsOiA5LjksIGFubnVhbDogMTk5LCBwZXJtYW5lbnQ6IDM5OSB9Ow0KICAgIGNvbnN0IERJU0NPVU5UUyA9IHsgMTogMS4wLCAyOiAwLjg4LCAzOiAwLjgwLCA0OiAwLjcwLCA1OiAwLjYwLCA2OiAwLjYwLCA3OiAwLjUwIH07DQogICAgY29uc3QgUExBTl9MQUJFTFMgPSB7IHRlc3RwYXk6ICfCpTAuMDEg5rWL6K+VJywgdHJpYWw6ICcx5aSp6K+V55SoJywgYW5udWFsOiAn5bm05bqm5o6I5p2DJywgcGVybWFuZW50OiAn5rC45LmF5o6I5p2DJyB9Ow0KICAgIGNvbnN0IFBMQU5fTkFNRV9NQVAgPSB7IHRlc3RwYXk6ICfmtYvor5UnLCB0cmlhbDogJ+ivleeUqCcsIGFubnVhbDogJ+W5tOS7mCcsIHBlcm1hbmVudDogJ+awuOS5hScgfTsNCiAgICBjb25zdCBQTFVHSU5fTkFNRVMgPSB7DQogICAgICBzaGlqdWV6aG9uZ2d1bzogJ+inhuinieS4reWbveiHquWKqOaPkOS6pCcsDQogICAgICBndWFuZ2NoYW5nOiAn5YWJ5Y6C5om56YeP5o+Q5Lqk5Yqp5omLJywNCiAgICAgIHhpbmNoYW5nY2hhbmc6ICfmlrDniYflnLogQUlHQyDliqnmiYsnLA0KICAgICAgZHJlYW1zdGltZTogJ0RyZWFtc3RpbWUg6Ieq5Yqo5o+Q5LqkJywNCiAgICAgICdhZG9iZS1zdG9jayc6ICdBZG9iZSBTdG9jayDlhbPplK7or43ngrnlh7vlmagnLA0KICAgICAgJ3Fpbmd5aW5nLWltYWdlJzogJ+a4heW9seaJuemHj+eUn+WbvuWKqeaJiycsDQogICAgICAncWluZ3lpbmctdmlkZW8nOiAn5riF5b2x5om56YeP55Sf6KeG6aKR5Yqp5omLJw0KICAgIH07DQoNCiAgICBsZXQgc2VsZWN0ZWRQbHVnaW5zID0gW107DQogICAgbGV0IHNlbGVjdGVkUGxhbiA9ICdhbm51YWwnOw0KDQogICAgLy8g5o+S5Lu26YCJ5oup77ya55uR5ZCsIGNoYW5nZSDkuovku7bvvIjpgb/lhY0gbGFiZWwrY2hlY2tib3gg5Y+M6YeN6Kem5Y+RIGJ1Z++8iQ0KICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJy5wbHVnaW4tc2VsZWN0LWNhcmQnKS5mb3JFYWNoKGNhcmQgPT4gew0KICAgICAgY29uc3QgY2IgPSBjYXJkLnF1ZXJ5U2VsZWN0b3IoJ2lucHV0W3R5cGU9ImNoZWNrYm94Il0nKTsNCiAgICAgIC8vIOebkeWQrCBjaGVja2JveCBjaGFuZ2XvvIhsYWJlbCDngrnlh7vkvJrop6blj5EgY2hlY2tib3ggY2hhbmdl77yJDQogICAgICBjYi5hZGRFdmVudExpc3RlbmVyKCdjaGFuZ2UnLCAoKSA9PiB7DQogICAgICAgIGNhcmQuY2xhc3NMaXN0LnRvZ2dsZSgnc2VsZWN0ZWQnLCBjYi5jaGVja2VkKTsNCiAgICAgICAgdXBkYXRlU3VtbWFyeSgpOw0KICAgICAgfSk7DQogICAgfSk7DQoNCiAgICAvLyDmlrnmoYjpgInmi6nvvJrnm5HlkKwgY2hhbmdlIOS6i+S7tu+8iOmBv+WFjSBsYWJlbCtyYWRpbyDlj4zph43op6blj5EgYnVn77yJDQogICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnLnBsYW4tc2VsZWN0LWNhcmQnKS5mb3JFYWNoKGNhcmQgPT4gew0KICAgICAgY29uc3QgcmFkaW8gPSBjYXJkLnF1ZXJ5U2VsZWN0b3IoJ2lucHV0W3R5cGU9InJhZGlvIl0nKTsNCiAgICAgIHJhZGlvLmFkZEV2ZW50TGlzdGVuZXIoJ2NoYW5nZScsICgpID0+IHsNCiAgICAgICAgaWYgKCFyYWRpby5jaGVja2VkKSByZXR1cm47DQogICAgICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJy5wbGFuLXNlbGVjdC1jYXJkJykuZm9yRWFjaChjID0+IGMuY2xhc3NMaXN0LnJlbW92ZSgnc2VsZWN0ZWQnKSk7DQogICAgICAgIGNhcmQuY2xhc3NMaXN0LmFkZCgnc2VsZWN0ZWQnKTsNCiAgICAgICAgc2VsZWN0ZWRQbGFuID0gY2FyZC5kYXRhc2V0LnBsYW47DQogICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzdW1tYXJ5LXBsYW4nKS50ZXh0Q29udGVudCA9IFBMQU5fTEFCRUxTW3NlbGVjdGVkUGxhbl07DQogICAgICAgIHVwZGF0ZVN1bW1hcnkoKTsNCiAgICAgIH0pOw0KICAgIH0pOw0KDQogICAgZnVuY3Rpb24gdXBkYXRlU3VtbWFyeSgpIHsNCiAgICAgIHNlbGVjdGVkUGx1Z2lucyA9IEFycmF5LmZyb20oZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnaW5wdXRbbmFtZT0icGx1Z2lucyJdOmNoZWNrZWQnKSkubWFwKGNiID0+IGNiLnZhbHVlKTsNCiAgICAgIGNvbnN0IGNvdW50ID0gc2VsZWN0ZWRQbHVnaW5zLmxlbmd0aDsNCiAgICAgIGNvbnNvbGUubG9nKGBbREVCVUddIOmAieS4rSAke2NvdW50fSDkuKrmj5Lku7Y6YCwgc2VsZWN0ZWRQbHVnaW5zKTsNCiAgICAgIGNvbnN0IGRpc2NvdW50ID0gRElTQ09VTlRTW2NvdW50XSB8fCAxLjA7DQogICAgICBjb25zdCB1bml0UHJpY2UgPSBQTEFOX1BSSUNFU1tzZWxlY3RlZFBsYW5dOw0KICAgICAgY29uc3QgdG90YWwgPSAodW5pdFByaWNlICogY291bnQgKiBkaXNjb3VudCkudG9GaXhlZCgyKTsNCiAgICAgIGNvbnN0IHNhdmluZyA9ICh1bml0UHJpY2UgKiBjb3VudCAqICgxIC0gZGlzY291bnQpKS50b0ZpeGVkKDIpOw0KDQogICAgICBpZiAoY291bnQgPT09IDApIHsNCiAgICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3N1bW1hcnktcGx1Z2lucycpLnRleHRDb250ZW50ID0gJ+ivt+mAieaLqeaPkuS7tic7DQogICAgICB9IGVsc2UgaWYgKGNvdW50IDw9IDMpIHsNCiAgICAgICAgLy8g5bCR5LqO562J5LqOM+S4quaXtuaYvuekuuWQjeensA0KICAgICAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc3VtbWFyeS1wbHVnaW5zJykudGV4dENvbnRlbnQgPQ0KICAgICAgICAgIHNlbGVjdGVkUGx1Z2lucy5tYXAocCA9PiBQTFVHSU5fTkFNRVNbcF0gfHwgcCkuam9pbign44CBJyk7DQogICAgICB9IGVsc2Ugew0KICAgICAgICAvLyDotoXov4cz5Liq5pe25pi+56S65pWw6YePDQogICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzdW1tYXJ5LXBsdWdpbnMnKS50ZXh0Q29udGVudCA9DQogICAgICAgICAgYCR7Y291bnR95Liq5o+S5Lu277yIJHtzZWxlY3RlZFBsdWdpbnMubWFwKHAgPT4gUExVR0lOX05BTUVTW3BdIHx8IHApLmpvaW4oJ+OAgScpfe+8iWA7DQogICAgICB9DQogICAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc3VtbWFyeS1kaXNjb3VudCcpLnRleHRDb250ZW50ID0gY291bnQgPD0gMSA/ICfigJQnIDoNCiAgICAgICAgYCR7TWF0aC5yb3VuZChkaXNjb3VudCAqIDEwMCl95oqY77yI6IqC55yBwqUke3NhdmluZ33vvIlgOw0KICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3N1bW1hcnktdG90YWwnKS50ZXh0Q29udGVudCA9IGDCpSR7dG90YWx9YDsNCiAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdidG4tcHJpY2UnKS50ZXh0Q29udGVudCA9IHRvdGFsOw0KICAgIH0NCg0KICAgIC8vIOWIneWniw0KICAgIHVwZGF0ZVN1bW1hcnkoKTsNCg0KICAgIGFzeW5jIGZ1bmN0aW9uIGhhbmRsZUNoZWNrb3V0KGUpIHsNCiAgICAgIGUucHJldmVudERlZmF1bHQoKTsNCiAgICAgIGlmIChzZWxlY3RlZFBsdWdpbnMubGVuZ3RoID09PSAwKSB7DQogICAgICAgIGFsZXJ0KCfor7foh7PlsJHpgInmi6nkuIDkuKrmj5Lku7bvvIEnKTsNCiAgICAgICAgcmV0dXJuOw0KICAgICAgfQ0KICAgICAgY29uc3QgbmFtZSA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCduYW1lJykudmFsdWU7DQogICAgICBjb25zdCBlbWFpbCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdlbWFpbCcpLnZhbHVlOw0KICAgICAgY29uc3Qgd2VjaGF0ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3dlY2hhdCcpLnZhbHVlOw0KICAgICAgY29uc3Qgbm90ZXMgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbm90ZXMnKS52YWx1ZTsNCiAgICAgIGNvbnN0IGNvdW50ID0gc2VsZWN0ZWRQbHVnaW5zLmxlbmd0aDsNCiAgICAgIGNvbnN0IGRpc2NvdW50ID0gRElTQ09VTlRTW2NvdW50XSB8fCAxLjA7DQogICAgICBjb25zdCB0b3RhbCA9IChQTEFOX1BSSUNFU1tzZWxlY3RlZFBsYW5dICogY291bnQgKiBkaXNjb3VudCkudG9GaXhlZCgyKTsNCg0KICAgICAgY29uc3Qgc3VibWl0QnRuID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3N1Ym1pdC1idG4nKTsNCiAgICAgIHN1Ym1pdEJ0bi5kaXNhYmxlZCA9IHRydWU7DQogICAgICBzdWJtaXRCdG4udGV4dENvbnRlbnQgPSAn4o+zIOato+WcqOWIm+W7uuiuouWNlS4uLic7DQoNCiAgICAgIHRyeSB7DQogICAgICAgIC8vIFZlcmNlbCBTZXJ2ZXJsZXNzIEFQSe+8iOWJjeWQjuerr+WQjOWfn++8jENPUlMg5peg5b+n77yJDQogICAgICAgIGNvbnN0IEFQSV9CQVNFID0gJ2h0dHBzOi8vYXV0b3Bob3RvLXN0b3JlLnZlcmNlbC5hcHAnOw0KICAgICAgICBjb25zdCByZXNwID0gYXdhaXQgZmV0Y2goQVBJX0JBU0UgKyAnL2FwaS9vcmRlci1jcmVhdGUnLCB7DQogICAgICAgICAgbWV0aG9kOiAnUE9TVCcsDQogICAgICAgICAgaGVhZGVyczogeyAnQ29udGVudC1UeXBlJzogJ2FwcGxpY2F0aW9uL2pzb24nIH0sDQogICAgICAgICAgYm9keTogSlNPTi5zdHJpbmdpZnkoeyBwbHVnaW5zOiBzZWxlY3RlZFBsdWdpbnMsIHBsYW46IHNlbGVjdGVkUGxhbiwgbmFtZSwgZW1haWwsIHdlY2hhdCwgbm90ZXMgfSkNCiAgICAgICAgfSk7DQogICAgICAgIGxldCBkYXRhOw0KICAgICAgICB0cnkgew0KICAgICAgICAgIGRhdGEgPSBhd2FpdCByZXNwLmpzb24oKTsNCiAgICAgICAgfSBjYXRjaCAoZSkgew0KICAgICAgICAgIGFsZXJ0KCfmnI3liqHlmajlk43lupTmoLzlvI/plJnor6/vvIzor7fnqI3lkI7ph43or5UnKTsNCiAgICAgICAgICBzdWJtaXRCdG4uZGlzYWJsZWQgPSBmYWxzZTsNCiAgICAgICAgICBzdWJtaXRCdG4udGV4dENvbnRlbnQgPSBg8J+bkiDliY3lvoDmlK/ku5jvvIjCpSR7dG90YWx977yJYDsNCiAgICAgICAgICByZXR1cm47DQogICAgICAgIH0NCg0KICAgICAgICBpZiAoIWRhdGEuc3VjY2Vzcykgew0KICAgICAgICAgIGFsZXJ0KCforqLljZXliJvlu7rlpLHotKU6ICcgKyAoZGF0YS5lcnJvciB8fCAn5pyq55+l6ZSZ6K+vJykpOw0KICAgICAgICAgIHN1Ym1pdEJ0bi5kaXNhYmxlZCA9IGZhbHNlOw0KICAgICAgICAgIHN1Ym1pdEJ0bi50ZXh0Q29udGVudCA9IGDwn5uSIOWJjeW+gOaUr+S7mO+8iMKlJHt0b3RhbH3vvIlgOw0KICAgICAgICAgIHJldHVybjsNCiAgICAgICAgfQ0KDQogICAgICAgIGlmIChkYXRhLm1vZGUgPT09ICdkZW1vJykgew0KICAgICAgICAgIC8vIOa8lOekuuaooeW8j++8muaYvuekuuaOiOadg+egge+8iOW4puaPkuS7tuagh+azqO+8iQ0KICAgICAgICAgIGNvbnN0IGxhYmVsZWRDb2RlcyA9IGRhdGEubGljZW5zZUNvZGVzTGFiZWxlZCB8fCBbXTsNCiAgICAgICAgICBjb25zdCBkZW1vT3JkZXIgPSB7IHBsdWdpbnM6IHNlbGVjdGVkUGx1Z2lucywgcGxhbjogc2VsZWN0ZWRQbGFuLCBwbGFuTmFtZTogUExBTl9MQUJFTFNbc2VsZWN0ZWRQbGFuXSwgY291bnQsIGRpc2NvdW50LCB0b3RhbCwgbmFtZSwgZW1haWwsIGxpY2Vuc2VDb2RlczogZGF0YS5saWNlbnNlQ29kZXMgfHwgW10gfTsNCiAgICAgICAgICBsb2NhbFN0b3JhZ2Uuc2V0SXRlbSgnYXV0b3Bob3RvX29yZGVyXycgKyBkYXRhLm9yZGVyTm8sIEpTT04uc3RyaW5naWZ5KGRlbW9PcmRlcikpOw0KICAgICAgICAgIHNob3dEZW1vUmVzdWx0KGRlbW9PcmRlciwgbGFiZWxlZENvZGVzKTsNCiAgICAgICAgfSBlbHNlIGlmIChkYXRhLm1vZGUgPT09ICd4dW5odScpIHsNCiAgICAgICAgICAvLyDnnJ/lrp7mlK/ku5jvvJromY7nmq7mpJLmlK/ku5jlkI7kvJroh6rliqjot7Povazlm54gc3VjY2Vzcy5odG1s77yI5o6I5p2D56CB5bey5ZyoIHJldHVybl91cmwg5Lit57yW56CB77yJDQogICAgICAgICAgLy8g5a2Y5YKo5YiwIGxvY2FsU3RvcmFnZSDkvZzkuLrlhZzlupUNCiAgICAgICAgICBsb2NhbFN0b3JhZ2Uuc2V0SXRlbSgnYXV0b3Bob3RvX29yZGVyXycgKyBkYXRhLm9yZGVyTm8sIEpTT04uc3RyaW5naWZ5KHsNCiAgICAgICAgICAgIHBsdWdpbnM6IHNlbGVjdGVkUGx1Z2lucywgcGxhbjogc2VsZWN0ZWRQbGFuLA0KICAgICAgICAgICAgcGxhbk5hbWU6IFBMQU5fTEFCRUxTW3NlbGVjdGVkUGxhbl0sDQogICAgICAgICAgICBjb3VudCwgZGlzY291bnQsIHRvdGFsLCBuYW1lLCBlbWFpbCwgd2VjaGF0LCBub3RlcywNCiAgICAgICAgICAgIGxpY2Vuc2VDb2RlczogZGF0YS5saWNlbnNlQ29kZXMgfHwgW10NCiAgICAgICAgICB9KSk7DQogICAgICAgICAgLy8g6Lez6L2s5Yiw6JmO55qu5qSS5pSv5LuYDQogICAgICAgICAgd2luZG93LmxvY2F0aW9uLmhyZWYgPSBkYXRhLnBheW1lbnRVcmw7DQogICAgICAgIH0NCiAgICAgIH0gY2F0Y2ggKGVycikgew0KICAgICAgICAvLyDor6bnu4bplJnor6/or4rmlq0NCiAgICAgICAgbGV0IGVyckRldGFpbCA9ICfnvZHnu5zplJnor6/vvIzor7fnqI3lkI7ph43or5UnOw0KICAgICAgICBpZiAoZXJyLm5hbWUgPT09ICdBYm9ydEVycm9yJykgZXJyRGV0YWlsID0gJ+ivt+axgui2heaXtu+8jOivt+mHjeivlSc7DQogICAgICAgIGVsc2UgaWYgKCFuYXZpZ2F0b3Iub25MaW5lKSBlcnJEZXRhaWwgPSAn572R57uc5bey5pat5byA77yM6K+35qOA5p+l572R57uc6L+e5o6lJzsNCiAgICAgICAgYWxlcnQoJ+mUmeivrzogJyArIGVyckRldGFpbCArICdcblxu6K+m5oOFOiAnICsgZXJyLm1lc3NhZ2UpOw0KICAgICAgICBzdWJtaXRCdG4uZGlzYWJsZWQgPSBmYWxzZTsNCiAgICAgICAgc3VibWl0QnRuLnRleHRDb250ZW50ID0gYPCfm5Ig5YmN5b6A5pSv5LuY77yIwqUke3RvdGFsfe+8iWA7DQogICAgICB9DQogICAgfQ0KDQogICAgZnVuY3Rpb24gc2hvd0RlbW9SZXN1bHQob3JkZXJJbmZvLCBjb2Rlcykgew0KICAgICAgY29uc3QgZGVtb0h0bWwgPSBgDQo8ZGl2IGNsYXNzPSJyZXN1bHQtcGFnZSI+DQogIDxkaXYgY2xhc3M9InJlc3VsdC1jYXJkIj4NCiAgICA8ZGl2IGNsYXNzPSJyZXN1bHQtaWNvbiI+8J+OiTwvZGl2Pg0KICAgIDxoMj7mvJTnpLrmqKHlvI/vvJrorqLljZXlt7LliJvlu7o8L2gyPg0KICAgIDxwPuiZjuearuakkuWQjuerr+acqumFjee9ru+8jOatpOS4uua8lOekuuaViOaenOOAgjxicj7mraPlvI/niYjlsIbot7Povazoh7PomY7nmq7mpJLlrozmiJDmlK/ku5jjgII8L3A+DQogICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZDpyZ2JhKDk5LDEwMiwyNDEsMC4wOCk7Ym9yZGVyOjFweCBzb2xpZCB2YXIoLS1ib3JkZXIpO2JvcmRlci1yYWRpdXM6OHB4O3BhZGRpbmc6MTZweDt0ZXh0LWFsaWduOmxlZnQ7Zm9udC1zaXplOjE0cHg7Y29sb3I6dmFyKC0tdGV4dC1tdXRlZCk7Ij4NCiAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi1ib3R0b206NnB4OyI+PHN0cm9uZz7mj5Lku7bvvJo8L3N0cm9uZz4ke29yZGVySW5mby5wbHVnaW5zLm1hcChwPT5QTFVHSU5fTkFNRVNbcF18fHApLmpvaW4oJ+OAgScpfTwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLWJvdHRvbTo2cHg7Ij48c3Ryb25nPuaOiOadg++8mjwvc3Ryb25nPiR7b3JkZXJJbmZvLnBsYW5OYW1lfSDDlyAke29yZGVySW5mby5jb3VudH3kuKo8L2Rpdj4NCiAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi1ib3R0b206NnB4OyI+PHN0cm9uZz7lupTku5jvvJo8L3N0cm9uZz7CpSR7b3JkZXJJbmZvLnRvdGFsfTwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLWJvdHRvbTo2cHg7Ij48c3Ryb25nPumCrueuse+8mjwvc3Ryb25nPiR7b3JkZXJJbmZvLmVtYWlsfTwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDoxMnB4O2NvbG9yOnZhcigtLXN1Y2Nlc3MpO2ZvbnQtd2VpZ2h0OjcwMDsiPvCfjoEg5o6I5p2D56CB77yI5ryU56S677yJ77yaPC9kaXY+DQogICAgICAke2NvZGVzLm1hcChjPT5gPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6bW9ub3NwYWNlO2NvbG9yOnZhcigtLXByaW1hcnktbGlnaHQpO21hcmdpbi10b3A6NHB4OyI+JHtjfTwvZGl2PmApLmpvaW4oJycpfQ0KICAgIDwvZGl2Pg0KICAgIDxkaXYgc3R5bGU9ImRpc3BsYXk6ZmxleDtnYXA6MTJweDttYXJnaW4tdG9wOjIwcHg7Ij4NCiAgICAgIDxhIGhyZWY9InByaWNpbmcuaHRtbCIgY2xhc3M9ImJ0biBidG4tb3V0bGluZSBidG4tYmxvY2siPui/lOWbnuWumuS7t+mhtTwvYT4NCiAgICAgIDxhIGhyZWY9ImluZGV4Lmh0bWwiIGNsYXNzPSJidG4gYnRuLXByaW1hcnkgYnRuLWJsb2NrIj7ov5Tlm57pppbpobU8L2E+DQogICAgPC9kaXY+DQogIDwvZGl2Pg0KPC9kaXY+YDsNCiAgICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJy5jaGVja291dC1zZWN0aW9uJykuaW5uZXJIVE1MID0gZGVtb0h0bWw7DQogICAgfQ0KICA8L3NjcmlwdD4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="buy.title">购买 · AutoPhoto 图库插件</title>
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?831c86d9e9f695d415d2c0807057c2ed";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- 语言切换 -->
+  <div class="lang-switch">
+    <button class="lang-btn active" data-lang="zh">🇨🇳 中文</button>
+    <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+  </div>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">AutoPhoto<span class="logo-dot">.store</span></a>
+      <div class="nav-links">
+        <a href="index.html" data-i18n="nav.home">首页</a>
+        <a href="index.html#plugins" data-i18n="nav.plugins">插件</a>
+        <a href="pricing.html" data-i18n="nav.pricing">定价</a>
+        <a href="about.html" data-i18n="nav.about">关于</a>
+      </div>
+      <a href="buy.html" class="btn btn-primary btn-sm" data-i18n="nav.buy">立即购买</a>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container checkout-section">
+      <div class="page-hero" style="padding-bottom:20px;">
+        <h1 data-i18n="buy.title">购买插件授权</h1>
+        <p data-i18n="buy.subtitle">选择插件 + 选择方案 → 扫码付款 → 立刻收到授权码</p>
+      </div>
+
+      <!-- 插件选择 -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;" data-i18n="buy.step1">第一步：选择插件（可多选）</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;" id="plugin-selector">
+          <label class="plugin-select-card" data-plugin="shijuezhongguo">
+            <input type="checkbox" name="plugins" value="shijuezhongguo">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#e63946,#c1121f);">VCG</span>
+            <span class="psc-name" data-i18n="plugins.vcg.name">视觉中国自动提交</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="guangchang">
+            <input type="checkbox" name="plugins" value="guangchang">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#2d6a4f,#40916c);">VJ</span>
+            <span class="psc-name" data-i18n="plugins.vj.name">光厂批量提交助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="xinchangchang">
+            <input type="checkbox" name="plugins" value="xinchangchang">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#f77f00,#ea6c00);">XC</span>
+            <span class="psc-name" data-i18n="plugins.xc.name">新片场 AIGC 助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="dreamstime">
+            <input type="checkbox" name="plugins" value="dreamstime">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#3a86ff,#0055d4);">DT</span>
+            <span class="psc-name" data-i18n="plugins.dt.name">Dreamstime 自动提交</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="adobe-stock">
+            <input type="checkbox" name="plugins" value="adobe-stock">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#e63946,#b5179e);">AS</span>
+            <span class="psc-name" data-i18n="plugins.as.name">Adobe Stock 关键词点击器</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="qingying-image">
+            <input type="checkbox" name="plugins" value="qingying-image">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#7209b7,#560bad);">QY</span>
+            <span class="psc-name" data-i18n="plugins.qy.name">清影批量生图助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="qingying-video">
+            <input type="checkbox" name="plugins" value="qingying-video">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#4361ee,#3a0ca3);">QV</span>
+            <span class="psc-name" data-i18n="plugins.qv.name">清影批量生视频助手</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 授权类型 -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;" data-i18n="buy.step2">第二步：选择授权类型</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;" id="plan-selector">
+          <label class="plan-select-card" data-plan="testpay" data-price-cny="0.01" data-price-usd="0.01" style="border-color:#22c55e;">
+            <input type="radio" name="plan" value="testpay">
+            <div class="psc-name" style="color:#22c55e;">¥0.01 Test</div>
+            <div class="psc-price psc-price-testpay" style="color:#22c55e;">¥0.01</div>
+            <div class="psc-desc" data-i18n-zh="真实支付，验证全流程" data-i18n-en="Real payment, test full flow">真实支付，验证全流程</div>
+          </label>
+          <label class="plan-select-card" data-plan="trial" data-price-cny="9.9" data-price-usd="1.5">
+            <input type="radio" name="plan" value="trial">
+            <div class="psc-name" data-i18n="buy.plan.trial">1天试用</div>
+            <div class="psc-price psc-price-trial">¥9.9</div>
+            <div class="psc-desc" data-i18n-zh="适合尝鲜" data-i18n-en="Perfect for trying out">适合尝鲜</div>
+          </label>
+          <label class="plan-select-card selected" data-plan="annual" data-price-cny="199" data-price-usd="29">
+            <input type="radio" name="plan" value="annual" checked>
+            <div class="psc-name" data-i18n="buy.plan.annual">年度授权</div>
+            <div class="psc-price psc-price-annual">¥199<span data-i18n-zh="/插件/年" data-i18n-en="/plugin/yr">/插件/年</span></div>
+            <div class="psc-desc" data-i18n-zh="性价比最高" data-i18n-en="Best value">性价比最高</div>
+          </label>
+          <label class="plan-select-card" data-plan="permanent" data-price-cny="399" data-price-usd="69">
+            <input type="radio" name="plan" value="permanent">
+            <div class="psc-name" data-i18n="buy.plan.permanent">永久授权</div>
+            <div class="psc-price psc-price-permanent">¥399<span data-i18n-zh="/插件" data-i18n-en="/plugin">/插件</span></div>
+            <div class="psc-desc" data-i18n-zh="买断终身" data-i18n-en="Pay once, own forever">买断终身</div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 订单摘要 -->
+      <div class="checkout-summary" id="order-summary" style="margin-bottom:24px;">
+        <h4>📋 <span data-i18n-zh="订单摘要" data-i18n-en="Order Summary">订单摘要</span></h4>
+        <div class="checkout-line">
+          <span data-i18n-zh="已选插件" data-i18n-en="Selected Plugins">已选插件</span>
+          <span id="summary-plugins" data-i18n-zh-placeholder="请选择插件" data-i18n-en-placeholder="Please select plugins">请选择插件</span>
+        </div>
+        <div class="checkout-line">
+          <span data-i18n-zh="授权类型" data-i18n-en="License Type">授权类型</span>
+          <span id="summary-plan" data-i18n-zh="年度授权" data-i18n-en="Annual">年度授权</span>
+        </div>
+        <div class="checkout-line">
+          <span data-i18n-zh="折扣" data-i18n-en="Discount">折扣</span>
+          <span id="summary-discount">—</span>
+        </div>
+        <div class="checkout-total">
+          <span data-i18n-zh="应付总额" data-i18n-en="Total">应付总额</span>
+          <span id="summary-total">¥0.00</span>
+        </div>
+      </div>
+
+      <!-- 联系信息 -->
+      <form class="checkout-form" id="checkout-form" onsubmit="handleCheckout(event)">
+        <h3 style="font-size:18px;font-weight:700;" data-i18n-zh="第三步：填写联系方式" data-i18n-en="Step 3: Contact Info">第三步：填写联系方式</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="form-group">
+            <label for="name" data-i18n-zh="姓名 *" data-i18n-en="Name *">姓名 *</label>
+            <input type="text" id="name" name="name" data-i18n-zh-placeholder="您的姓名" data-i18n-en-placeholder="Your name" placeholder="您的姓名" required>
+          </div>
+          <div class="form-group">
+            <label for="email" data-i18n="buy.email.label">邮箱 *</label>
+            <input type="email" id="email" name="email" data-i18n="buy.email.placeholder" placeholder="接收授权码" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wechat" data-i18n-zh="微信号（选填）" data-i18n-en="WeChat (optional)">微信号（选填）</label>
+          <input type="text" id="wechat" name="wechat" data-i18n-zh-placeholder="有问题方便联系您" data-i18n-en-placeholder="Optional, for support" placeholder="有问题方便联系您">
+        </div>
+        <div class="form-group">
+          <label for="notes" data-i18n-zh="备注（选填）" data-i18n-en="Notes (optional)">备注（选填）</label>
+          <input type="text" id="notes" name="notes" data-i18n-zh-placeholder="如需要特定插件组合、特殊要求等" data-i18n-en-placeholder="Special requests, plugin combos, etc." placeholder="如需要特定插件组合、特殊要求等">
+        </div>
+        <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:14px;font-size:13px;color:var(--text-muted);">
+          <span data-i18n-zh="⚠️ 支付成功后，授权码将发送到您的邮箱。同时可加微信 <strong>auto_photo2025</strong> 获取技术支持。"
+                data-i18n-en="⚠️ After payment, your license key will be sent to your email instantly. Contact us via WeChat <strong>auto_photo2025</strong> for support.">
+            ⚠️ 支付成功后，授权码将发送到您的邮箱。同时可加微信 <strong>auto_photo2025</strong> 获取技术支持。
+          </span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-btn">
+          🛒 <span id="btn-text" data-i18n-zh="前往支付" data-i18n-en="Pay Now">前往支付</span>（<span id="currency-symbol">¥</span><span id="btn-price">0.00</span>）
+        </button>
+        <p class="text-sm text-muted text-center" data-i18n="buy.secure">
+          💳 支付方式：微信 / 支付宝（通过虎皮椒安全支付）
+        </p>
+      </form>
+
+    </div>
+  </section>
+
+  <style>
+    .plugin-select-card {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.03); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: 0.2s;
+    }
+    .plugin-select-card:hover { border-color: var(--border-light); background: rgba(255,255,255,0.05); }
+    .plugin-select-card.selected { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+    .plugin-select-card input { display: none; }
+    .psc-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #fff; flex-shrink: 0; }
+    .psc-name { font-size: 13px; font-weight: 500; }
+    .psc-price { font-size: 18px; font-weight: 800; color: var(--primary-light); }
+    .psc-price span { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+    .psc-desc { font-size: 11px; color: var(--text-dim); }
+    .plan-select-card {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.03); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 16px; cursor: pointer; text-align: center; transition: 0.2s;
+    }
+    .plan-select-card:hover { border-color: var(--border-light); }
+    .plan-select-card.selected { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+    .plan-select-card input { display: none; }
+    @media(max-width:600px){ .plan-select-card { flex-direction:row;justify-content:space-between;text-align:left; } }
+  </style>
+
+  <script src="/js/main.js"></script>
+  <script>
+    // 价格配置（CNY / USD 双币）
+    const PLAN_PRICES_CNY = { testpay: 0.01, trial: 9.9, annual: 199, permanent: 399 };
+    const PLAN_PRICES_USD = { testpay: 0.01, trial: 1.5, annual: 29, permanent: 69 };
+    const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
+
+    const PLUGIN_NAMES_ZH = {
+      shijuezhongguo: '视觉中国自动提交', guangchang: '光厂批量提交助手',
+      xinchangchang: '新片场 AIGC 助手', dreamstime: 'Dreamstime 自动提交',
+      'adobe-stock': 'Adobe Stock 关键词点击器',
+      'qingying-image': '清影批量生图助手', 'qingying-video': '清影批量生视频助手'
+    };
+    const PLUGIN_NAMES_EN = {
+      shijuezhongguo: 'Visual China Auto Submit', guangchang: 'Guang Chang Batch Submit',
+      xinchangchang: 'Xinchangchang AIGC', dreamstime: 'Dreamstime Auto Submit',
+      'adobe-stock': 'Adobe Stock Keyword Clicker',
+      'qingying-image': 'Qingying Image Gen', 'qingying-video': 'Qingying Video Gen'
+    };
+
+    let selectedPlugins = [];
+    let selectedPlan = 'annual';
+    let currentLang = localStorage.getItem('ap_lang') || 'zh';
+
+    function getPluginNames() { return currentLang === 'en' ? PLUGIN_NAMES_EN : PLUGIN_NAMES_ZH; }
+    function getPlanPrices() { return currentLang === 'en' ? PLAN_PRICES_USD : PLAN_PRICES_CNY; }
+    function getCurrencySymbol() { return currentLang === 'en' ? '$' : '¥'; }
+
+    // 插件选择
+    document.querySelectorAll('.plugin-select-card').forEach(card => {
+      const cb = card.querySelector('input[type="checkbox"]');
+      cb.addEventListener('change', () => {
+        card.classList.toggle('selected', cb.checked);
+        updateSummary();
+      });
+    });
+
+    // 方案选择
+    document.querySelectorAll('.plan-select-card').forEach(card => {
+      const radio = card.querySelector('input[type="radio"]');
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
+        document.querySelectorAll('.plan-select-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedPlan = card.dataset.plan;
+        updateSummary();
+      });
+    });
+
+    function updateSummary() {
+      const PRICES = getPlanPrices();
+      const SYM = getCurrencySymbol();
+      const NAMES = getPluginNames();
+
+      selectedPlugins = Array.from(document.querySelectorAll('input[name="plugins"]:checked')).map(cb => cb.value);
+      const count = selectedPlugins.length;
+      const discount = DISCOUNTS[count] || 1.0;
+      const unitPrice = PRICES[selectedPlan];
+      const total = (unitPrice * count * discount).toFixed(2);
+      const saving = (unitPrice * count * (1 - discount)).toFixed(2);
+
+      const summaryPlugins = document.getElementById('summary-plugins');
+      if (count === 0) {
+        summaryPlugins.textContent = currentLang === 'en' ? 'Please select plugins' : '请选择插件';
+      } else if (count <= 3) {
+        summaryPlugins.textContent = selectedPlugins.map(p => NAMES[p] || p).join(currentLang === 'en' ? ', ' : '、');
+      } else {
+        summaryPlugins.textContent = currentLang === 'en'
+          ? `${count} plugins selected`
+          : `已选 ${count} 个插件`;
+      }
+
+      const discountEl = document.getElementById('summary-discount');
+      if (count <= 1) {
+        discountEl.textContent = '—';
+      } else {
+        discountEl.textContent = currentLang === 'en'
+          ? `${Math.round((1 - discount) * 100)}% off (save ${SYM}${saving})`
+          : `${Math.round(discount * 10)}折（节省${SYM}${saving}）`;
+      }
+
+      const planLabels = {
+        zh: { testpay: '¥0.01 测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' },
+        en: { testpay: '$0.01 Test', trial: '1-Day Trial', annual: 'Annual', permanent: 'Lifetime' }
+      };
+      document.getElementById('summary-plan').textContent = planLabels[currentLang][selectedPlan];
+      document.getElementById('summary-total').textContent = SYM + total;
+      document.getElementById('btn-price').textContent = total;
+      document.getElementById('currency-symbol').textContent = SYM;
+
+      // 更新方案卡片价格显示
+      updatePlanCardPrices();
+    }
+
+    function updatePlanCardPrices() {
+      const PRICES = getPlanPrices();
+      const SYM = getCurrencySymbol();
+      const priceConfigs = {
+        testpay: { main: SYM + '0.01', suffix: '' },
+        trial:   { main: SYM + PRICES.trial, suffix: currentLang === 'en' ? '' : '' },
+        annual:  { main: SYM + PRICES.annual, suffix: currentLang === 'en' ? '/plugin/yr' : '/插件/年' },
+        permanent: { main: SYM + PRICES.permanent, suffix: currentLang === 'en' ? '/plugin' : '/插件' },
+      };
+      Object.entries(priceConfigs).forEach(([plan, config]) => {
+        const el = document.querySelector(`.psc-price-${plan}`);
+        if (el) el.innerHTML = `${config.main}<span>${config.suffix}</span>`;
+      });
+
+      // 更新 data-i18n-zh/en 的内联元素
+      document.querySelectorAll('[data-i18n-zh]').forEach(el => {
+        const key = `data-i18n-${currentLang}`;
+        if (el.hasAttribute(key)) el.innerHTML = el.getAttribute(key);
+      });
+      document.querySelectorAll('[data-i18n-zh-placeholder]').forEach(el => {
+        const key = `data-i18n-${currentLang}-placeholder`;
+        if (el.hasAttribute(key)) el.placeholder = el.getAttribute(key);
+      });
+    }
+
+    // 监听语言切换（由 i18n.js 触发后更新价格）
+    document.addEventListener('langChanged', (e) => {
+      currentLang = e.detail.lang;
+      updateSummary();
+    });
+
+    updateSummary();
+
+    // ============ 支付处理 ============
+    async function handleCheckout(e) {
+      e.preventDefault();
+      if (selectedPlugins.length === 0) {
+        alert(currentLang === 'en' ? 'Please select at least one plugin!' : '请至少选择一个插件！');
+        return;
+      }
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const wechat = document.getElementById('wechat').value;
+      const notes = document.getElementById('notes').value;
+      const count = selectedPlugins.length;
+      const discount = DISCOUNTS[count] || 1.0;
+      const PRICES = getPlanPrices();
+      const SYM = getCurrencySymbol();
+      const total = (PRICES[selectedPlan] * count * discount).toFixed(2);
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = currentLang === 'en' ? '⏳ Creating order...' : '⏳ 正在创建订单...';
+
+      try {
+        const resp = await fetch('/api/order-create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plugins: selectedPlugins, plan: selectedPlan, name, email, wechat, notes, lang: currentLang })
+        });
+
+        let data;
+        try { data = await resp.json(); }
+        catch (e) {
+          alert(currentLang === 'en' ? 'Server response error, please retry.' : '服务器响应格式错误，请稍后重试');
+          resetBtn(submitBtn, total, SYM);
+          return;
+        }
+
+        if (!data.success) {
+          alert((currentLang === 'en' ? 'Order creation failed: ' : '订单创建失败: ') + (data.error || (currentLang === 'en' ? 'Unknown error' : '未知错误')));
+          resetBtn(submitBtn, total, SYM);
+          return;
+        }
+
+        if (data.mode === 'demo') {
+          showDemoResult(data, selectedPlugins, selectedPlan, count, total, name, email);
+        } else if (data.mode === 'xunhu') {
+          localStorage.setItem('autophoto_order_' + data.orderNo, JSON.stringify({
+            plugins: selectedPlugins, plan: selectedPlan, count, total, name, email
+          }));
+          window.location.href = data.paymentUrl;
+        }
+      } catch (err) {
+        let errDetail = currentLang === 'en' ? 'Network error, please retry.' : '网络错误，请稍后重试';
+        if (!navigator.onLine) errDetail = currentLang === 'en' ? 'No internet connection.' : '网络已断开，请检查网络连接';
+        alert(errDetail + '\n' + err.message);
+        resetBtn(submitBtn, total, SYM);
+      }
+    }
+
+    function resetBtn(btn, total, sym) {
+      btn.disabled = false;
+      btn.innerHTML = currentLang === 'en'
+        ? `🛒 Pay Now (${sym}${total})`
+        : `🛒 前往支付（${sym}${total}）`;
+    }
+
+    function showDemoResult(data, plugins, plan, count, total, name, email) {
+      const NAMES = getPluginNames();
+      const SYM = getCurrencySymbol();
+      const codes = data.licenseCodesLabeled || [];
+      const planLabel = { testpay:'Test', trial:'Trial', annual:'Annual', permanent:'Lifetime' }[plan];
+      document.querySelector('.checkout-section').innerHTML = `
+<div class="result-page">
+  <div class="result-card">
+    <div class="result-icon">🎉</div>
+    <h2>${currentLang === 'en' ? 'Demo Mode: Order Created' : '演示模式：订单已创建'}</h2>
+    <p>${currentLang === 'en'
+      ? 'Payment gateway not yet configured. This is a demo preview.'
+      : '虎皮椒后端未配置，此为演示效果。正式版将跳转至支付页。'}</p>
+    <div style="background:rgba(99,102,241,0.08);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:left;font-size:14px;color:var(--text-muted);">
+      <div style="margin-bottom:6px;"><strong>${currentLang === 'en' ? 'Plugins' : '插件'}：</strong>${plugins.map(p=>NAMES[p]||p).join(', ')}</div>
+      <div style="margin-bottom:6px;"><strong>${currentLang === 'en' ? 'License' : '授权'}：</strong>${planLabel} × ${count}</div>
+      <div style="margin-bottom:6px;"><strong>${currentLang === 'en' ? 'Total' : '应付'}：</strong>${SYM}${total}</div>
+      <div style="margin-bottom:6px;"><strong>Email：</strong>${email}</div>
+      <div style="margin-top:12px;color:var(--success);font-weight:700;">🎁 ${currentLang === 'en' ? 'License Keys (demo)' : '授权码（演示）'}：</div>
+      ${codes.map(c=>`<div style="font-family:monospace;color:var(--primary-light);margin-top:4px;">${c}</div>`).join('')}
+    </div>
+    <div style="display:flex;gap:12px;margin-top:20px;">
+      <a href="index.html" class="btn btn-primary btn-block">${currentLang === 'en' ? 'Back to Home' : '返回首页'}</a>
+    </div>
+  </div>
+</div>`;
+    }
+  </script>
+
+  <script src="/js/i18n.js"></script>
+</body>
+</html>
