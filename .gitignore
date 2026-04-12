@@ -34,3 +34,8 @@ Thumbs.db
 
 # Uploads (if any)
 uploads/
+.env*.local
+
+# Local Node.js server (Vercel uses api/ directory instead)
+server/
+!server/.gitkeep
