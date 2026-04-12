@@ -2,11 +2,71 @@
  * POST /api/xunhupay/callback
  * Edge Function：处理虎皮椒支付回调
  *
- * 定价/插件配置 → ../_lib/pricing-config.js
+ * 所有逻辑内联，不依赖外部模块（避免 Edge Runtime + CommonJS 兼容性问题）
+ * 定价配置 → ../_lib/pricing-config.js
  */
-import { PLAN_LABELS, PLUGIN_NAMES, PLUGIN_PREFIXES, PLAN_CHARS, calcExpiry, getCodeLabel } from '../_lib/pricing-config.js';
 
-// 覆盖 randomHex 使用 Edge Runtime 的 crypto（Web Crypto API）
+// ============================================================
+// 内联配置（与 pricing-config.js 保持同步）
+// ============================================================
+const PLAN_LABELS = {
+  testpay: '¥0.01 测试',
+  trial: '1天试用',
+  annual: '年度授权',
+  permanent: '永久授权'
+};
+
+const PLUGIN_NAMES = {
+  shijuezhongguo: '视觉中国自动提交',
+  guangchang: '光厂批量提交助手',
+  xinchangchang: '新片场 AIGC 助手',
+  dreamstime: 'Dreamstime 自动提交',
+  'adobe-stock': 'Adobe Stock 关键词点击器',
+  'qingying-image': '清影批量生图助手',
+  'qingying-video': '清影批量生视频助手'
+};
+
+const PLUGIN_PREFIXES = {
+  shijuezhongguo: 'VCG',
+  guangchang: 'VJ',
+  xinchangchang: 'XC',
+  dreamstime: 'DT',
+  'adobe-stock': 'AS',
+  'qingying-image': 'QY',
+  'qingying-video': 'QV'
+};
+
+const PLAN_CHARS = {
+  testpay: 'T',
+  trial: 'T',
+  annual: 'Y',
+  permanent: 'P'
+};
+
+// 计算到期时间戳（Unix秒）
+function calcExpiry(plan) {
+  const now = Math.floor(Date.now() / 1000);
+  const DAY = 86400;
+  switch (plan) {
+    case 'testpay':
+    case 'trial':     return now + 1 * DAY;
+    case 'annual':    return now + 365 * DAY;
+    case 'permanent': return now + 99 * 365 * DAY;
+    default:          return now + 1 * DAY;
+  }
+}
+
+// 从授权码还原插件名标注
+function getCodeLabel(code, plugins) {
+  if (!code || !plugins || plugins.length === 0) return '[未知插件]';
+  const codePrefix = code.split('-')[1];
+  for (const [pid, prefix] of Object.entries(PLUGIN_PREFIXES)) {
+    if (prefix === codePrefix) return `[${PLUGIN_NAMES[pid] || pid}]`;
+  }
+  return `[${plugins[0] ? (PLUGIN_NAMES[plugins[0]] || plugins[0]) : '未知'}]`;
+}
+
+// Edge Runtime 随机hex（Web Crypto API）
 function randomHex(bytes) {
   return Array.from(crypto.getRandomValues(new Uint8Array(bytes)))
     .map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
@@ -21,88 +81,102 @@ function makeLicenseCode(pluginId, plan) {
   return `AP-${prefix}-${planChar}${expiryB36}-${rand}`;
 }
 
+// ============================================================
+// MD5（纯 JS 实现，兼容 Edge Runtime）
+// ============================================================
+function md5(str) {
+  function rstr(buffer) {
+    const output = [];
+    for (let i = 0; i < buffer.length; i++) {
+      output[i >> 2] |= (buffer[i] & 0xff) << ((i % 4) * 8);
+    }
+    return output;
+  }
+  function u2h(buffer) {
+    const hexTab = '0123456789abcdef';
+    let result = '';
+    for (let i = 0; i < buffer.length * 4; i++) {
+      result += hexTab.charAt((buffer[i >> 2] >> ((i % 4) * 8 + 4)) & 0xf) +
+                hexTab.charAt((buffer[i >> 2] >> ((i % 4) * 8)) & 0xf);
+    }
+    return result;
+  }
+  function rol(num, cnt) { return (num << cnt) | (num >>> (32 - cnt)); }
+  function ff(a, b, c, d, x, s, t) { return (a + ((b & c) | ((~b) & d)) + x + t) >>> 0; }
+  function gg(a, b, c, d, x, s, t) { return (a + ((b & d) | (c & (~d))) + x + t) >>> 0; }
+  function hh(a, b, c, d, x, s, t) { return (a + (b ^ c ^ d) + x + t) >>> 0; }
+  function ii(a, b, c, d, x, s, t) { return (a + (c ^ (b | (~d))) + x + t) >>> 0; }
+
+  const buffer = rstr(new TextEncoder().encode(str));
+  buffer[str.length >> 5] |= 0x80 << ((str.length % 4) * 8);
+  buffer[(((str.length + 64) >>> 9) << 4) + 14] = str.length * 8;
+
+  let a = 0x67452301, b = 0xefcdab89, c = 0x98badcfe, d = 0x10325476;
+
+  for (let i = 0; i < buffer.length; i += 16) {
+    const [oa, ob, oc, od] = [a, b, c, d];
+    a = ff(a,b,c,d,buffer[i],7,0xd76aa478); d = ff(d,a,b,c,buffer[i+1],12,0xe8c7b756);
+    c = ff(c,d,a,b,buffer[i+2],17,0x242070db); b = ff(b,c,d,a,buffer[i+3],22,0xf57c0faf);
+    a = ff(a,b,c,d,buffer[i+4],7,0x4787c62a); d = ff(d,a,b,c,buffer[i+5],12,0xa8304613);
+    c = ff(c,d,a,b,buffer[i+6],17,0xfd469501); b = ff(b,c,d,a,buffer[i+7],22,0x698098d8);
+    a = ff(a,b,c,d,buffer[i+8],7,0x8b44f7af); d = ff(d,a,b,c,buffer[i+9],12,0xffff5bb1);
+    c = ff(c,d,a,b,buffer[i+10],17,0x895cd7be); b = ff(b,c,d,a,buffer[i+11],22,0x6b901122);
+    a = ff(a,b,c,d,buffer[i+12],7,0xfd987193); d = ff(d,a,b,c,buffer[i+13],12,0xa679438e);
+    c = ff(c,d,a,b,buffer[i+14],17,0x49b40821); b = ff(b,c,d,a,buffer[i+15],22,0xf61e2562);
+    a = gg(a,b,c,d,buffer[i+1],5,0xc040b340); d = gg(d,a,b,c,buffer[i+6],9,0x265e5a51);
+    c = gg(c,d,a,b,buffer[i+11],14,0xe9b6c7aa); b = gg(b,c,d,a,buffer[i],20,0xd62f105d);
+    a = gg(a,b,c,d,buffer[i+5],5,0x2441453); d = gg(d,a,b,c,buffer[i+10],9,0xd8a1e681);
+    c = gg(c,d,a,b,buffer[i+15],14,0xe7d3fbc8); b = gg(b,c,d,a,buffer[i+4],20,0x21e1cde6);
+    a = gg(a,b,c,d,buffer[i+9],5,0xc33707d6); d = gg(d,a,b,c,buffer[i+14],9,0xf4d50d87);
+    c = gg(c,d,a,b,buffer[i+3],14,0x455a14ed); b = gg(b,c,d,a,buffer[i+8],20,0xa9e3e905);
+    a = gg(a,b,c,d,buffer[i+13],5,0xfcefa3f8); d = gg(d,a,b,c,buffer[i+2],9,0x676f02d9);
+    c = gg(c,d,a,b,buffer[i+7],14,0x8d2a4c8a); b = gg(b,c,d,a,buffer[i+12],20,0xfffa3942);
+    a = hh(a,b,c,d,buffer[i+5],4,0x8771f681); d = hh(d,a,b,c,buffer[i+8],11,0x6d9d6122);
+    c = hh(c,d,a,b,buffer[i+11],16,0xfde5380c); b = hh(b,c,d,a,buffer[i+14],23,0xa4beea44);
+    a = hh(a,b,c,d,buffer[i+1],4,0x4bdecfa9); d = hh(d,a,b,c,buffer[i+4],11,0xf6bb4b60);
+    c = hh(c,d,a,b,buffer[i+7],16,0xbebfbc70); b = hh(b,c,d,a,buffer[i+10],23,0x289b7ec6);
+    a = hh(a,b,c,d,buffer[i+13],4,0xeaa127fa); d = hh(d,a,b,c,buffer[i],11,0xd4ef3085);
+    c = hh(c,d,a,b,buffer[i+3],16,0x4881d05); b = hh(b,c,d,a,buffer[i+6],23,0xd9d4d039);
+    a = hh(a,b,c,d,buffer[i+9],4,0xe6db99e5); d = hh(d,a,b,c,buffer[i+15],11,0x1fa27cf8);
+    c = hh(c,d,a,b,buffer[i+2],16,0xc4ac5665); b = hh(b,c,d,a,buffer[i+5],23,0xf4292244);
+    a = ii(a,b,c,d,buffer[i],6,0x432aff97); d = ii(d,a,b,c,buffer[i+7],10,0xab9423a7);
+    c = ii(c,d,a,b,buffer[i+14],15,0xfc93a039); b = ii(b,c,d,a,buffer[i+5],21,0x655b59c3);
+    a = ii(a,b,c,d,buffer[i+12],6,0x8f0ccc92); d = ii(d,a,b,c,buffer[i+3],10,0xffeff47d);
+    c = ii(c,d,a,b,buffer[i+10],15,0x85845dd1); b = ii(b,c,d,a,buffer[i+1],21,0x6fa87e4f);
+    a = ii(a,b,c,d,buffer[i+8],6,0xfe2ce6e0); d = ii(d,a,b,c,buffer[i+15],10,0xa3014314);
+    c = ii(c,d,a,b,buffer[i+6],15,0x4e0811a1); b = ii(b,c,d,a,buffer[i+13],21,0xf7537e82);
+    a = ii(a,b,c,d,buffer[i+4],6,0xbd3af235); d = ii(d,a,b,c,buffer[i+11],10,0x2ad7d2bb);
+    c = ii(c,d,a,b,buffer[i+2],15,0xeb86d391); b = ii(b,c,d,a,buffer[i+9],21,0x289b7ec6);
+    a = (a + oa) >>> 0; b = (b + ob) >>> 0;
+    c = (c + oc) >>> 0; d = (d + od) >>> 0;
+  }
+  return u2h([a, b, c, d]);
+}
+
+// 签名验证
+function verifyXunhuSign(params, secret) {
+  try {
+    const entries = Object.entries(params)
+      .filter(([k, v]) => k !== 'hash' && (v === 0 || v === '0' || v))
+      .sort(([a], [b]) => a.localeCompare(b));
+    const str = entries.map(([k, v]) => `${k}=${v}`).join('&') + secret;
+    return md5(str) === params.hash;
+  } catch (e) {
+    console.error('签名验证异常:', e.message);
+    return false;
+  }
+}
+
 // 解析 form-urlencoded
 function parseFormData(bodyStr) {
   const params = {};
   if (!bodyStr) return params;
   try {
     for (const [k, v] of new URLSearchParams(bodyStr)) params[k] = v;
-  } catch (e) {}
+  } catch (e) {
+    console.error('FormData解析异常:', e.message);
+  }
   return params;
-}
-
-// MD5（Edge Runtime 纯 JS 实现）
-function md5(str) {
-  function rstr(s) {
-    const b = new Uint8Array(s.length);
-    for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i);
-    return b;
-  }
-  function u2h(n) {
-    const h = '0123456789abcdef';
-    let s = '';
-    for (let i = 0; i < n.length * 4; i++)
-      s += h.charAt((n[i >> 2] >> ((i % 4) * 8 + 4)) & 15) + h.charAt((n[i >> 2] >> ((i % 4) * 8)) & 15);
-    return s;
-  }
-  function cy(x, y) { return (x << y) | (x >>> (32 - y)); }
-  function ff(a, b, c, d, x, s, t) { return (a + ((b & c) | ((~b) & d)) + d + x + t) >>> 0; }
-  function gg(a, b, c, d, x, s, t) { return (a + ((b & d) | (c & (~d))) + d + x + t) >>> 0; }
-  function hh(a, b, c, d, x, s, t) { return (a + (b ^ c ^ d) + d + x + t) >>> 0; }
-  function ii(a, b, c, d, x, s, t) { return (a + (c ^ (b | (~d))) + d + x + t) >>> 0; }
-  function md5bl(x, len) {
-    x[len >> 5] |= 128 << (len % 32);
-    x[((len + 64) >>> 9 << 4) + 14] = len;
-    let a = 1732584193, b = -271733879, c = -1732584194, d = 271733878;
-    for (let i = 0; i < x.length; i += 16) {
-      const [oa, ob, oc, od] = [a, b, c, d];
-      a = ff(a,b,c,d,x[i],7,-680876936); d = ff(d,a,b,c,x[i+1],12,-389564586);
-      c = ff(c,d,a,b,x[i+2],17,606105819); b = ff(b,c,d,a,x[i+3],22,-1044525330);
-      a = ff(a,b,c,d,x[i+4],7,-176418897); d = ff(d,a,b,c,x[i+5],12,1200080426);
-      c = ff(c,d,a,b,x[i+6],17,-1473231341); b = ff(b,c,d,a,x[i+7],22,-45705983);
-      a = ff(a,b,c,d,x[i+8],7,1770035416); d = ff(d,a,b,c,x[i+9],12,-1958414417);
-      c = ff(c,d,a,b,x[i+10],17,-42063); b = ff(b,c,d,a,x[i+11],22,-1990404162);
-      a = ff(a,b,c,d,x[i+12],7,1804603682); d = ff(d,a,b,c,x[i+13],12,-40341101);
-      c = ff(c,d,a,b,x[i+14],17,-1502002290); b = ff(b,c,d,a,x[i+15],22,1236535329);
-      a = gg(a,b,c,d,x[i+1],5,-165796510); d = gg(d,a,b,c,x[i+6],9,-1069501632);
-      c = gg(c,d,a,b,x[i+11],14,643717713); b = gg(b,c,d,a,x[i],20,-373897302);
-      a = gg(a,b,c,d,x[i+5],5,-701558691); d = gg(d,a,b,c,x[i+10],9,38016083);
-      c = gg(c,d,a,b,x[i+15],14,-660478335); b = gg(b,c,d,a,x[i+4],20,-405537848);
-      a = gg(a,b,c,d,x[i+9],5,568446438); d = gg(d,a,b,c,x[i+14],9,-1019803690);
-      c = gg(c,d,a,b,x[i+3],14,-187363961); b = gg(b,c,d,a,x[i+8],20,1163531501);
-      a = gg(a,b,c,d,x[i+13],5,-1444681467); d = gg(d,a,b,c,x[i+2],9,-51403784);
-      c = gg(c,d,a,b,x[i+7],14,1735328473); b = gg(b,c,d,a,x[i+12],20,-1926607734);
-      a = hh(a,b,c,d,x[i+5],4,-378558); d = hh(d,a,b,c,x[i+8],11,-2022574463);
-      c = hh(c,d,a,b,x[i+11],16,1839030562); b = hh(b,c,d,a,x[i+14],23,-35309556);
-      a = hh(a,b,c,d,x[i+1],4,-1530992060); d = hh(d,a,b,c,x[i+4],11,1272893353);
-      c = hh(c,d,a,b,x[i+7],16,-155497632); b = hh(b,c,d,a,x[i+10],23,-1094730640);
-      a = hh(a,b,c,d,x[i+13],4,681279174); d = hh(d,a,b,c,x[i],11,-358537222);
-      c = hh(c,d,a,b,x[i+3],16,-722521979); b = hh(b,c,d,a,x[i+6],23,76029189);
-      a = hh(a,b,c,d,x[i+9],4,-640364487); d = hh(d,a,b,c,x[i+12],11,-421815835);
-      c = hh(c,d,a,b,x[i+15],16,530742520); b = hh(b,c,d,a,x[i+2],23,-995338651);
-      a = ii(a,b,c,d,x[i],6,-198630844); d = ii(d,a,b,c,x[i+7],10,1126891415);
-      c = ii(c,d,a,b,x[i+14],15,-1416354905); b = ii(b,c,d,a,x[i+5],21,-57434055);
-      a = ii(a,b,c,d,x[i+12],6,1700485571); d = ii(d,a,b,c,x[i+3],10,-1894986606);
-      c = ii(c,d,a,b,x[i+10],15,-1051523); b = ii(b,c,d,a,x[i+1],21,-2054922799);
-      a = ii(a,b,c,d,x[i+8],6,1873313359); d = ii(d,a,b,c,x[i+15],10,-30611744);
-      c = ii(c,d,a,b,x[i+6],15,-1560198380); b = ii(b,c,d,a,x[i+13],21,1309151649);
-      a = ii(a,b,c,d,x[i+4],6,-145523070); d = ii(d,a,b,c,x[i+11],10,-1120210379);
-      c = ii(c,d,a,b,x[i+2],15,718787259); b = ii(b,c,d,a,x[i+9],21,-343485551);
-      a = (a + oa) >>> 0; b = (b + ob) >>> 0; c = (c + oc) >>> 0; d = (d + od) >>> 0;
-    }
-    return [a, b, c, d];
-  }
-  const bytes = rstr(str);
-  return u2h(md5bl(bytes, str.length * 8));
-}
-
-// 签名验证
-function verifyXunhuSign(params, secret) {
-  const entries = Object.entries(params)
-    .filter(([k, v]) => k !== 'hash' && (v === 0 || v === '0' || v))
-    .sort(([a], [b]) => a.localeCompare(b));
-  const str = entries.map(([k, v]) => `${k}=${v}`).join('&') + secret;
-  return md5(str) === params.hash;
 }
 
 // 发送邮件（调用 Node.js Serverless /process 接口）
@@ -113,19 +187,26 @@ async function sendEmails(orderInfo, licenseCodes) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...orderInfo, licenseCodes })
     });
+    if (!resp.ok) {
+      console.error('邮件接口HTTP错误:', resp.status);
+      return false;
+    }
     const result = await resp.json();
     console.log('📧 邮件发送结果:', JSON.stringify(result));
-    return result;
+    return true;
   } catch (e) {
     console.error('❌ 转发失败:', e.message);
-    return { success: false, error: e.message };
+    return false;
   }
 }
 
+// ============================================================
+// 主处理函数
+// ============================================================
 export default async function handler(req) {
   const url = new URL(req.url);
 
-  // GET：浏览器跳转回来（用户取消支付）
+  // GET：浏览器跳转回来（用户取消或支付完成）
   if (req.method === 'GET') {
     const status = url.searchParams.get('status');
     const orderId = url.searchParams.get('trade_order_id');
@@ -140,19 +221,33 @@ export default async function handler(req) {
   }
 
   let bodyStr = '';
-  try { bodyStr = await req.text(); } catch (e) {
-    console.error('读取 body 失败:', e.message);
+  try {
+    bodyStr = await req.text();
+  } catch (e) {
+    console.error('读取body失败:', e.message);
+    return new Response('body read error', { status: 400 });
   }
 
   console.log('📡 Edge收到原始body:', bodyStr);
   const params = parseFormData(bodyStr);
-  const { trade_order_id, status, total_fee, attach } = params;
+  const { trade_order_id, status, total_fee, attach, hash } = params;
 
   console.log(`📋 订单: ${trade_order_id}, 状态: ${status}, 金额: ¥${total_fee}`);
 
+  // 签名验证（如果配置了密钥）
+  const appSecret = process.env.XUNHU_APP_SECRET;
+  if (appSecret && hash) {
+    const valid = verifyXunhuSign(params, appSecret);
+    console.log(`🔐 签名验证: ${valid ? '✅ 通过' : '❌ 失败'}`);
+    if (!valid) {
+      console.warn('签名不匹配，参数:', params);
+    }
+  }
+
   // 非成功状态直接返回
   if (status !== 'OD') {
-    return new Response('success', { status: 200 });
+    console.log('非支付成功状态，跳过处理');
+    return new Response('ok', { status: 200 });
   }
 
   // 解析订单信息
@@ -160,7 +255,8 @@ export default async function handler(req) {
   try {
     if (attach) orderInfo = JSON.parse(attach);
   } catch (e) {
-    console.error('❌ attach 解析失败:', e.message);
+    console.error('attach解析失败:', e.message);
+    return new Response('attach parse error', { status: 400 });
   }
 
   const plugins = typeof orderInfo.plugins === 'string'
@@ -169,13 +265,13 @@ export default async function handler(req) {
   const plan = orderInfo.plan || 'annual';
   const planName = PLAN_LABELS[plan] || plan;
 
-  // 生成授权码（带插件标注）
+  // 生成授权码
   const rawCodes = plugins.map(p => makeLicenseCode(p, plan));
   const labeledCodes = rawCodes.map(c => `${getCodeLabel(c, plugins)} ${c}`);
   console.log(`✅ 订单 ${trade_order_id} 支付成功!`);
   console.log(`   授权码: ${labeledCodes.join(' | ')}`);
 
-  // 构造传给 process.js 的完整信息
+  // 构造完整信息
   const fullOrderInfo = {
     trade_order_id,
     total_fee,
@@ -187,8 +283,9 @@ export default async function handler(req) {
     wechat: orderInfo.wechat
   };
 
-  // 触发邮件发送
+  // 触发邮件发送（非阻塞）
   await sendEmails(fullOrderInfo, rawCodes);
 
+  // 返回 success 给虎皮椒（重要！否则会重复回调）
   return new Response('success', { status: 200 });
 }
