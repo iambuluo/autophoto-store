@@ -1,15 +1,1 @@
-{
-  "framework": null,
-  "buildCommand": null,
-  "outputDirectory": null,
-  "installCommand": null,
-  "devCommand": null,
-  "regions": ["iad1"],
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs18.x",
-      "memory": 256,
-      "maxDuration": 10
-    }
-  }
-}
+{}
