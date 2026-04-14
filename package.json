@@ -1,0 +1,6 @@
+{
+  "name": "autophoto-store",
+  "version": "1.0.0",
+  "description": "AutoPhoto Chrome Plugin Store",
+  "type": "module"
+}

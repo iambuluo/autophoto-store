@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# 禁止爬取API和内部文件
+Disallow: /api/
+Disallow: /set-env.js
+Disallow: /test-*.js
+Disallow: /server/
+
+# Sitemap
+Sitemap: https://www.autophoto.store/sitemap.xml

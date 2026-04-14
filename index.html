@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="pageTitle">AutoPhoto · 图库插件全家桶 — 自动化上传·省时高效</title>
+  <!-- Baidu Tongji -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?831c86d9e9f695d415d2c0807057c2ed";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <meta name="description" data-i18n-meta="description" content="7款Chrome插件，覆盖视觉中国、新片场、光厂、Dreamstime、Adobe Stock等主流图库平台。一键自动填写、一键提交，大幅提升图库创收效率。">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 语言切换 -->
+  <div class="lang-switch">
+    <button class="lang-btn active" data-lang="zh">🇨🇳 中文</button>
+    <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+  </div>
+
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">AutoPhoto<span class="logo-dot">.store</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="active" data-i18n="nav.home">首页</a>
+        <a href="#plugins" data-i18n="nav.plugins">插件</a>
+        <a href="pricing.html" data-i18n="nav.pricing">定价</a>
+        <a href="about.html" data-i18n="nav.about">关于</a>
+      </div>
+      <a href="pricing.html" class="btn btn-primary btn-sm" data-i18n="nav.buy">立即购买</a>
+    </div>
+  </nav>
+
+  <!-- Hero区 -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badge" data-i18n="hero.badge">🔥 限时活动 · 全家桶7个插件仅¥1,397（5折）</div>
+      <h1 class="hero-title" data-i18n="hero.title">图库创作者的<br><span class="gradient-text">效率革命工具箱</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">7款Chrome插件，覆盖视觉中国、新片场、光厂、Dreamstime、Adobe Stock 等主流图库平台。<br class="hide-mobile">一键自动填写信息 · 一键批量提交 · 让你把时间花在真正重要的事情上</p>
+      <div class="hero-cta">
+        <a href="pricing.html" class="btn btn-primary btn-lg" data-i18n="hero.cta1">🛒 了解价格与套餐</a>
+        <a href="#plugins" class="btn btn-outline btn-lg" data-i18n="hero.cta2">📦 查看全部插件 →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-num">7</span><span class="stat-label" data-i18n="hero.stat1">款插件，覆盖7大平台</span></div>
+        <div class="stat-item"><span class="stat-num">2,000+</span><span class="stat-label" data-i18n="hero.stat2">活跃用户</span></div>
+        <div class="stat-item"><span class="stat-num">90%</span><span class="stat-label" data-i18n="hero.stat3">上传时间节省</span></div>
+        <div class="stat-item"><span class="stat-num">4.8</span><span class="stat-label" data-i18n="hero.stat4">用户平均评分</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 痛点区 -->
+  <section class="section pain-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="pain.title">手动上传的痛苦，你一定懂</h2>
+        <p data-i18n="pain.sub">把时间浪费在重复劳动上，还是专注于创作本身？</p>
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card pain-left">
+          <div class="pain-icon">😩</div>
+          <h3 data-i18n="pain.card1.title">手动填写 · 信息重复</h3>
+          <p data-i18n="pain.card1.desc">图库名称、关键词、描述，每个平台都要填一遍。标签重复度高，纯体力劳动。</p>
+        </div>
+        <div class="pain-card pain-center">
+          <div class="pain-icon">⏰</div>
+          <h3 data-i18n="pain.card2.title">效率极低 · 耗时耗力</h3>
+          <p data-i18n="pain.card2.desc">上传100张图，手动填写需要数小时。同一张图的信息要复制粘贴 N 次。</p>
+        </div>
+        <div class="pain-card pain-right">
+          <div class="pain-icon">🔥</div>
+          <h3 data-i18n="pain.card3.title">多平台管理 · 混乱出错</h3>
+          <p data-i18n="pain.card3.desc">7个平台，7套规则，7个账号。登录切换、规则记忆让人崩溃。</p>
+        </div>
+      </div>
+      <div class="solution-arrow" data-i18n="pain.arrow">↓ 用 AutoPhoto 全部解决 ↓</div>
+    </div>
+  </section>
+
+  <!-- 插件展示区 -->
+  <section class="section plugins-section" id="plugins">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="plugins.title">7款插件 · 覆盖7大主流图库平台</h2>
+        <p data-i18n="plugins.sub">每个插件专为对应平台优化，安装即用。支持 Chrome 浏览器（Edge/360均可）。</p>
+      </div>
+
+      <!-- 插件卡片区 -->
+      <div class="plugin-grid">
+
+        <!-- 1. 视觉中国 -->
+        <div class="plugin-card">
+          <div class="plugin-badge" data-i18n="plugins.vcg.badge">🔥 最受欢迎</div>
+          <div class="plugin-icon" style="background: linear-gradient(135deg, #e63946, #c1121f);">
+            <span>VCG</span>
+          </div>
+          <h3 class="plugin-name" data-i18n="plugins.vcg.name">视觉中国自动提交</h3>
+          <p class="plugin-desc" data-i18n="plugins.vcg.desc">导入 Excel 批量处理图片信息，按文件名自动匹配，一键填写标题和关键词，随机延迟模拟人工防检测。</p>
+          <ul class="plugin-features">
+            <li data-i18n="plugins.vcg.f1">✅ Excel 导入批量匹配图片</li>
+            <li data-i18n="plugins.vcg.f2">✅ 自动填写标题 + 关键词</li>
+            <li data-i18n="plugins.vcg.f3">✅ 自动点击平台推荐关键词</li>
+            <li data-i18n="plugins.vcg.f4">✅ 随机延迟防机器检测</li>
+          </ul>
+          <div class="plugin-prices">
+            <span class="price-tag" data-i18n="plugins.vcg.priceY">¥199/年</span>
+            <span class="price-tag price-perm" data-i18n="plugins.vcg.priceP">¥399永久</span>
+          </div>
+          <a href="plugins/shijuezhongguo.html" class="btn btn-outline btn-block" data-i18n="common.viewDetail">查看详情 →</a>
+        </div>
+
+        <!-- 2. 光厂 -->
+        <div class="plugin-card">
+          <div class="plugin-badge plugin-badge-new" data-i18n="plugins.vj.badge">✨ 新上架</div>
+          <div class="plugin-icon" style="background: linear-gradient(135deg, #2d6a4f, #40916c);">
+            <span>VJ</span>
+          </div>
+          <h3 class="plugin-name" data-i18n="plugins.vj.name">光厂批量提交助手</h3>
+          <p class="plugin-desc" data-i18n="plugins.vj.desc">专为 VJshi 光厂批量编辑页打造，自动点击 AI 推荐标题、填写创作时间、批量添加最多30个 AI 关键词，支持一键提交。</p>
+          <ul class="plugin-features">
+            <li data-i18n="plugins.vj.f1">✅ 自动点击 AI 推荐标题</li>
+            <li data-i18n="plugins.vj.f2">✅ 自动填写创作时间</li>
+            <li data-i18n="plugins.vj.f3">✅ 批量添加 AI 关键词（最多30个）</li>
+            <li data-i18n="plugins.vj.f4">✅ 支持4K/60帧特殊标签追加</li>
+          </ul>
+          <div class="plugin-prices">
+            <span class="price-tag" data-i18n="plugins.vj.priceY">¥199/年</span>
+            <span class="price-tag price-perm" data-i18n="plugins.vj.priceP">¥399永久</span>
+          </div>
+          <a href="plugins/guangchang.html" class="btn btn-outline btn-block" data-i18n="common.viewDetail">查看详情 →</a>
+        </div>
+
+        <!-- 3. 新片场 -->
+        <div class="plugin-card">
+          <div class="plugin-icon" style="background: linear-gradient(135deg, #f77f00, #ea6c00);">
+            <span>XC</span>
+          </div>
+          <h3 class="plugin-name" data-i18n="plugins.xc.name">新片场 AIGC 助手</h3>
+          <p class="plugin-desc" data-i18n="plugins.xc.desc">读取 Excel 数据，通过 CDP 协议模拟真实键鼠输入，自动填写图片标题和关键词，并自动在提交请求中标记 AI 内容。</p>
+          <ul class="plugin-features">
+            <li data-i18n="plugins.xc.f1">✅ Excel 导入，按文件名匹配逐图填写</li>
+            <li data-i18n="plugins.xc.f2">✅ 模拟真实键盘输入，绕过检测</li>
+            <li data-i18n="plugins.xc.f3">✅ 自动标记 AI 内容（is_ai 字段）</li>
+            <li data-i18n="plugins.xc.f4">✅ 实时日志显示处理进度</li>
+          </ul>
+          <div class="plugin-prices">
+            <span class="price-tag" data-i18n="plugins.xc.priceY">¥199/年</span>
+            <span class="price-tag price-perm" data-i18n="plugins.xc.priceP">¥399永久</span>
+          </div>
+          <a href="plugins/xinchangchang.html" class="btn btn-outline btn-block" data-i18n="common.viewDetail">查看详情 →</a>
+        </div>
+
+        <!-- 4. Dreamstime -->
+        <div class="plugin-card">
+          <div class="plugin-icon" style="background: linear-gradient(135deg, #3a86ff, #0055d4);">
+            <span>DT</span>
+          </div>
+          <h3 class="plugin-name" data-i18n="plugins.dt.name">Dreamstime 自动提交</h3>
+          <p class="plugin-desc" data-i18n="plugins.dt.desc">在 Dreamstime 上传编辑页注入悬浮控制面板，检测描述填写完成后自动点击提交按钮，支持 AI 图片分类标记和随机延迟。</p>
+          <ul class="plugin-features">
+            <li data-i18n="plugins.dt.f1">✅ 页面悬浮面板，一键开始/停止</li>
+            <li data-i18n="plugins.dt.f2">✅ 检测描述完成后自动提交</li>
+            <li data-i18n="plugins.dt.f3">✅ AI 图片自动分类标记</li>
+            <li data-i18n="plugins.dt.f4">✅ 随机等待延迟，页面刷新后自动恢复</li>
+          </ul>
+          <div class="plugin-prices">
+            <span class="price-tag" data-i18n="plugins.dt.priceY">¥199/年</span>
+            <span class="price-tag price-perm" data-i18n="plugins.dt.priceP">¥399永久</span>
+          </div>
+          <a href="plugins/dreamstime.html" class="btn btn-outline btn-block" data-i18n="common.viewDetail">查看详情 →</a>
+        </div>
+
+        <!-- 5. Adobe Stock -->
+        <div class="plugin-card">
+          <div class="plugin-badge plugin-badge-pro" data-i18n="plugins.as.badge">🚀 专业版</div>
+          <div class="plugin-icon" style="background: linear-gradient(135deg, #e63946, #b5179e);">
+            <span>AS</span>
+          </div>
+          <h3 class="plugin-name" data-i18n="plugins.as.name">Adobe Stock 关键词点击器</h3>
+          <p class="plugin-desc" data-i18n="plugins.as.desc">Adobe Stock 上传页专用，自动识别 Keyword Suggestions 区域，穿透 Shadow DOM 逐一点击关键词添加按钮，支持批量遍历多图。</p>
+          <ul class="plugin-features">
+            <li data-i18n="plugins.as.f1">✅ 自动点击全部推荐关键词（最多50个）</li>
+            <li data-i18n="plugins.as.f2">✅ 穿透 Shadow DOM，兼容 Adobe 组件</li>
+            <li data-i18n="plugins.as.f3">✅ 批量遍历多张图片逐一处理</li>
+            <li data-i18n="plugins.as.f4">✅ 钉钉 Webhook 实时通知</li>
+          </ul>
+          <div class="plugin-prices">
+            <span class="price-tag" data-i18n="plugins.as.priceY">¥199/年</span>
+            <span class="price-tag price-perm" data-i18n="plugins.as.priceP">¥399永久</span>
+          </div>
+          <a href="plugins/adobe-stock.html" class="btn btn-outline btn-block" data-i18n="common.viewDetail">查看详情 →</a>
+        </div>
+
+        <!-- 6. 清影生图 -->
+        <div class="plugin-card">
+          <div class="plugin-icon" style="background: linear-gradient(135deg, #7209b7, #560bad);">
+            <span>QY</span>
+          </div>
+          <h3 class="plugin-name" data-i18n="plugins.qy.name">清影批量生图助手</h3>
+          <p class="plugin-desc" data-i18n="plugins.qy.desc">在质谱清言（ChatGLM）批量输入提示词自动生成图片，自动开启去水印开关，依次点击缩略图触发高清下载，支持 VIP 4K 超清。</p>
+          <ul class="plugin-features">
+            <li data-i18n="plugins.qy.f1">✅ 批量提示词队列（支持Excel/TXT导入）</li>
+            <li data-i18n="plugins.qy.f2">✅ 自动开启去水印开关</li>
+            <li data-i18n="plugins.qy.f3">✅ 生成完毕自动下载无水印高清图</li>
+            <li data-i18n="plugins.qy.f4">✅ 断点续传，刷新后自动恢复任务</li>
+          </ul>
+          <div class="plugin-prices">
+            <span class="price-tag" data-i18n="plugins.qy.priceY">¥199/年</span>
+            <span class="price-tag price-perm" data-i18n="plugins.qy.priceP">¥399永久</span>
+          </div>
+          <a href="plugins/qingying-image.html" class="btn btn-outline btn-block" data-i18n="common.viewDetail">查看详情 →</a>
+        </div>
+
+        <!-- 7. 清影生视频 -->
+        <div class="plugin-card">
+          <div class="plugin-badge plugin-badge-new" data-i18n="plugins.qv.badge">✨ 新功能</div>
+          <div class="plugin-icon" style="background: linear-gradient(135deg, #4361ee, #3a0ca3);">
+            <span>QV</span>
+          </div>
+          <h3 class="plugin-name" data-i18n="plugins.qv.name">清影批量生视频助手</h3>
+          <p class="plugin-desc" data-i18n="plugins.qv.desc">在清影视频页注入悬浮控制面板，批量提交视频提示词（最多4个并发），监控生成完成后自动下载，任务状态12小时内可恢复。</p>
+          <ul class="plugin-features">
+            <li data-i18n="plugins.qv.f1">✅ 批量视频任务队列（最多4并发）</li>
+            <li data-i18n="plugins.qv.f2">✅ 悬浮面板实时显示进度</li>
+            <li data-i18n="plugins.qv.f3">✅ 生成完毕自动触发下载</li>
+            <li data-i18n="plugins.qv.f4">✅ 任务状态持久化，关闭可恢复</li>
+          </ul>
+          <div class="plugin-prices">
+            <span class="price-tag" data-i18n="plugins.qv.priceY">¥199/年</span>
+            <span class="price-tag price-perm" data-i18n="plugins.qv.priceP">¥399永久</span>
+          </div>
+          <a href="plugins/qingying-video.html" class="btn btn-outline btn-block" data-i18n="common.viewDetail">查看详情 →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 定价预览 -->
+  <section class="section pricing-preview">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="pricing.title">简单透明的定价</h2>
+        <p data-i18n="pricing.sub">买得越多，省得越多。全家桶7个插件仅¥1,397，相当于每个¥199永久拿下！</p>
+      </div>
+      <div class="pricing-mini-table">
+        <div class="pmt-row pmt-head">
+          <span data-i18n="pricing.table.col1">购买数量</span><span data-i18n="pricing.table.col2">折扣</span><span data-i18n="pricing.table.col3">年付均价/插件</span><span data-i18n="pricing.table.col4">永久均价/插件</span>
+        </div>
+        <div class="pmt-row"><span data-i18n="pricing.table.row1">1个插件</span><span data-i18n="pricing.table.discount0">原价</span><span>¥199</span><span>¥399</span></div>
+        <div class="pmt-row"><span data-i18n="pricing.table.row2">2个插件</span><span data-i18n="pricing.table.discount1">88折</span><span>¥175</span><span>¥351</span></div>
+        <div class="pmt-row"><span data-i18n="pricing.table.row3">3个插件</span><span data-i18n="pricing.table.discount2">8折</span><span>¥159</span><span>¥319</span></div>
+        <div class="pmt-row"><span data-i18n="pricing.table.row4">4个插件</span><span data-i18n="pricing.table.discount3">7折</span><span>¥139</span><span>¥279</span></div>
+        <div class="pmt-row"><span data-i18n="pricing.table.row5">5-6个插件</span><span data-i18n="pricing.table.discount4">6折</span><span>¥119</span><span>¥239</span></div>
+        <div class="pmt-row pmt-highlight"><span data-i18n="pricing.table.row7">7个全家桶</span><span data-i18n="pricing.table.discount5">5折</span><span>¥99/插件</span><span>¥199/插件</span></div>
+      </div>
+      <div class="pricing-preview-cta">
+        <a href="pricing.html" class="btn btn-primary btn-lg" data-i18n="pricing.viewAll">查看完整定价方案 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 用户评价 -->
+  <section class="section testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="testimonials.title">真实用户评价</h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p data-i18n="testimonials.c1.text">"光厂批量提交插件太牛了！以前上传100张图要花2小时，现在10分钟搞定，还能批量填写关键词，省了太多时间！"</p>
+          <div class="testimonial-author" data-i18n="testimonials.c1.author">— 张先生，摄影师，图库兼职创作者</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p data-i18n="testimonials.c2.text">"新片场AIGC助手解决了AI生成图片提交图库的大难题。自动提取参数，一键填写，太方便了！"</p>
+          <div class="testimonial-author" data-i18n="testimonials.c2.author">— 李女士，AIGC创作者</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p data-i18n="testimonials.c3.text">"视觉中国插件一直很稳定，客服响应也快。永久授权399元买断，非常值。已经推荐给工作室的朋友们了。"</p>
+          <div class="testimonial-author" data-i18n="testimonials.c3.author">— 王先生，专业图库摄影师</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="faq.title">常见问题</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h4 data-i18n="faq.q1.q">Q: 这些插件只能在Chrome上用吗？</h4>
+          <p data-i18n="faq.q1.a">支持 Chrome、Edge、360浏览器、百分浏览器等所有 Chromium 内核浏览器。</p>
+        </div>
+        <div class="faq-item">
+          <h4 data-i18n="faq.q2.q">Q: 购买后如何使用？有教学吗？</h4>
+          <p data-i18n="faq.q2.a">购买后自动发送授权码+安装教程。每个插件页面也有详细使用说明，B站也有视频教程。</p>
+        </div>
+        <div class="faq-item">
+          <h4 data-i18n="faq.q3.q">Q: 试用期怎么算？</h4>
+          <p data-i18n="faq.q3.a">每个插件支持1天试用（¥9.9），满意后再购买年付或永久授权。</p>
+        </div>
+        <div class="faq-item">
+          <h4 data-i18n="faq.q4.q">Q: 支持退款吗？</h4>
+          <p data-i18n="faq.q4.a">数字商品一经授权激活不支持退款，未激活可协商退款。质量问题我们100%负责。</p>
+        </div>
+        <div class="faq-item">
+          <h4 data-i18n="faq.q5.q">Q: 一个授权码可以多台电脑用吗？</h4>
+          <p data-i18n="faq.q5.a">每个授权码绑定一台设备。如需换设备，可联系客服解绑（每年限2次）。</p>
+        </div>
+        <div class="faq-item">
+          <h4 data-i18n="faq.q6.q">Q: 支持微信/支付宝付款吗？</h4>
+          <p data-i18n="faq.q6.a">支持的！我们接入了虎皮椒支付，支持微信、支付宝、QQ钱包等多种支付方式。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">AutoPhoto<span class="logo-dot">.store</span></div>
+          <p data-i18n="footer.desc">专注图库创作者效率工具，7款插件累计服务2000+用户。</p>
+          <p class="footer-contact" data-i18n="footer.contact">📧 tourinn@gmail.com<br>💬 微信：auto_photo2025</p>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer.products">插件产品</h4>
+          <a href="plugins/shijuezhongguo.html" data-i18n="plugins.vcg.name2">视觉中国自动提交</a>
+          <a href="plugins/guangchang.html" data-i18n="plugins.vj.name2">光厂批量提交助手</a>
+          <a href="plugins/xinchangchang.html" data-i18n="plugins.xc.name2">新片场 AIGC 助手</a>
+          <a href="plugins/dreamstime.html" data-i18n="plugins.dt.name2">Dreamstime 自动提交</a>
+          <a href="plugins/adobe-stock.html" data-i18n="plugins.as.name2">Adobe Stock 关键词点击器</a>
+          <a href="plugins/qingying-image.html" data-i18n="plugins.qy.name2">清影批量生图</a>
+          <a href="plugins/qingying-video.html" data-i18n="plugins.qv.name2">清影批量生视频</a>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer.support">支持</h4>
+          <a href="pricing.html" data-i18n="nav.pricing">定价方案</a>
+          <a href="about.html" data-i18n="nav.about">关于我们</a>
+          <a href="about.html#faq" data-i18n="footer.faq">常见问题</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer.copyright">© 2026 AutoPhoto.store · 用心做好每一个插件</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/i18n.js"></script>
+</body>
+</html>

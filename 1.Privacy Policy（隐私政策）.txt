@@ -1,0 +1,56 @@
+1. Privacy Policy（隐私政策）
+Privacy Policy for autophoto.store
+
+Last updated: April 14, 2026
+
+This Privacy Policy governs the collection, use, and disclosure of personal information by autophoto.store (the "Website"), owned and operated by [你的护照拼音全名，如 ZHANG SAN] (the "Operator"), for users of the Website's AI-generated photo/video tools, Chrome extensions, and digital plugins (the "Products").
+
+1. Information We Collect（我们收集的信息）
+
+We may collect the following personal information when you purchase or use our Products:（当你购买或使用我们的产品时，我们可能收集以下个人信息：）
+
+- Contact information: Email address provided during payment and order registration.（联系信息：付款和订单注册时提供的电子邮箱。）
+
+- Payment information: Billing details (processed securely by Stripe; we do not store your credit card or bank account information).（支付信息：账单详情（由Stripe安全处理；我们不存储你的信用卡或银行账户信息）。）
+
+- Usage data: Non-identifiable data about how you use our digital Products (e.g., plugin activation status, no personal data is associated with this usage).（使用数据：关于你使用我们数字产品的非识别性数据（如插件激活状态，此类使用数据不关联任何个人信息）。）
+
+2. Use of Collected Information（收集信息的用途）
+
+We use your personal information solely for the following purposes:（我们仅将你的个人信息用于以下目的：）
+
+- Process and fulfill your product orders, including instant delivery of digital Products (e.g., Chrome extension download links, tool activation codes).（处理并履行你的产品订单，包括数字产品的即时交付（如Chrome插件下载链接、工具激活码）。）
+
+- Verify payment authenticity and prevent fraudulent transactions (in compliance with Stripe's payment security requirements).（验证支付真实性，防范欺诈交易（符合Stripe支付安全要求）。）
+
+- Respond to your customer service inquiries and resolve technical issues related to our Products.（响应你的客户服务咨询，解决与我们产品相关的技术问题。）
+
+3. Disclosure of Information（信息披露）
+
+We will not sell, rent, or share your personal information with third parties, except:（我们不会向第三方出售、出租或分享你的个人信息，除非：）
+
+- When required by law (e.g., court orders, regulatory requests).（法律要求时（如法院命令、监管要求）。）
+
+- To our trusted payment processor Stripe, which processes your payments in compliance with PCI DSS standards (Stripe's privacy policy applies to their data handling).（提供给我们信任的支付处理商Stripe，其将按照PCI DSS标准处理你的支付（Stripe的隐私政策适用于其数据处理）。）
+
+- With your explicit written consent.（获得你的明确书面同意时。）
+
+4. Data Security（数据安全）
+
+We take reasonable measures to protect your personal information from unauthorized access, alteration, or destruction. All payment transactions are encrypted and processed securely by Stripe; we do not store sensitive payment data on our servers.（我们采取合理措施保护你的个人信息免受未授权访问、修改或损坏。所有支付交易均由Stripe加密并安全处理；我们不在自己的服务器上存储敏感支付数据。）
+
+5. Your Rights（你的权利）
+
+You may request access to, correction of, or deletion of your personal information by contacting us at tourinn@gmail.com. We will respond to valid requests within 24 business hours.（你可通过发送邮件至tourinn@gmail.com，申请访问、更正或删除你的个人信息。我们将在24个工作日内响应有效请求。）
+
+6. Changes to This Policy（政策变更）
+
+We reserve the right to update this Privacy Policy at any time. Changes will be posted on this page with an updated "Last updated" date. Your continued use of the Website after changes constitutes your acceptance of the revised policy.（我们保留随时更新本隐私政策的权利。变更将在本页面发布，并更新“最后更新日期”。变更后继续使用本网站，即表示你接受修订后的政策。）
+
+7. Contact Us（联系我们）
+
+If you have any questions about this Privacy Policy, contact us at:（如你对本隐私政策有任何疑问，请通过以下方式联系我们：）
+
+Email: tourinn@gmail.com
+
+Website: https://autophoto.store

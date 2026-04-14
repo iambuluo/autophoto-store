@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+dist/
+build/
+
+# Environment files (contain secrets)
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Scripts with secrets
+upload-*.js
+deploy-*.js
+*.push.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Uploads (if any)
+uploads/
+.env*.local
+
+# Local Node.js server (Vercel uses api/ directory instead)
+server/
+!server/.gitkeep

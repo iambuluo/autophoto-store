@@ -1,0 +1,446 @@
+﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="buy.title">购买 · AutoPhoto 图库插件</title>
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?831c86d9e9f695d415d2c0807057c2ed";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- 语言切换 -->
+  <div class="lang-switch">
+    <button class="lang-btn active" data-lang="zh">🇨🇳 中文</button>
+    <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+  </div>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">AutoPhoto<span class="logo-dot">.store</span></a>
+      <div class="nav-links">
+        <a href="index.html" data-i18n="nav.home">首页</a>
+        <a href="index.html#plugins" data-i18n="nav.plugins">插件</a>
+        <a href="pricing.html" data-i18n="nav.pricing">定价</a>
+        <a href="about.html" data-i18n="nav.about">关于</a>
+      </div>
+      <a href="buy.html" class="btn btn-primary btn-sm" data-i18n="nav.buy">立即购买</a>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container checkout-section">
+      <div class="page-hero" style="padding-bottom:20px;">
+        <h1 data-i18n="buy.title">购买插件授权</h1>
+        <p data-i18n="buy.subtitle">选择插件 + 选择方案 → 扫码付款 → 立刻收到授权码</p>
+      </div>
+
+      <!-- 插件选择 -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;" data-i18n="buy.step1">第一步：选择插件（可多选）</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;" id="plugin-selector">
+          <label class="plugin-select-card" data-plugin="shijuezhongguo">
+            <input type="checkbox" name="plugins" value="shijuezhongguo">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#e63946,#c1121f);">VCG</span>
+            <span class="psc-name" data-i18n="plugins.vcg.name">视觉中国自动提交</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="guangchang">
+            <input type="checkbox" name="plugins" value="guangchang">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#2d6a4f,#40916c);">VJ</span>
+            <span class="psc-name" data-i18n="plugins.vj.name">光厂批量提交助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="xinchangchang">
+            <input type="checkbox" name="plugins" value="xinchangchang">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#f77f00,#ea6c00);">XC</span>
+            <span class="psc-name" data-i18n="plugins.xc.name">新片场 AIGC 助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="dreamstime">
+            <input type="checkbox" name="plugins" value="dreamstime">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#3a86ff,#0055d4);">DT</span>
+            <span class="psc-name" data-i18n="plugins.dt.name">Dreamstime 自动提交</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="adobe-stock">
+            <input type="checkbox" name="plugins" value="adobe-stock">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#e63946,#b5179e);">AS</span>
+            <span class="psc-name" data-i18n="plugins.as.name">Adobe Stock 关键词点击器</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="qingying-image">
+            <input type="checkbox" name="plugins" value="qingying-image">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#7209b7,#560bad);">QY</span>
+            <span class="psc-name" data-i18n="plugins.qy.name">清影批量生图助手</span>
+          </label>
+          <label class="plugin-select-card" data-plugin="qingying-video">
+            <input type="checkbox" name="plugins" value="qingying-video">
+            <span class="psc-icon" style="background:linear-gradient(135deg,#4361ee,#3a0ca3);">QV</span>
+            <span class="psc-name" data-i18n="plugins.qv.name">清影批量生视频助手</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 授权类型 -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;" data-i18n="buy.step2">第二步：选择授权类型</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;" id="plan-selector">
+          <label class="plan-select-card" data-plan="testpay" data-price-cny="0.01" data-price-usd="0.01" style="border-color:#22c55e;">
+            <input type="radio" name="plan" value="testpay">
+            <div class="psc-name" style="color:#22c55e;">¥0.01 Test</div>
+            <div class="psc-price psc-price-testpay" style="color:#22c55e;">¥0.01</div>
+            <div class="psc-desc" data-i18n-zh="真实支付，验证全流程" data-i18n-en="Real payment, test full flow">真实支付，验证全流程</div>
+          </label>
+          <label class="plan-select-card" data-plan="trial" data-price-cny="9.9" data-price-usd="1.5">
+            <input type="radio" name="plan" value="trial">
+            <div class="psc-name" data-i18n="buy.plan.trial">1天试用</div>
+            <div class="psc-price psc-price-trial">¥9.9</div>
+            <div class="psc-desc" data-i18n-zh="适合尝鲜" data-i18n-en="Perfect for trying out">适合尝鲜</div>
+          </label>
+          <label class="plan-select-card selected" data-plan="annual" data-price-cny="199" data-price-usd="29">
+            <input type="radio" name="plan" value="annual" checked>
+            <div class="psc-name" data-i18n="buy.plan.annual">年度授权</div>
+            <div class="psc-price psc-price-annual">¥199<span data-i18n-zh="/插件/年" data-i18n-en="/plugin/yr">/插件/年</span></div>
+            <div class="psc-desc" data-i18n-zh="性价比最高" data-i18n-en="Best value">性价比最高</div>
+          </label>
+          <label class="plan-select-card" data-plan="permanent" data-price-cny="399" data-price-usd="69">
+            <input type="radio" name="plan" value="permanent">
+            <div class="psc-name" data-i18n="buy.plan.permanent">永久授权</div>
+            <div class="psc-price psc-price-permanent">¥399<span data-i18n-zh="/插件" data-i18n-en="/plugin">/插件</span></div>
+            <div class="psc-desc" data-i18n-zh="买断终身" data-i18n-en="Pay once, own forever">买断终身</div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 订单摘要 -->
+      <div class="checkout-summary" id="order-summary" style="margin-bottom:24px;">
+        <h4>📋 <span data-i18n-zh="订单摘要" data-i18n-en="Order Summary">订单摘要</span></h4>
+        <div class="checkout-line">
+          <span data-i18n-zh="已选插件" data-i18n-en="Selected Plugins">已选插件</span>
+          <span id="summary-plugins" data-i18n-zh-placeholder="请选择插件" data-i18n-en-placeholder="Please select plugins">请选择插件</span>
+        </div>
+        <div class="checkout-line">
+          <span data-i18n-zh="授权类型" data-i18n-en="License Type">授权类型</span>
+          <span id="summary-plan" data-i18n-zh="年度授权" data-i18n-en="Annual">年度授权</span>
+        </div>
+        <div class="checkout-line">
+          <span data-i18n-zh="折扣" data-i18n-en="Discount">折扣</span>
+          <span id="summary-discount">—</span>
+        </div>
+        <div class="checkout-total">
+          <span data-i18n-zh="应付总额" data-i18n-en="Total">应付总额</span>
+          <span id="summary-total">¥0.00</span>
+        </div>
+      </div>
+
+      <!-- 联系信息 -->
+      <form class="checkout-form" id="checkout-form" onsubmit="handleCheckout(event)">
+        <h3 style="font-size:18px;font-weight:700;" data-i18n-zh="第三步：填写联系方式" data-i18n-en="Step 3: Contact Info">第三步：填写联系方式</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="form-group">
+            <label for="name" data-i18n-zh="姓名 *" data-i18n-en="Name *">姓名 *</label>
+            <input type="text" id="name" name="name" data-i18n-zh-placeholder="您的姓名" data-i18n-en-placeholder="Your name" placeholder="您的姓名" required>
+          </div>
+          <div class="form-group">
+            <label for="email" data-i18n="buy.email.label">邮箱 *</label>
+            <input type="email" id="email" name="email" data-i18n="buy.email.placeholder" placeholder="接收授权码" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wechat" data-i18n-zh="微信号（选填）" data-i18n-en="WeChat (optional)">微信号（选填）</label>
+          <input type="text" id="wechat" name="wechat" data-i18n-zh-placeholder="有问题方便联系您" data-i18n-en-placeholder="Optional, for support" placeholder="有问题方便联系您">
+        </div>
+        <div class="form-group">
+          <label for="notes" data-i18n-zh="备注（选填）" data-i18n-en="Notes (optional)">备注（选填）</label>
+          <input type="text" id="notes" name="notes" data-i18n-zh-placeholder="如需要特定插件组合、特殊要求等" data-i18n-en-placeholder="Special requests, plugin combos, etc." placeholder="如需要特定插件组合、特殊要求等">
+        </div>
+        <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:14px;font-size:13px;color:var(--text-muted);">
+          <span data-i18n-zh="⚠️ 支付成功后，授权码将发送到您的邮箱。同时可加微信 <strong>auto_photo2025</strong> 获取技术支持。"
+                data-i18n-en="⚠️ After payment, your license key will be sent to your email instantly. Contact us via WeChat <strong>auto_photo2025</strong> for support.">
+            ⚠️ 支付成功后，授权码将发送到您的邮箱。同时可加微信 <strong>auto_photo2025</strong> 获取技术支持。
+          </span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-btn">
+          🛒 <span id="btn-text" data-i18n-zh="前往支付" data-i18n-en="Pay Now">前往支付</span>（<span id="currency-symbol">¥</span><span id="btn-price">0.00</span>）
+        </button>
+        <p class="text-sm text-muted text-center" data-i18n="buy.secure">
+          💳 支付方式：微信 / 支付宝（通过虎皮椒安全支付）
+        </p>
+      </form>
+
+    </div>
+  </section>
+
+  <style>
+    .plugin-select-card {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.03); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: 0.2s;
+    }
+    .plugin-select-card:hover { border-color: var(--border-light); background: rgba(255,255,255,0.05); }
+    .plugin-select-card.selected { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+    .plugin-select-card input { display: none; }
+    .psc-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #fff; flex-shrink: 0; }
+    .psc-name { font-size: 13px; font-weight: 500; }
+    .psc-price { font-size: 18px; font-weight: 800; color: var(--primary-light); }
+    .psc-price span { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+    .psc-desc { font-size: 11px; color: var(--text-dim); }
+    .plan-select-card {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.03); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 16px; cursor: pointer; text-align: center; transition: 0.2s;
+    }
+    .plan-select-card:hover { border-color: var(--border-light); }
+    .plan-select-card.selected { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+    .plan-select-card input { display: none; }
+    @media(max-width:600px){ .plan-select-card { flex-direction:row;justify-content:space-between;text-align:left; } }
+  </style>
+
+  <script src="/js/main.js"></script>
+  <script>
+    // 价格配置（CNY / USD 双币）
+    const PLAN_PRICES_CNY = { testpay: 0.01, trial: 9.9, annual: 199, permanent: 399 };
+    const PLAN_PRICES_USD = { testpay: 0.01, trial: 1.5, annual: 29, permanent: 69 };
+    const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
+
+    const PLUGIN_NAMES_ZH = {
+      shijuezhongguo: '视觉中国自动提交', guangchang: '光厂批量提交助手',
+      xinchangchang: '新片场 AIGC 助手', dreamstime: 'Dreamstime 自动提交',
+      'adobe-stock': 'Adobe Stock 关键词点击器',
+      'qingying-image': '清影批量生图助手', 'qingying-video': '清影批量生视频助手'
+    };
+    const PLUGIN_NAMES_EN = {
+      shijuezhongguo: 'Visual China Auto Submit', guangchang: 'Guang Chang Batch Submit',
+      xinchangchang: 'Xinchangchang AIGC', dreamstime: 'Dreamstime Auto Submit',
+      'adobe-stock': 'Adobe Stock Keyword Clicker',
+      'qingying-image': 'Qingying Image Gen', 'qingying-video': 'Qingying Video Gen'
+    };
+
+    let selectedPlugins = [];
+    let selectedPlan = 'annual';
+    let currentLang = localStorage.getItem('ap_lang') || 'zh';
+
+    // 从URL参数中获取插件ID并自动选择
+    function autoSelectPlugin() {
+      const params = new URLSearchParams(window.location.search);
+      const pluginParam = params.get('plugin');
+      if (pluginParam) {
+        const pluginCard = document.querySelector(`.plugin-select-card[data-plugin="${pluginParam}"]`);
+        if (pluginCard) {
+          const checkbox = pluginCard.querySelector('input[type="checkbox"]');
+          if (checkbox && !checkbox.checked) {
+            checkbox.checked = true;
+            pluginCard.classList.add('selected');
+            updateSummary();
+          }
+        }
+      }
+    }
+
+    // 页面加载完成后自动选择插件
+    window.addEventListener('DOMContentLoaded', autoSelectPlugin);
+
+    function getPluginNames() { return currentLang === 'en' ? PLUGIN_NAMES_EN : PLUGIN_NAMES_ZH; }
+    function getPlanPrices() { return currentLang === 'en' ? PLAN_PRICES_USD : PLAN_PRICES_CNY; }
+    function getCurrencySymbol() { return currentLang === 'en' ? '$' : '¥'; }
+
+    // 插件选择
+    document.querySelectorAll('.plugin-select-card').forEach(card => {
+      const cb = card.querySelector('input[type="checkbox"]');
+      cb.addEventListener('change', () => {
+        card.classList.toggle('selected', cb.checked);
+        updateSummary();
+      });
+    });
+
+    // 方案选择
+    document.querySelectorAll('.plan-select-card').forEach(card => {
+      const radio = card.querySelector('input[type="radio"]');
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
+        document.querySelectorAll('.plan-select-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedPlan = card.dataset.plan;
+        updateSummary();
+      });
+    });
+
+    function updateSummary() {
+      const PRICES = getPlanPrices();
+      const SYM = getCurrencySymbol();
+      const NAMES = getPluginNames();
+
+      selectedPlugins = Array.from(document.querySelectorAll('input[name="plugins"]:checked')).map(cb => cb.value);
+      const count = selectedPlugins.length;
+      const discount = DISCOUNTS[count] || 1.0;
+      const unitPrice = PRICES[selectedPlan];
+      const total = (unitPrice * count * discount).toFixed(2);
+      const saving = (unitPrice * count * (1 - discount)).toFixed(2);
+
+      const summaryPlugins = document.getElementById('summary-plugins');
+      if (count === 0) {
+        summaryPlugins.textContent = currentLang === 'en' ? 'Please select plugins' : '请选择插件';
+      } else if (count <= 3) {
+        summaryPlugins.textContent = selectedPlugins.map(p => NAMES[p] || p).join(currentLang === 'en' ? ', ' : '、');
+      } else {
+        summaryPlugins.textContent = currentLang === 'en'
+          ? `${count} plugins selected`
+          : `已选 ${count} 个插件`;
+      }
+
+      const discountEl = document.getElementById('summary-discount');
+      if (count <= 1) {
+        discountEl.textContent = '—';
+      } else {
+        discountEl.textContent = currentLang === 'en'
+          ? `${Math.round((1 - discount) * 100)}% off (save ${SYM}${saving})`
+          : `${Math.round(discount * 10)}折（节省${SYM}${saving}）`;
+      }
+
+      const planLabels = {
+        zh: { testpay: '¥0.01 测试', trial: '1天试用', annual: '年度授权', permanent: '永久授权' },
+        en: { testpay: '$0.01 Test', trial: '1-Day Trial', annual: 'Annual', permanent: 'Lifetime' }
+      };
+      document.getElementById('summary-plan').textContent = planLabels[currentLang][selectedPlan];
+      document.getElementById('summary-total').textContent = SYM + total;
+      document.getElementById('btn-price').textContent = total;
+      document.getElementById('currency-symbol').textContent = SYM;
+
+      // 更新方案卡片价格显示
+      updatePlanCardPrices();
+    }
+
+    function updatePlanCardPrices() {
+      const PRICES = getPlanPrices();
+      const SYM = getCurrencySymbol();
+      const priceConfigs = {
+        testpay: { main: SYM + '0.01', suffix: '' },
+        trial:   { main: SYM + PRICES.trial, suffix: currentLang === 'en' ? '' : '' },
+        annual:  { main: SYM + PRICES.annual, suffix: currentLang === 'en' ? '/plugin/yr' : '/插件/年' },
+        permanent: { main: SYM + PRICES.permanent, suffix: currentLang === 'en' ? '/plugin' : '/插件' },
+      };
+      Object.entries(priceConfigs).forEach(([plan, config]) => {
+        const el = document.querySelector(`.psc-price-${plan}`);
+        if (el) el.innerHTML = `${config.main}<span>${config.suffix}</span>`;
+      });
+
+      // 更新 data-i18n-zh/en 的内联元素
+      document.querySelectorAll('[data-i18n-zh]').forEach(el => {
+        const key = `data-i18n-${currentLang}`;
+        if (el.hasAttribute(key)) el.innerHTML = el.getAttribute(key);
+      });
+      document.querySelectorAll('[data-i18n-zh-placeholder]').forEach(el => {
+        const key = `data-i18n-${currentLang}-placeholder`;
+        if (el.hasAttribute(key)) el.placeholder = el.getAttribute(key);
+      });
+    }
+
+    // 监听语言切换（由 i18n.js 触发后更新价格）
+    document.addEventListener('langChanged', (e) => {
+      currentLang = e.detail.lang;
+      updateSummary();
+    });
+
+    updateSummary();
+
+    // ============ 支付处理 ============
+    async function handleCheckout(e) {
+      e.preventDefault();
+      if (selectedPlugins.length === 0) {
+        alert(currentLang === 'en' ? 'Please select at least one plugin!' : '请至少选择一个插件！');
+        return;
+      }
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const wechat = document.getElementById('wechat').value;
+      const notes = document.getElementById('notes').value;
+      const count = selectedPlugins.length;
+      const discount = DISCOUNTS[count] || 1.0;
+      const PRICES = getPlanPrices();
+      const SYM = getCurrencySymbol();
+      const total = (PRICES[selectedPlan] * count * discount).toFixed(2);
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = currentLang === 'en' ? '⏳ Creating order...' : '⏳ 正在创建订单...';
+
+      try {
+        const resp = await fetch('/api/order-create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plugins: selectedPlugins, plan: selectedPlan, name, email, wechat, notes, lang: currentLang })
+        });
+
+        let data;
+        try { data = await resp.json(); }
+        catch (e) {
+          alert(currentLang === 'en' ? 'Server response error, please retry.' : '服务器响应格式错误，请稍后重试');
+          resetBtn(submitBtn, total, SYM);
+          return;
+        }
+
+        if (!data.success) {
+          alert((currentLang === 'en' ? 'Order creation failed: ' : '订单创建失败: ') + (data.error || (currentLang === 'en' ? 'Unknown error' : '未知错误')));
+          resetBtn(submitBtn, total, SYM);
+          return;
+        }
+
+        if (data.mode === 'demo') {
+          showDemoResult(data, selectedPlugins, selectedPlan, count, total, name, email);
+        } else if (data.mode === 'xunhu') {
+          localStorage.setItem('autophoto_order_' + data.orderNo, JSON.stringify({
+            plugins: selectedPlugins, plan: selectedPlan, count, total, name, email
+          }));
+          window.location.href = data.paymentUrl;
+        }
+      } catch (err) {
+        let errDetail = currentLang === 'en' ? 'Network error, please retry.' : '网络错误，请稍后重试';
+        if (!navigator.onLine) errDetail = currentLang === 'en' ? 'No internet connection.' : '网络已断开，请检查网络连接';
+        alert(errDetail + '\n' + err.message);
+        resetBtn(submitBtn, total, SYM);
+      }
+    }
+
+    function resetBtn(btn, total, sym) {
+      btn.disabled = false;
+      btn.innerHTML = currentLang === 'en'
+        ? `🛒 Pay Now (${sym}${total})`
+        : `🛒 前往支付（${sym}${total}）`;
+    }
+
+    function showDemoResult(data, plugins, plan, count, total, name, email) {
+      const NAMES = getPluginNames();
+      const SYM = getCurrencySymbol();
+      const codes = data.licenseCodesLabeled || [];
+      const planLabel = { testpay:'Test', trial:'Trial', annual:'Annual', permanent:'Lifetime' }[plan];
+      document.querySelector('.checkout-section').innerHTML = `
+<div class="result-page">
+  <div class="result-card">
+    <div class="result-icon">🎉</div>
+    <h2>${currentLang === 'en' ? 'Demo Mode: Order Created' : '演示模式：订单已创建'}</h2>
+    <p>${currentLang === 'en'
+      ? 'Payment gateway not yet configured. This is a demo preview.'
+      : '虎皮椒后端未配置，此为演示效果。正式版将跳转至支付页。'}</p>
+    <div style="background:rgba(99,102,241,0.08);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:left;font-size:14px;color:var(--text-muted);">
+      <div style="margin-bottom:6px;"><strong>${currentLang === 'en' ? 'Plugins' : '插件'}：</strong>${plugins.map(p=>NAMES[p]||p).join(', ')}</div>
+      <div style="margin-bottom:6px;"><strong>${currentLang === 'en' ? 'License' : '授权'}：</strong>${planLabel} × ${count}</div>
+      <div style="margin-bottom:6px;"><strong>${currentLang === 'en' ? 'Total' : '应付'}：</strong>${SYM}${total}</div>
+      <div style="margin-bottom:6px;"><strong>Email：</strong>${email}</div>
+      <div style="margin-top:12px;color:var(--success);font-weight:700;">🎁 ${currentLang === 'en' ? 'License Keys (demo)' : '授权码（演示）'}：</div>
+      ${codes.map(c=>`<div style="font-family:monospace;color:var(--primary-light);margin-top:4px;">${c}</div>`).join('')}
+    </div>
+    <div style="display:flex;gap:12px;margin-top:20px;">
+      <a href="index.html" class="btn btn-primary btn-block">${currentLang === 'en' ? 'Back to Home' : '返回首页'}</a>
+    </div>
+  </div>
+</div>`;
+    }
+  </script>
+
+  <script src="/js/i18n.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+3. Terms of Service（服务条款）
+Terms of Service for autophoto.store
+
+Last updated: April 14, 2026
+
+These Terms of Service (the "Terms") govern your use of the website autophoto.store (the "Website") and the purchase and use of all digital products (AI photo/video tools, Chrome extensions, digital plugins) (the "Products") offered on the Website, owned and operated by DENG FAN(the "Operator"). By accessing the Website or purchasing any Product, you agree to be bound by these Terms.（本服务条款（以下简称“条款”）管辖你对网站autophoto.store（以下简称“网站”）的使用，以及对网站上提供的所有数字产品（AI摄影/视频工具、Chrome插件、数字插件）（以下简称“产品”）的购买和使用。网站及产品由DENG FAN（以下简称“运营方”）拥有和运营。访问本网站或购买任何产品，即表示你同意受本条款约束。）
+
+1. License Grant（许可授予）
+
+- Upon payment confirmation, the Operator grants you anon-exclusive, non-transferable, personal license to use the purchased Products for your own personal or non-commercial use only.（付款确认后，运营方授予你“非独占、不可转让的个人许可”，仅允许你将所购产品用于个人或非商业用途。）
+
+- You may not resell, distribute, reproduce, modify, reverse engineer, or share the Products (or any part of them) with third parties, including but not limited to sharing download links, activation codes, or modified versions of the Products.（你不得向第三方转售、分发、复制、修改、反向工程或分享产品（或其任何部分），包括但不限于分享下载链接、激活码或修改版产品。）
+
+- You may install the Products on a limited number of your own devices (maximum 5 devices per Product license); any unauthorized installation or use will result in immediate license revocation.（你可将产品安装在自己的有限数量设备上（每个产品许可最多5台设备）；任何未授权安装或使用将导致许可立即被撤销。）
+
+2. User Responsibilities（用户责任）
+
+- You represent that you are at least 18 years of age (or the legal age of majority in your jurisdiction) and have the legal capacity to enter into these Terms.（你声明你已年满18周岁（或你所在司法管辖区的法定成年年龄），并具有签订本条款的法律行为能力。）
+
+- You agree to use the Products in compliance with all applicable local, national, and international laws and regulations.（你同意遵守所有适用的地方、国家和国际法律法规使用产品。）
+
+- You agree not to use the Products for any unlawful, harmful, or infringing purposes (e.g., generating copyrighted material without permission, creating defamatory or obscene content, engaging in fraudulent activities).（你同意不将产品用于任何非法、有害或侵权目的（如未经许可生成受版权保护的素材、创建诽谤或淫秽内容、参与欺诈活动）。）
+
+3. Product Availability and Modifications（产品可用性及修改）
+
+- The Operator reserves the right to update, modify, or discontinue any Product at any time without prior notice. No compensation will be provided for discontinued or modified Products.（运营方保留随时更新、修改或终止任何产品的权利，无需提前通知。对于终止或修改的产品，不提供任何补偿。）
+
+- The Operator does not guarantee that the Products will be free of bugs or errors, or that the Website will be continuously available (downtime for maintenance or technical issues may occur).（运营方不保证产品无漏洞或错误，也不保证网站持续可用（可能因维护或技术问题出现停机）。）
+
+4. Limitation of Liability（责任限制）
+
+- To the fullest extent permitted by law, the Operator shall not be liable for any direct, indirect, incidental, or consequential damages arising from your use of the Website or Products (e.g., loss of data, lost profits, device damage).（在法律允许的最大范围内，运营方不对因你使用网站或产品而产生的任何直接、间接、附带或后果性损害承担责任（如数据丢失、利润损失、设备损坏）。）
+
+- The Operator's total aggregate liability to you for any claim related to the Products or Website shall not exceed the total amount you paid for the relevant Product.（运营方对你因产品或网站产生的任何索赔的总责任，不超过你为相关产品支付的总金额。）
+
+- This limitation of liability applies even if the Operator has been advised of the possibility of such damages.（即使运营方已被告知可能产生此类损害，本责任限制仍适用。）
+
+5. Intellectual Property（知识产权）
+
+- All intellectual property rights (copyright, trademark, patent, trade secret) in the Products and Website (including text, graphics, code, and design) are owned exclusively by the Operator.（产品和网站中的所有知识产权（版权、商标、专利、商业秘密）均由运营方独家拥有（包括文本、图形、代码和设计）。）
+
+- No part of the Website or Products may be copied, reproduced, or used without the Operator's explicit written permission.（未经运营方明确书面许可，不得复制、再现或使用网站或产品的任何部分。）
+
+6. Termination（终止）
+
+- The Operator may immediately terminate your license to use the Products and access to the Website if you violate any of these Terms (e.g., reselling Products, chargeback without prior contact, unlawful use).（如你违反本条款的任何规定（如转售产品、未经联系发起拒付、非法使用），运营方可立即终止你的产品使用许可和网站访问权限。）
+
+- Upon termination, you must delete all copies of the Products from your devices and cease all use of the Products.（终止后，你必须从你的设备中删除产品的所有副本，并停止使用所有产品。）
+
+7. Governing Law（适用法律）
+
+These Terms shall be governed by and construed in accordance with the laws of the Hong Kong Special Administrative Region. Any disputes arising from these Terms shall be resolved through amicable negotiation; if negotiation fails, disputes shall be submitted to the courts of the Hong Kong Special Administrative Region.（本条款受香港特别行政区法律管辖并据其解释。因本条款产生的任何争议，应通过友好协商解决；协商不成的，提交香港特别行政区法院解决。）
+
+8. Contact Us（联系我们）
+
+For questions about these Terms, contact us at:（如你对本条款有任何疑问，请联系我们：）
+
+Email: tourinn@gmail.com
+
+Website: https://autophoto.store
