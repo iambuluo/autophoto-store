@@ -1,27 +1,25 @@
 {
   "functions": {
     "api/health.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs@18"
     },
     "api/license-query.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs@18"
     },
     "api/order-create.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs@18"
     },
     "api/stripe.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs@18"
     },
     "api/xunhupay/callback.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs@18"
     },
     "api/xunhupay/process.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs@18"
     },
     "api/admin/orders.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs@18"
     }
-  },
-  "buildCommand": null,
-  "outputDirectory": null
+  }
 }
