@@ -6,8 +6,18 @@
  */
 
 const Stripe = require('stripe');
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-11-20.acacia' });
 const crypto = require('crypto');
+
+// 懒加载 Stripe（避免模块加载时因 KEY 缺失而崩溃）
+let _stripe = null;
+function getStripe() {
+  if (!_stripe) {
+    const key = process.env.STRIPE_SECRET_KEY;
+    if (!key) throw new Error('STRIPE_SECRET_KEY not configured');
+    _stripe = new Stripe(key, { apiVersion: '2024-11-20.acacia' });
+  }
+  return _stripe;
+}
 
 // ============================================================
 // 共享配置
@@ -123,7 +133,7 @@ async function handleCreateCheckout(req, res) {
   const label = PLAN_LABELS[plan] || plan;
   const origin = req.headers.origin || 'https://www.autophoto.store';
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     payment_method_types: ['card'],
     line_items: [{
       price_data: {
@@ -160,7 +170,7 @@ async function handleCallback(req, res) {
   try {
     // Stripe sends JSON body; reconstruct for signature verification
     const rawBody = (typeof req.body === 'string') ? req.body : JSON.stringify(req.body);
-    event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
+    event = getStripe().webhooks.constructEvent(rawBody, sig, webhookSecret);
   } catch (err) {
     console.error('Webhook signature error:', err.message);
     res.status(400).send(`Webhook Error: ${err.message}`);
