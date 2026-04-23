@@ -39,3 +39,4 @@ uploads/
 # Local Node.js server (Vercel uses api/ directory instead)
 server/
 !server/.gitkeep
+.vercel
