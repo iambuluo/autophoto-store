@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -168,7 +168,9 @@
           🛒 <span id="btn-text" data-i18n-zh="前往支付" data-i18n-en="Pay Now">前往支付</span>（<span id="currency-symbol">¥</span><span id="btn-price">0.00</span>）
         </button>
         <p class="text-sm text-muted text-center" data-i18n="buy.secure">
-          💳 支付方式：微信 / 支付宝（通过虎皮椒安全支付）
+          <span data-i18n-zh="💳 支付方式：微信 / 支付宝（通过虎皮椒安全支付）" data-i18n-en="💳 Payment: Credit Card via Stripe（Secure · Global）">
+            💳 支付方式：微信 / 支付宝（通过虎皮椒安全支付）
+          </span>
         </p>
       </form>
 
@@ -223,6 +225,26 @@
     let selectedPlugins = [];
     let selectedPlan = 'annual';
     let currentLang = localStorage.getItem('ap_lang') || 'zh';
+
+    // 从URL参数中获取插件ID并自动选择
+    function autoSelectPlugin() {
+      const params = new URLSearchParams(window.location.search);
+      const pluginParam = params.get('plugin');
+      if (pluginParam) {
+        const pluginCard = document.querySelector(`.plugin-select-card[data-plugin="${pluginParam}"]`);
+        if (pluginCard) {
+          const checkbox = pluginCard.querySelector('input[type="checkbox"]');
+          if (checkbox && !checkbox.checked) {
+            checkbox.checked = true;
+            pluginCard.classList.add('selected');
+            updateSummary();
+          }
+        }
+      }
+    }
+
+    // 页面加载完成后自动选择插件
+    window.addEventListener('DOMContentLoaded', autoSelectPlugin);
 
     function getPluginNames() { return currentLang === 'en' ? PLUGIN_NAMES_EN : PLUGIN_NAMES_ZH; }
     function getPlanPrices() { return currentLang === 'en' ? PLAN_PRICES_USD : PLAN_PRICES_CNY; }
@@ -349,7 +371,11 @@
       submitBtn.innerHTML = currentLang === 'en' ? '⏳ Creating order...' : '⏳ 正在创建订单...';
 
       try {
-        const resp = await fetch('/api/order-create', {
+        // 英文界面 → Stripe（信用卡），中文界面 → 虎皮椒（微信/支付宝）
+        const useStripe = currentLang === 'en';
+        const apiEndpoint = useStripe ? '/api/stripe/create-checkout' : '/api/order-create';
+
+        const resp = await fetch(apiEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ plugins: selectedPlugins, plan: selectedPlan, name, email, wechat, notes, lang: currentLang })
@@ -376,6 +402,11 @@
             plugins: selectedPlugins, plan: selectedPlan, count, total, name, email
           }));
           window.location.href = data.paymentUrl;
+        } else if (data.mode === 'stripe') {
+          localStorage.setItem('autophoto_order_' + data.orderNo, JSON.stringify({
+            plugins: selectedPlugins, plan: selectedPlan, count, totalUsd: data.totalUsd, name, email
+          }));
+          window.location.href = data.url;
         }
       } catch (err) {
         let errDetail = currentLang === 'en' ? 'Network error, please retry.' : '网络错误，请稍后重试';
