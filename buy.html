@@ -373,7 +373,7 @@
       try {
         // 英文界面 → Stripe（信用卡），中文界面 → 虎皮椒（微信/支付宝）
         const useStripe = currentLang === 'en';
-        const apiEndpoint = useStripe ? '/api/stripe/create-checkout' : '/api/order-create';
+        const apiEndpoint = useStripe ? '/api/stripe' : '/api/order-create';
 
         const resp = await fetch(apiEndpoint, {
           method: 'POST',
