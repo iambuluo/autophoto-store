@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoPhoto - 授权码管理后台</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+h1{font-size:24px;font-weight:700;margin-bottom:6px;color:#f1f5f9}
+.subtitle{color:#64748b;font-size:14px;margin-bottom:28px}
+.top-bar{display:flex;gap:12px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+input{background:#1e293b;border:1px solid #334155;color:#f1f5f0;padding:8px 14px;border-radius:8px;font-size:14px;outline:none}
+input:focus{border-color:#6366f1}
+button{background:#6366f1;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:background .2s}
+button:hover{background:#4f46e5}
+button.danger{background:#ef4444}
+button.danger:hover{background:#dc2626}
+button.success{background:#22c55e}
+button.success:hover{background:#16a34a}
+button:disabled{opacity:.5;cursor:not-allowed}
+button.sm{padding:4px 10px;font-size:12px}
+.alert{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:16px 20px;margin-bottom:20px;font-size:13px;line-height:1.6}
+.alert.error{border-color:#ef4444;background:#1f0a0a}
+.alert.success{border-color:#22c55e;background:#0a1f0a}
+.alert.warn{border-color:#f59e0b;background:#1a0f00}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:18px}
+.stat-card h3{font-size:12px;color:#64748b;margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.stat-row{display:flex;justify-content:space-between;padding:4px 0;font-size:14px}
+.green{color:#22c55e}.yellow{color:#f59e0b}.red{color:#ef4444}.blue{color:#60a5fa}
+.gen-form{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:12px;color:#64748b;font-weight:500}
+select{background:#0f172a;border:1px solid #334155;color:#f1f5f0;padding:8px 12px;border-radius:8px;font-size:14px;outline:none}
+select:focus{border-color:#6366f1}
+.pool-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:#0f172a;margin-top:8px}
+.pool-seg{height:100%}
+.section-title{font-size:16px;font-weight:700;margin-bottom:14px;color:#f1f5f9;display:flex;align-items:center;gap:8px}
+.tab-bar{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid #334155}
+.tab{background:transparent;color:#64748b;border:none;padding:10px 18px;cursor:pointer;font-size:14px;border-bottom:2px solid transparent;margin-bottom:-1px;border-radius:0;transition:all .2s}
+.tab:hover{color:#94a3b8}
+.tab.active{color:#6366f1;border-bottom-color:#6366f1;background:transparent}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.loading{text-align:center;padding:40px;color:#64748b}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:16px}
+.info-item{background:#0f172a;border-radius:8px;padding:12px 14px}
+.info-item label{font-size:11px;color:#475569;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px}
+.info-item span{font-size:14px;font-weight:600}
+code{font-family:'Courier New',monospace;font-size:12px;background:#0f172a;padding:2px 8px;border-radius:4px;color:#60a5fa}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>AutoPhoto 授权码管理后台</h1>
+  <p class="subtitle">查看码池状态 &middot; 生成新授权码</p>
+
+  <div class="top-bar">
+    <input type="password" id="adminToken" placeholder="管理员 Token（首次使用自动生成）" style="flex:1;max-width:320px">
+    <button onclick="initAndLoad()">刷新数据</button>
+    <button class="success" onclick="showTab('generate')">+ 生成授权码</button>
+  </div>
+
+  <div id="alertBox"></div>
+
+  <!-- 码池状态 -->
+  <div id="tab-pool" class="tab-content active">
+    <div class="section-title">码池状态</div>
+    <div id="pool-grid" class="stats-grid">
+      <div class="loading">加载中...</div>
+    </div>
+  </div>
+
+  <!-- 生成授权码 -->
+  <div id="tab-generate" class="tab-content">
+    <div class="section-title">+ 生成新授权码</div>
+    <div class="gen-form">
+      <div class="form-group">
+        <label>插件</label>
+        <select id="gen-plugin">
+          <option value="shijuezhongguo">视觉中国自动提交插件</option>
+          <option value="guangchang">光厂批量填写助手</option>
+          <option value="xinchangchang">新片场AIGC提交助手</option>
+          <option value="dreamstime">Dreamstime Auto Submitter</option>
+          <option value="adobe-stock">Adobe Stock关键词助手</option>
+          <option value="qingying-image">清影批量生图片助手</option>
+          <option value="qingying-video">清影批量生视频助手</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>授权方案</label>
+        <select id="gen-plan">
+          <option value="trial">试用版</option>
+          <option value="annual">年度授权</option>
+          <option value="permanent">永久授权</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>生成数量</label>
+        <input type="number" id="gen-count" value="50" min="1" max="500" style="width:100px">
+      </div>
+      <button class="success" onclick="generateCodes()" id="gen-btn">开始生成</button>
+    </div>
+    <div id="gen-result"></div>
+  </div>
+</div>
+
+<script>
+const BASE = 'https://www.autophoto.store';
+const PLUGIN_NAMES = {
+  shijuezhongguo:'视觉中国',guangchang:'光厂',xinchangchang:'新片场',
+  dreamstime:'Dreamstime','adobe-stock':'Adobe Stock',
+  'qingying-image':'清影图片','qingying-video':'清影视频'
+};
+const PLAN_NAMES = {trial:'试用',annual:'年度',permanent:'永久'};
+let poolStats = {};
+
+function getToken() { return document.getElementById('adminToken').value.trim(); }
+
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(name==='pool') loadStats();
+}
+
+function showAlert(msg, type) {
+  document.getElementById('alertBox').innerHTML='<div class="alert '+type+'">'+msg+'</div>';
+  setTimeout(()=>document.getElementById('alertBox').innerHTML='',8000);
+}
+
+async function api(path, opts) {
+  const token = getToken();
+  if(!token) throw new Error('请先输入管理员 Token');
+  const r = await fetch(BASE+path+(path.includes('?')?'&':'?')+'token='+encodeURIComponent(token), opts||{});
+  const d = await r.json();
+  if(!r.ok) throw new Error(d.error||'API错误');
+  return d;
+}
+
+async function initAndLoad() {
+  const token = getToken();
+  if(!token) {
+    // 自动用当前时间戳生成一个初始token
+    const t = 'admin-'+Date.now().toString(36);
+    document.getElementById('adminToken').value = t;
+    showAlert('已生成初始 Token：<b style="font-family:monospace">'+t+'</b><br>请妥善保存此 Token，以后访问后台需要输入。','success');
+  }
+  await loadStats();
+}
+
+async function loadStats() {
+  try {
+    poolStats = await api('/api/license/pool-stats');
+    renderPoolStats();
+  } catch(e) {
+    showAlert('加载失败：'+e.message,'error');
+  }
+}
+
+function renderPoolStats() {
+  const s = poolStats.summary||{};
+  let html = '<div class="stat-card"><h3>全部码池概览</h3>';
+  html += '<div class="stat-row"><span class>总码数</span><span class="blue">'+s.total+'</span></div>';
+  html += '<div class="stat-row"><span class>未发行</span><span class="green">'+s.unused+'</span></div>';
+  html += '<div class="stat-row"><span class>已发行</span><span class="yellow">'+s.issued+'</span></div>';
+  html += '<div class="stat-row"><span class>已绑定</span><span class="blue">'+s.bound+'</span></div>';
+  html += '<div class="stat-row"><span class>已吊销</span><span class="red">'+s.revoked+'</span></div>';
+  html += '</div>';
+
+  const plugins = poolStats.stats||{};
+  for(const [pid,plans] of Object.entries(plugins)) {
+    for(const [plan,data] of Object.entries(plans||{})) {
+      if(!data||data.total===0) continue;
+      const pname = PLAN_NAMES[plan]||plan;
+      const name = PLUGIN_NAMES[pid]||pid;
+      const low = data.unused<=10;
+      const pct = p=>((data[p]||0)/data.total*100).toFixed(1);
+      html += '<div class="stat-card"><h3>'+name+' &middot; '+pname+(low?' ⚠️低库存':'')+'</h3>';
+      html += '<div class="stat-row"><span class>剩余可用</span><span class="'+(low?'red':'green')+'">'+data.unused+' / '+data.total+'</span></div>';
+      html += '<div class="stat-row"><span class>已发行</span><span class="yellow">'+data.issued+'</span></div>';
+      html += '<div class="stat-row"><span class>已绑定</span><span class="blue">'+data.bound+'</span></div>';
+      html += '<div class="pool-bar">';
+      if(data.unused>0) html += '<div class="pool-seg" style="width:'+pct('unused')+'%;background:#22c55e"></div>';
+      if(data.issued>0) html += '<div class="pool-seg" style="width:'+pct('issued')+'%;background:#f59e0b"></div>';
+      if(data.bound>0) html += '<div class="pool-seg" style="width:'+pct('bound')+'%;background:#6366f1"></div>';
+      html += '</div></div>';
+    }
+  }
+  document.getElementById('pool-grid').innerHTML = html;
+}
+
+async function generateCodes() {
+  const plugin = document.getElementById('gen-plugin').value;
+  const plan = document.getElementById('gen-plan').value;
+  const count = parseInt(document.getElementById('gen-count').value)||50;
+  const btn = document.getElementById('gen-btn');
+  const result = document.getElementById('gen-result');
+  btn.disabled=true; btn.textContent='生成中...';
+  result.innerHTML='<div class="loading">生成中...</div>';
+  try {
+    const r = await fetch(BASE+'/api/license/generate', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({pluginId:plugin, plan, count, token:getToken()})
+    });
+    const d = await r.json();
+    if(d.error) throw new Error(d.error);
+    result.innerHTML='<div class="alert success"><b>成功生成 '+d.codes.length+' 个授权码 ('+plugin+'/'+plan+')</b><br><br>'+
+      d.codes.map(c=>'<code>'+c+'</code>').join(' ')+'</div>';
+    await loadStats();
+  } catch(e) {
+    result.innerHTML='<div class="alert error">生成失败：'+e.message+'</div>';
+  } finally {
+    btn.disabled=false; btn.textContent='开始生成';
+  }
+}
+
+// auto-load
+document.addEventListener('DOMContentLoaded', ()=>{
+  // 检查URL参数
+  const params = new URLSearchParams(location.search);
+  const t = params.get('token');
+  if(t) { document.getElementById('adminToken').value=t; }
+  showTab('pool');
+});
+</script>
+</body>
+</html>

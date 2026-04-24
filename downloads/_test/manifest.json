@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "AutoPhoto Test Plugin",
+  "version": "1.0.0",
+  "description": "AutoPhoto Plugin - 购买后使用",
+  "permissions": ["storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "AutoPhoto"
+  }
+}

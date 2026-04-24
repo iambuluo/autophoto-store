@@ -1,83 +1,127 @@
 /**
- * api/stripe.js - 统一处理 Stripe 所有接口
- * 
+ * api/stripe.js - Stripe 支付 + 授权码池发货
+ *
  * POST /api/stripe/create-checkout  → 创建 Checkout Session
- * POST /api/stripe/callback         → 处理 Stripe Webhook
+ * POST /api/stripe/callback         → 付款完成 → 从码池取码 → 发邮件
  */
 
 const Stripe = require('stripe');
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-11-20.acacia' });
 const crypto = require('crypto');
+const pool = require('./lib/license-pool');
 
 // ============================================================
-// 共享配置
+// 懒加载 Stripe
+// ============================================================
+let _stripe = null;
+function getStripe() {
+  if (!_stripe) {
+    const key = process.env.STRIPE_SECRET_KEY;
+    if (!key) throw new Error('STRIPE_SECRET_KEY not configured');
+    _stripe = new Stripe(key, { apiVersion: '2024-11-20.acacia' });
+  }
+  return _stripe;
+}
+
+// ============================================================
+// 配置
 // ============================================================
 const PLAN_LABELS = {
   testpay: 'Test Payment ($0.01)', trial: '1-Day Trial',
-  annual: 'Annual License', permanent: 'Lifetime License'
+  annual: 'Annual License (Yearly)', permanent: 'Lifetime License (Permanent)'
 };
 const PLUGIN_NAMES = {
-  shijuezhongguo: 'VCPhoto Auto Submitter', guangchang: 'VJshi Batch Submitter',
-  xinchangchang: 'Xinchangchang AIGC Assistant', dreamstime: 'Dreamstime Auto Submitter',
+  shijuezhongguo: 'VCPhoto Auto Submitter',
+  guangchang: 'VJshi Batch Submitter',
+  xinchangchang: 'Xinchangchang AIGC Assistant',
+  dreamstime: 'Dreamstime Auto Submitter',
   'adobe-stock': 'Adobe Stock Keyword Clicker',
-  'qingying-image': 'QingYing Image Batch', 'qingying-video': 'QingYing Video Batch'
+  'qingying-image': 'QingYing Image Batch',
+  'qingying-video': 'QingYing Video Batch'
 };
-const PLUGIN_PREFIXES = {
-  shijuezhongguo: 'VCG', guangchang: 'VJ', xinchangchang: 'XC', dreamstime: 'DT',
-  'adobe-stock': 'AS', 'qingying-image': 'QY', 'qingying-video': 'QV'
-};
-const PLAN_CHARS = { testpay: 'T', trial: 'T', annual: 'Y', permanent: 'P' };
-const PLAN_DURATIONS = { testpay: 1, trial: 1, annual: 365, permanent: 365 * 99 };
-
-// 价格（美分）
-const PLAN_PRICES_USD = {
-  testpay: 1, trial: 140, annual: 2800, permanent: 5500
-};
+const PLAN_PRICES_USD = { testpay: 1, trial: 150, annual: 2900, permanent: 6900 };
+const DISCOUNTS = { 1: 1.0, 2: 0.88, 3: 0.80, 4: 0.70, 5: 0.60, 6: 0.60, 7: 0.50 };
 
 // ============================================================
-// 工具函数
+// 邮件发送
 // ============================================================
-function generateLicenseCode(prefix, plan, durationHours) {
-  const expireTime = Math.floor(Date.now() / 1000) + durationHours * 3600;
-  const expireB36 = expireTime.toString(36).toUpperCase();
-  const random = crypto.randomBytes(3).toString('hex').toUpperCase();
-  return `AP-${prefix}-${PLAN_CHARS[plan] || 'X'}${expireB36}-${random}`;
-}
-
-async function sendLicenseEmail(email, code, pluginName, planName, adminEmail) {
+async function sendEmail({ to, subject, html }) {
   const RESEND_KEY = process.env.RESEND_API_KEY;
-  if (!RESEND_KEY) { console.log('RESEND_API_KEY not set'); return; }
+  if (!RESEND_KEY) { console.log('RESEND_API_KEY not set'); return null; }
+  const EMAIL_FROM = process.env.EMAIL_FROM || 'onboarding@resend.dev';
+  const from = EMAIL_FROM !== 'onboarding@resend.dev'
+    ? 'AutoPhoto Store <' + EMAIL_FROM + '>'
+    : 'AutoPhoto Store <onboarding@resend.dev>';
+
   try {
-    await fetch('https://api.resend.com/emails', {
+    const resp = await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + RESEND_KEY,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        from: 'AutoPhoto Store <onboarding@resend.dev>',
-        to: [email, adminEmail],
-        subject: `✅ 授权码已生成 - ${pluginName}`,
-        html: `<h2>授权码已生成</h2><p>插件：${pluginName}</p><p>方案：${planName}</p><p>授权码：<b style="font-size:18px;font-family:monospace">${code}</b></p><p>请在插件中激活使用。</p>`
-      })
+      headers: { 'Authorization': 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from, to, subject, html })
     });
+    const data = await resp.json();
+    if (!resp.ok) console.error('Email failed:', JSON.stringify(data));
+    else console.log('Email sent:', data.id, '->', to);
+    return data;
   } catch (err) {
-    console.error('Email send failed:', err);
+    console.error('Email error:', err);
+    return null;
   }
 }
 
-async function saveLicenseRecord(sessionId, code, plugins, plan, name, email) {
-  const { createClient } = require('@supabase/supabase-js');
-  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-  try {
-    await supabase.from('licenses').insert({
-      code, plugins, plan, name, email,
-      stripe_session: sessionId, status: 'active',
-      created_at: new Date().toISOString()
-    });
-  } catch (err) {
-    console.error('DB save failed:', err);
-  }
+async function sendLicenseEmail(allocations, email, customerName, planLabel, amount) {
+  const downloadBase = 'https://www.autophoto.store/downloads';
+  const successCodes = allocations.filter(a => a.code);
+  const failPlugins = allocations.filter(a => !a.code).map(a => pool.PLAN_NAMES[a.plan] || a.plan);
+
+  const codeCards = successCodes.map(a => {
+    const name = pool.PLAN_NAMES[a.plan] || a.plan;
+    const pluginName = pool.PLUGIN_NAMES_CN[a.pluginId] || a.pluginId;
+    return '<div style="background:#f0fdf4;border:1px solid #22c55e;border-radius:10px;padding:16px;margin-bottom:12px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center">' +
+      '<div><div style="font-size:13px;color:#64748b">' + pluginName + ' · ' + name + '</div></div>' +
+      '<code style="font-size:18px;color:#16a34a;font-weight:bold;letter-spacing:2px">' + a.code + '</code>' +
+      '</div></div>';
+  }).join('');
+
+  const dlLinks = [...new Set(successCodes.map(a => a.pluginId))].map(pid => {
+    const name = pool.PLUGIN_NAMES_CN[pid] || pid;
+    return '<tr><td style="padding:10px 14px;border-bottom:1px solid #e5e7eb;font-weight:600;color:#1e293b">' + name +
+      '</td><td style="padding:10px 14px;border-bottom:1px solid #e5e7eb;text-align:right">' +
+      '<a href="' + downloadBase + '/' + pid + '.zip" style="background:#6366f1;color:#fff;padding:6px 14px;border-radius:5px;text-decoration:none;font-size:12px;font-weight:600">下载插件</a></td></tr>';
+  }).join('');
+
+  const warningBlock = failPlugins.length > 0
+    ? '<div style="background:#fef2f2;border:1px solid #ef4444;border-radius:8px;padding:14px;margin-bottom:20px;font-size:14px;color:#991b1b">' +
+      '<b>⚠️ 部分授权码延迟发放</b><br>以下插件授权码暂时缺货，我们将在24小时内补码后补发：' + failPlugins.join('、') + '</div>'
+    : '';
+
+  await sendEmail({
+    to: email,
+    subject: '🎉 支付成功！您的授权码已生成',
+    html: '<div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;padding:20px;color:#1e293b">' +
+      '<div style="background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%);border-radius:16px 16px 0 0;padding:32px 28px;color:#fff">' +
+      '<h1 style="font-size:24px;margin-bottom:8px">🎉 支付成功！</h1>' +
+      '<p style="opacity:0.9;font-size:15px;margin-bottom:4px">感谢您的购买！以下是你的授权码，请妥善保管。</p>' +
+      '<p style="opacity:0.9;font-size:14px">实付金额：<b>$' + amount + '</b></p></div>' +
+      '<div style="background:#fff;border:1px solid #e5e7eb;border-top:none;padding:28px;border-radius:0 0 16px 16px">' +
+      warningBlock +
+      '<h3 style="font-size:15px;margin-bottom:12px;color:#334155">🔑 您的授权码</h3>' +
+      '<div style="margin-bottom:20px">' + codeCards + '</div>' +
+      '<h3 style="font-size:15px;margin-bottom:12px;color:#334155">📦 下载插件</h3>' +
+      '<table style="width:100%;border-collapse:collapse;margin-bottom:14px;background:#f8fafc;border-radius:8px;overflow:hidden">' + dlLinks + '</table>' +
+      '<p style="font-size:12px;color:#94a3b8;margin-bottom:20px">💡 下载后将ZIP文件拖入Chrome（chrome://extensions → 开启开发者模式）即可安装</p>' +
+      '<div style="background:#fffbeb;border:1px solid #f59e0b;border-radius:10px;padding:20px;margin-bottom:16px">' +
+      '<h3 style="font-size:14px;margin-bottom:10px;color:#92400e">🚀 激活步骤（首次使用必读）</h3>' +
+      '<ol style="padding-left:18px;font-size:13px;line-height:2.2;color:#78350f;margin:0">' +
+      '<li>安装插件后，点击浏览器工具栏的 <b>AutoPhoto 图标</b></li>' +
+      '<li>在插件弹窗中粘贴您的 <b>授权码</b>（见上方）</li>' +
+      '<li>首次激活时，插件会自动采集并绑定您的机器码</li>' +
+      '<li>绑定成功后，插件即可正常使用 ✅</li></ol></div>' +
+      '<div style="background:#fef2f2;border:1px solid #ef4444;border-radius:8px;padding:14px;font-size:13px;color:#991b1b;line-height:1.7">' +
+      '<b>⚠️ 每个授权码仅限一台设备使用</b><br>机器码绑定后无法更换。如需在新设备使用，请联系微信：<b>auto_photo2025</b></div>' +
+      '<div style="margin-top:20px;padding-top:20px;border-top:1px solid #e5e7eb;font-size:13px;color:#64748b">' +
+      '<p>如有任何问题，请联系微信：<b style="color:#334155">auto_photo2025</b></p></div></div></div>'
+  });
 }
 
 // ============================================================
@@ -92,7 +136,6 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
 
   const pathname = req.url.split('?')[0];
-
   try {
     if (pathname.endsWith('/callback')) {
       await handleCallback(req, res);
@@ -117,35 +160,38 @@ async function handleCreateCheckout(req, res) {
     res.status(400).json({ error: 'Invalid plan' }); return;
   }
 
-  const prefix = PLUGIN_PREFIXES[plugins[0]] || 'AP';
-  const pname = PLUGIN_NAMES[plugins[0]] || plugins[0];
-  const label = PLAN_LABELS[plan] || plan;
-  const origin = req.headers.origin || 'https://www.autophoto.store';
+  const count = plugins.length;
+  const discount = DISCOUNTS[count] || (count >= 7 ? 0.50 : 1.0);
+  const totalCents = Math.round(PLAN_PRICES_USD[plan] * count * discount);
+  const pnames = plugins.map(p => PLUGIN_NAMES[p] || p);
+  const productName = count === 1 ? 'AutoPhoto - ' + pnames[0] : 'AutoPhoto - ' + count + ' Plugins Bundle';
+  const productDesc = count === 1
+    ? (PLAN_LABELS[plan] || plan)
+    : pnames.join(', ') + ' | ' + (PLAN_LABELS[plan] || plan) + (discount < 1 ? ' (' + Math.round((1 - discount) * 100) + '% off)' : '');
 
-  const session = await stripe.checkout.sessions.create({
+  const origin = req.headers.origin || 'https://www.autophoto.store';
+  const session = await getStripe().checkout.sessions.create({
     payment_method_types: ['card'],
     line_items: [{
       price_data: {
         currency: 'usd',
-        product_data: { name: `AutoPhoto - ${pname}`, description: label },
-        unit_amount: PLAN_PRICES_USD[plan]
+        product_data: { name: productName, description: productDesc },
+        unit_amount: totalCents
       },
       quantity: 1
     }],
     mode: 'payment',
-    success_url: `${origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/buy.html?cancelled=1`,
-    metadata: {
-      plugins: JSON.stringify(plugins),
-      plan, name: name || '', email,
-      prefix,
-      durationHours: String(PLAN_DURATIONS[plan] || 1)
-    },
+    success_url: origin + '/success.html?session_id={CHECKOUT_SESSION_ID}',
+    cancel_url: origin + '/buy.html?cancelled=1',
+    metadata: { plugins: JSON.stringify(plugins), plan, name: name || '', email },
     customer_email: email,
     locale: 'auto'
   });
 
-  res.status(200).json({ mode: 'stripe', url: session.url, sessionId: session.id });
+  res.status(200).json({
+    success: true, mode: 'stripe', url: session.url,
+    sessionId: session.id, totalUsd: (totalCents / 100).toFixed(2)
+  });
 }
 
 // ============================================================
@@ -154,34 +200,53 @@ async function handleCreateCheckout(req, res) {
 async function handleCallback(req, res) {
   const sig = req.headers['stripe-signature'];
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
   let event;
   try {
-    // Vercel provides rawBody for webhook verification
     const rawBody = req.rawBody || (typeof req.body === 'string' ? req.body : JSON.stringify(req.body));
-    event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
+    event = getStripe().webhooks.constructEvent(rawBody, sig, webhookSecret);
   } catch (err) {
     console.error('Webhook signature error:', err.message);
-    res.status(400).send(`Webhook Error: ${err.message}`);
+    res.status(400).send('Webhook Error: ' + err.message);
     return;
   }
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
-    const { plugins, plan, name, email, prefix, durationHours } = session.metadata || {};
+    const { plugins, plan, name, email } = session.metadata || {};
     const pluginArr = JSON.parse(plugins || '[]');
-    const pname = PLUGIN_NAMES[pluginArr[0]] || pluginArr[0] || 'Plugin';
     const label = PLAN_LABELS[plan] || plan;
-    const hours = parseInt(durationHours || '1');
-    const code = generateLicenseCode(prefix || 'AP', plan || 'trial', hours);
+    const amount = session.amount_total ? (session.amount_total / 100).toFixed(2) : '-';
 
-    console.log(`✅ Stripe payment: ${session.id} → code: ${code}`);
+    console.log('✅ Payment complete: ' + session.id + ' -> ' + pluginArr.join(',') + '/' + plan);
 
-    // 并行执行保存和发邮件
-    await Promise.all([
-      saveLicenseRecord(session.id, code, pluginArr, plan, name, email),
-      sendLicenseEmail(email, code, pname, label, 'tourinn@gmail.com')
-    ]);
+    // 从码池分配授权码
+    const allocations = pool.allocateMultipleLicenses(pluginArr, plan, email, session.id);
+    const successCount = allocations.filter(a => a.code).length;
+    const failCount = allocations.filter(a => !a.code).length;
+
+    console.log('📦 Allocated: ' + successCount + ' success' + (failCount > 0 ? ', ' + failCount + ' FAILED' : ''));
+    for (const a of allocations) {
+      if (!a.code) {
+        console.warn('  ⚠️ ' + a.pluginId + '/' + a.plan + ' 码池耗尽!');
+      } else {
+        console.log('  ✅ ' + a.code + ' -> ' + a.pluginId + '/' + a.plan);
+      }
+    }
+
+    // 发邮件
+    await sendLicenseEmail(allocations, email, name, label, amount);
+
+    // 告警邮件
+    if (failCount > 0) {
+      const failPlugins = allocations.filter(a => !a.code).map(a => a.pluginId + '/' + a.plan).join(', ');
+      await sendEmail({
+        to: pool.ADMIN_EMAIL,
+        subject: '🚨 码池耗尽告警 - ' + session.id,
+        html: '<div style="font-family:Arial;padding:20px"><h2 style="color:#ef4444">🚨 授权码池耗尽</h2>' +
+          '<p>订单: <b>' + session.id + '</b></p><p>客户: <b>' + email + '</b></p>' +
+          '<p>耗尽插件: <b>' + failPlugins + '</b></p><p>请立即补充码池！</p></div>'
+      });
+    }
   }
 
   res.status(200).json({ received: true });
