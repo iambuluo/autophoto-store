@@ -164,6 +164,23 @@
             ⚠️ 支付成功后，授权码将发送到您的邮箱。同时可加微信 <strong>auto_photo2025</strong> 获取技术支持。
           </span>
         </div>
+
+        <!-- 支付方式选择 -->
+        <div id="payment-method-box" style="margin-top:12px">
+          <label style="font-size:13px;color:var(--text-muted);margin-bottom:8px;display:block"
+                 data-i18n-zh="💳 选择支付方式" data-i18n-en="💳 Payment Method">💳 选择支付方式</label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <label id="pm-xunhu" style="flex:1;min-width:140px;background:rgba(255,255,255,0.04);border:2px solid #6366f1;border-radius:8px;padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600">
+              <input type="radio" name="payMethod" value="xunhu" checked style="accent-color:#6366f1">
+              <span>📱 微信 / 支付宝</span>
+            </label>
+            <label id="pm-stripe" style="flex:1;min-width:140px;background:rgba(255,255,255,0.04);border:2px solid transparent;border-radius:8px;padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600">
+              <input type="radio" name="payMethod" value="stripe" style="accent-color:#6366f1">
+              <span>💳 Credit Card (Stripe)</span>
+            </label>
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-btn">
           🛒 <span id="btn-text" data-i18n-zh="前往支付" data-i18n-en="Pay Now">前往支付</span>（<span id="currency-symbol">¥</span><span id="btn-price">0.00</span>）
         </button>
@@ -371,8 +388,9 @@
       submitBtn.innerHTML = currentLang === 'en' ? '⏳ Creating order...' : '⏳ 正在创建订单...';
 
       try {
-        // 英文界面 → Stripe（信用卡），中文界面 → 虎皮椒（微信/支付宝）
-        const useStripe = currentLang === 'en';
+        // 读取用户选择的支付方式（默认虎皮椒）
+        const payMethod = (document.querySelector('input[name="payMethod"]:checked') || {}).value || 'xunhu';
+        const useStripe = payMethod === 'stripe';
         const apiEndpoint = useStripe ? '/api/stripe' : '/api/order-create';
 
         const resp = await fetch(apiEndpoint, {
@@ -415,6 +433,21 @@
         resetBtn(submitBtn, total, SYM);
       }
     }
+
+    // 支付方式选择高亮
+    document.querySelectorAll('input[name="payMethod"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.getElementById('pm-xunhu').style.borderColor = radio.value === 'xunhu' && radio.checked ? '#6366f1' : 'transparent';
+        document.getElementById('pm-stripe').style.borderColor = radio.value === 'stripe' && radio.checked ? '#6366f1' : 'transparent';
+        // 同步底部提示文字
+        const tip = document.querySelector('.text-sm.text-muted.text-center span');
+        if(tip) {
+          tip.textContent = radio.value === 'stripe'
+            ? '💳 Payment: Credit Card via Stripe（Secure · Global）'
+            : '💳 支付方式：微信 / 支付宝（通过虎皮椒安全支付）';
+        }
+      });
+    });
 
     function resetBtn(btn, total, sym) {
       btn.disabled = false;

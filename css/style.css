@@ -299,4 +299,9 @@ img { max-width: 100%; }
 .text-sm { font-size: 13px; }
 .text-lg { font-size: 18px; }
 .mono { font-family: monospace; }
+/* ── Gen 入口按钮 ── */
+.btn-gen { position:relative; overflow:hidden; }
+.btn-gen:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(99,102,241,.45)!important; filter:brightness(1.1); }
+.hero-cta-gen { text-align:center; }
+
 @media(max-width: 768px){ .section { padding: 48px 0; } .section-header h2 { font-size: 26px; } }

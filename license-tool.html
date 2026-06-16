@@ -7,75 +7,152 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
-.container{max-width:1200px;margin:0 auto;padding:24px}
-h1{font-size:24px;font-weight:700;margin-bottom:6px;color:#f1f5f9}
-.subtitle{color:#64748b;font-size:14px;margin-bottom:28px}
-.top-bar{display:flex;gap:12px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
-input{background:#1e293b;border:1px solid #334155;color:#f1f5f0;padding:8px 14px;border-radius:8px;font-size:14px;outline:none}
-input:focus{border-color:#6366f1}
-button{background:#6366f1;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:background .2s}
-button:hover{background:#4f46e5}
-button.danger{background:#ef4444}
-button.danger:hover{background:#dc2626}
-button.success{background:#22c55e}
-button.success:hover{background:#16a34a}
-button:disabled{opacity:.5;cursor:not-allowed}
-button.sm{padding:4px 10px;font-size:12px}
-.alert{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:16px 20px;margin-bottom:20px;font-size:13px;line-height:1.6}
-.alert.error{border-color:#ef4444;background:#1f0a0a}
-.alert.success{border-color:#22c55e;background:#0a1f0a}
-.alert.warn{border-color:#f59e0b;background:#1a0f00}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:28px}
-.stat-card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:18px}
-.stat-card h3{font-size:12px;color:#64748b;margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.stat-row{display:flex;justify-content:space-between;padding:4px 0;font-size:14px}
-.green{color:#22c55e}.yellow{color:#f59e0b}.red{color:#ef4444}.blue{color:#60a5fa}
-.gen-form{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.form-group label{font-size:12px;color:#64748b;font-weight:500}
-select{background:#0f172a;border:1px solid #334155;color:#f1f5f0;padding:8px 12px;border-radius:8px;font-size:14px;outline:none}
-select:focus{border-color:#6366f1}
-.pool-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:#0f172a;margin-top:8px}
-.pool-seg{height:100%}
-.section-title{font-size:16px;font-weight:700;margin-bottom:14px;color:#f1f5f9;display:flex;align-items:center;gap:8px}
-.tab-bar{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid #334155}
-.tab{background:transparent;color:#64748b;border:none;padding:10px 18px;cursor:pointer;font-size:14px;border-bottom:2px solid transparent;margin-bottom:-1px;border-radius:0;transition:all .2s}
+.container{max-width:1280px;margin:0 auto;padding:24px}
+h1{font-size:22px;font-weight:700;margin-bottom:4px;color:#f1f5f9}
+.subtitle{color:#64748b;font-size:13px;margin-bottom:0}
+
+/* ===== 登录页 ===== */
+#loginPage{display:flex;align-items:center;justify-content:center;min-height:100vh}
+.login-box{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:40px 48px;width:100%;max-width:400px;text-align:center}
+.login-box h2{font-size:20px;font-weight:700;margin-bottom:6px;color:#f1f5f9}
+.login-box p{color:#64748b;font-size:13px;margin-bottom:28px}
+.login-field{position:relative;margin-bottom:16px}
+.login-field input{width:100%;background:#0f172a;border:1px solid #334155;color:#f1f5f9;padding:11px 16px;border-radius:10px;font-size:14px;outline:none;transition:border-color .2s}
+.login-field input:focus{border-color:#6366f1}
+.login-field label{position:absolute;left:14px;top:-9px;font-size:11px;color:#64748b;background:#1e293b;padding:0 4px}
+.login-btn{width:100%;background:#6366f1;color:#fff;border:none;padding:12px;border-radius:10px;cursor:pointer;font-size:15px;font-weight:600;transition:background .2s;margin-top:4px}
+.login-btn:hover{background:#4f46e5}
+.login-err{color:#ef4444;font-size:13px;margin-top:10px;min-height:18px}
+
+/* ===== 主界面 ===== */
+#mainApp{display:none}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #1e293b}
+.header-left{display:flex;align-items:center;gap:16px}
+.badge{background:#6366f1;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600}
+.logout-btn{background:transparent;border:1px solid #334155;color:#94a3b8;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s}
+.logout-btn:hover{border-color:#ef4444;color:#ef4444}
+
+/* ===== 标签栏 ===== */
+.tab-bar{display:flex;gap:2px;margin-bottom:24px;background:#1e293b;border-radius:10px;padding:4px;width:fit-content}
+.tab{background:transparent;color:#64748b;border:none;padding:8px 20px;cursor:pointer;font-size:13px;font-weight:500;border-radius:8px;transition:all .2s}
 .tab:hover{color:#94a3b8}
-.tab.active{color:#6366f1;border-bottom-color:#6366f1;background:transparent}
+.tab.active{background:#6366f1;color:#fff}
 .tab-content{display:none}
 .tab-content.active{display:block}
-.loading{text-align:center;padding:40px;color:#64748b}
-.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:16px}
-.info-item{background:#0f172a;border-radius:8px;padding:12px 14px}
-.info-item label{font-size:11px;color:#475569;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px}
-.info-item span{font-size:14px;font-weight:600}
-code{font-family:'Courier New',monospace;font-size:12px;background:#0f172a;padding:2px 8px;border-radius:4px;color:#60a5fa}
+
+/* ===== 通用 ===== */
+button{background:#6366f1;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:background .2s}
+button:hover{background:#4f46e5}
+button.danger{background:#ef4444}button.danger:hover{background:#dc2626}
+button.success{background:#22c55e}button.success:hover{background:#16a34a}
+button.secondary{background:#1e293b;border:1px solid #334155;color:#94a3b8}button.secondary:hover{border-color:#6366f1;color:#6366f1}
+button:disabled{opacity:.5;cursor:not-allowed}
+.alert{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:13px;line-height:1.6}
+.alert.error{border-color:#ef4444;background:#1f0808}
+.alert.success{border-color:#22c55e;background:#081f08}
+.alert.warn{border-color:#f59e0b;background:#1a1000}
+input,select{background:#1e293b;border:1px solid #334155;color:#f1f5f0;padding:8px 12px;border-radius:8px;font-size:14px;outline:none;transition:border-color .2s}
+input:focus,select:focus{border-color:#6366f1}
+code{font-family:'Courier New',monospace;font-size:12px;background:#0f172a;padding:2px 7px;border-radius:4px;color:#60a5fa;word-break:break-all}
+
+/* ===== 码池 ===== */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:28px}
+.stat-card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px}
+.stat-card h3{font-size:11px;color:#64748b;margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.stat-row{display:flex;justify-content:space-between;padding:3px 0;font-size:13px}
+.green{color:#22c55e}.yellow{color:#f59e0b}.red{color:#ef4444}.blue{color:#60a5fa}.gray{color:#64748b}
+.pool-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;background:#0f172a;margin-top:8px}
+.pool-seg{height:100%}
+
+/* ===== 生成授权码 ===== */
+.gen-form{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;color:#64748b;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.section-title{font-size:15px;font-weight:700;margin-bottom:14px;color:#f1f5f9}
+.loading{text-align:center;padding:48px;color:#475569;font-size:14px}
+
+/* ===== 授权明细 ===== */
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:center}
+.filter-bar select,.filter-bar input{padding:7px 10px;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:#1e293b;color:#94a3b8;font-weight:600;padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;position:sticky;top:0}
+tbody tr{border-bottom:1px solid #1e293b;transition:background .15s}
+tbody tr:hover{background:#1e293b}
+tbody td{padding:10px 12px;vertical-align:middle}
+.status-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.status-unused{background:#1a2a1a;color:#22c55e;border:1px solid #22c55e44}
+.status-issued{background:#2a2010;color:#f59e0b;border:1px solid #f59e0b44}
+.status-bound{background:#1a1a3a;color:#6366f1;border:1px solid #6366f144}
+.status-revoked{background:#2a1010;color:#ef4444;border:1px solid #ef444444}
+.table-wrap{background:#1e293b;border-radius:12px;border:1px solid #334155;overflow:hidden;max-height:600px;overflow-y:auto}
+.remark-input{background:#0f172a;border:1px solid #334155;color:#f1f5f9;padding:4px 8px;border-radius:6px;font-size:12px;width:160px}
+.remark-input:focus{border-color:#6366f1;outline:none}
+.revoke-btn{background:transparent;border:1px solid #ef444466;color:#ef4444;padding:3px 8px;border-radius:6px;font-size:11px;cursor:pointer}
+.revoke-btn:hover{background:#ef444422}
+.pagination{display:flex;gap:8px;align-items:center;margin-top:14px;justify-content:flex-end;font-size:13px}
+.page-btn{background:#1e293b;border:1px solid #334155;color:#94a3b8;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px}
+.page-btn:hover{border-color:#6366f1;color:#6366f1}
+.page-btn.active{background:#6366f1;border-color:#6366f1;color:#fff}
+.detail-summary{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.ds-item{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:12px 18px;font-size:13px}
+.ds-item b{font-size:18px;display:block;margin-top:2px}
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>AutoPhoto 授权码管理后台</h1>
-  <p class="subtitle">查看码池状态 &middot; 生成新授权码</p>
 
-  <div class="top-bar">
-    <input type="password" id="adminToken" placeholder="管理员 Token（首次使用自动生成）" style="flex:1;max-width:320px">
-    <button onclick="initAndLoad()">刷新数据</button>
-    <button class="success" onclick="showTab('generate')">+ 生成授权码</button>
+<!-- ===== 登录页 ===== -->
+<div id="loginPage">
+  <div class="login-box">
+    <div style="font-size:36px;margin-bottom:12px">🔐</div>
+    <h2>AutoPhoto 管理后台</h2>
+    <p>请输入管理员账号和密码</p>
+    <div class="login-field">
+      <label>账号</label>
+      <input type="text" id="loginUser" placeholder="autophoto_admin" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码（管理员 Token）</label>
+      <input type="password" id="loginPass" placeholder="••••••••••••" autocomplete="current-password"
+        onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ===== 主界面 ===== -->
+<div id="mainApp">
+<div class="container">
+  <div class="header">
+    <div class="header-left">
+      <div>
+        <h1>AutoPhoto 授权码管理后台</h1>
+        <p class="subtitle">autophoto.store · 授权系统管理</p>
+      </div>
+      <span class="badge">管理员</span>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">退出登录</button>
   </div>
 
   <div id="alertBox"></div>
 
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('pool',this)">📊 码池状态</button>
+    <button class="tab" onclick="switchTab('generate',this)">✨ 生成授权码</button>
+    <button class="tab" onclick="switchTab('detail',this)">📋 授权明细</button>
+  </div>
+
   <!-- 码池状态 -->
   <div id="tab-pool" class="tab-content active">
-    <div class="section-title">码池状态</div>
+    <div class="section-title">码池总览</div>
     <div id="pool-grid" class="stats-grid">
-      <div class="loading">加载中...</div>
+      <div class="loading">正在加载...</div>
     </div>
   </div>
 
   <!-- 生成授权码 -->
   <div id="tab-generate" class="tab-content">
-    <div class="section-title">+ 生成新授权码</div>
+    <div class="section-title">生成新授权码</div>
     <div class="gen-form">
       <div class="form-group">
         <label>插件</label>
@@ -99,132 +176,404 @@ code{font-family:'Courier New',monospace;font-size:12px;background:#0f172a;paddi
       </div>
       <div class="form-group">
         <label>生成数量</label>
-        <input type="number" id="gen-count" value="50" min="1" max="500" style="width:100px">
+        <input type="number" id="gen-count" value="10" min="1" max="500" style="width:90px">
       </div>
       <button class="success" onclick="generateCodes()" id="gen-btn">开始生成</button>
     </div>
     <div id="gen-result"></div>
   </div>
-</div>
+
+  <!-- 授权明细 -->
+  <div id="tab-detail" class="tab-content">
+    <div class="section-title">授权明细</div>
+
+    <!-- 汇总数字 -->
+    <div class="detail-summary" id="detail-summary"></div>
+
+    <!-- 筛选栏 -->
+    <div class="filter-bar">
+      <select id="f-plugin" onchange="applyFilter()">
+        <option value="">全部插件</option>
+        <option value="shijuezhongguo">视觉中国</option>
+        <option value="guangchang">光厂</option>
+        <option value="xinchangchang">新片场</option>
+        <option value="dreamstime">Dreamstime</option>
+        <option value="adobe-stock">Adobe Stock</option>
+        <option value="qingying-image">清影图片</option>
+        <option value="qingying-video">清影视频</option>
+      </select>
+      <select id="f-plan" onchange="applyFilter()">
+        <option value="">全部方案</option>
+        <option value="trial">试用版</option>
+        <option value="annual">年度授权</option>
+        <option value="permanent">永久授权</option>
+      </select>
+      <select id="f-status" onchange="applyFilter()">
+        <option value="">全部状态</option>
+        <option value="unused">未发行</option>
+        <option value="issued">已发行</option>
+        <option value="bound">已绑定</option>
+        <option value="revoked">已吊销</option>
+      </select>
+      <input type="text" id="f-search" placeholder="搜索授权码 / 邮箱 / 机器码 / 备注" style="width:280px" oninput="applyFilter()">
+      <button class="secondary" onclick="loadDetail()">🔄 刷新</button>
+      <span id="f-count" style="color:#64748b;font-size:12px;margin-left:4px"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:140px">授权码</th>
+            <th>插件</th>
+            <th>方案</th>
+            <th style="width:80px">状态</th>
+            <th>邮箱</th>
+            <th>机器码</th>
+            <th>绑定时间</th>
+            <th>备注</th>
+            <th style="width:70px">操作</th>
+          </tr>
+        </thead>
+        <tbody id="detail-tbody">
+          <tr><td colspan="9" class="loading">加载中...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+</div><!-- /container -->
+</div><!-- /mainApp -->
 
 <script>
 const BASE = 'https://www.autophoto.store';
+const STORAGE_KEY = 'ap_admin_token';
+const USERNAME = 'autophoto_admin'; // 固定用户名（前端校验）
+
 const PLUGIN_NAMES = {
-  shijuezhongguo:'视觉中国',guangchang:'光厂',xinchangchang:'新片场',
-  dreamstime:'Dreamstime','adobe-stock':'Adobe Stock',
-  'qingying-image':'清影图片','qingying-video':'清影视频'
+  shijuezhongguo:'视觉中国', guangchang:'光厂', xinchangchang:'新片场',
+  dreamstime:'Dreamstime', 'adobe-stock':'Adobe Stock',
+  'qingying-image':'清影图片', 'qingying-video':'清影视频'
 };
 const PLAN_NAMES = {trial:'试用',annual:'年度',permanent:'永久'};
-let poolStats = {};
 
-function getToken() { return document.getElementById('adminToken').value.trim(); }
+// ===== Token 管理 =====
+function getToken() { return localStorage.getItem(STORAGE_KEY) || ''; }
+function saveToken(t) { localStorage.setItem(STORAGE_KEY, t); }
+function clearToken() { localStorage.removeItem(STORAGE_KEY); }
 
-function showTab(name) {
-  document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  if(name==='pool') loadStats();
+// ===== 登录逻辑 =====
+async function doLogin() {
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  const errEl = document.getElementById('loginErr');
+  errEl.textContent = '';
+
+  if (user !== USERNAME) { errEl.textContent = '账号错误'; return; }
+  if (!pass) { errEl.textContent = '请输入密码（Token）'; return; }
+
+  // 用 Token 向后端验证一次
+  errEl.textContent = '验证中...';
+  try {
+    const r = await fetch(`${BASE}/api/license/pool-stats?token=${encodeURIComponent(pass)}`);
+    if (r.status === 403) { errEl.textContent = '密码（Token）错误，请重试'; return; }
+    if (!r.ok) { errEl.textContent = `服务器错误 (${r.status})`; return; }
+    // 验证通过
+    saveToken(pass);
+    enterApp();
+  } catch(e) {
+    errEl.textContent = '网络连接失败，请稍后重试';
+  }
 }
 
-function showAlert(msg, type) {
-  document.getElementById('alertBox').innerHTML='<div class="alert '+type+'">'+msg+'</div>';
-  setTimeout(()=>document.getElementById('alertBox').innerHTML='',8000);
+function doLogout() {
+  clearToken();
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginErr').textContent = '';
 }
 
+function enterApp() {
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  loadStats(); // 默认加载码池
+}
+
+// ===== API 请求 =====
 async function api(path, opts) {
   const token = getToken();
-  if(!token) throw new Error('请先输入管理员 Token');
-  const r = await fetch(BASE+path+(path.includes('?')?'&':'?')+'token='+encodeURIComponent(token), opts||{});
+  const sep = path.includes('?') ? '&' : '?';
+  const r = await fetch(BASE + path + sep + 'token=' + encodeURIComponent(token), opts || {});
+  if (r.status === 403) {
+    // Token 失效，回到登录页
+    showAlert('登录已过期，请重新登录','error');
+    setTimeout(doLogout, 1500);
+    throw new Error('Unauthorized');
+  }
   const d = await r.json();
-  if(!r.ok) throw new Error(d.error||'API错误');
+  if (!r.ok) throw new Error(d.error || 'API错误');
   return d;
 }
 
-async function initAndLoad() {
-  const token = getToken();
-  if(!token) {
-    // 自动用当前时间戳生成一个初始token
-    const t = 'admin-'+Date.now().toString(36);
-    document.getElementById('adminToken').value = t;
-    showAlert('已生成初始 Token：<b style="font-family:monospace">'+t+'</b><br>请妥善保存此 Token，以后访问后台需要输入。','success');
-  }
-  await loadStats();
+// ===== 全局提示 =====
+function showAlert(msg, type='success') {
+  const box = document.getElementById('alertBox');
+  box.innerHTML = `<div class="alert ${type}">${msg}</div>`;
+  setTimeout(()=>box.innerHTML='', 6000);
 }
 
+// ===== Tab 切换 =====
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+  if(name==='pool') loadStats();
+  if(name==='detail') loadDetail();
+}
+
+// ===== 码池状态 =====
+let poolStats = {};
 async function loadStats() {
+  document.getElementById('pool-grid').innerHTML = '<div class="loading">正在加载...</div>';
   try {
     poolStats = await api('/api/license/pool-stats');
     renderPoolStats();
   } catch(e) {
-    showAlert('加载失败：'+e.message,'error');
+    if(e.message !== 'Unauthorized')
+      document.getElementById('pool-grid').innerHTML = `<div class="alert error">加载失败：${e.message}</div>`;
   }
 }
 
 function renderPoolStats() {
-  const s = poolStats.summary||{};
-  let html = '<div class="stat-card"><h3>全部码池概览</h3>';
-  html += '<div class="stat-row"><span class>总码数</span><span class="blue">'+s.total+'</span></div>';
-  html += '<div class="stat-row"><span class>未发行</span><span class="green">'+s.unused+'</span></div>';
-  html += '<div class="stat-row"><span class>已发行</span><span class="yellow">'+s.issued+'</span></div>';
-  html += '<div class="stat-row"><span class>已绑定</span><span class="blue">'+s.bound+'</span></div>';
-  html += '<div class="stat-row"><span class>已吊销</span><span class="red">'+s.revoked+'</span></div>';
-  html += '</div>';
+  const s = poolStats.summary || {};
+  let html = `<div class="stat-card">
+    <h3>全部码池概览</h3>
+    <div class="stat-row"><span>总码数</span><span class="blue">${s.total}</span></div>
+    <div class="stat-row"><span>未发行</span><span class="green">${s.unused}</span></div>
+    <div class="stat-row"><span>已发行</span><span class="yellow">${s.issued}</span></div>
+    <div class="stat-row"><span>已绑定</span><span class="blue">${s.bound}</span></div>
+    <div class="stat-row"><span>已吊销</span><span class="red">${s.revoked}</span></div>
+  </div>`;
 
-  const plugins = poolStats.stats||{};
-  for(const [pid,plans] of Object.entries(plugins)) {
-    for(const [plan,data] of Object.entries(plans||{})) {
-      if(!data||data.total===0) continue;
-      const pname = PLAN_NAMES[plan]||plan;
-      const name = PLUGIN_NAMES[pid]||pid;
-      const low = data.unused<=10;
-      const pct = p=>((data[p]||0)/data.total*100).toFixed(1);
-      html += '<div class="stat-card"><h3>'+name+' &middot; '+pname+(low?' ⚠️低库存':'')+'</h3>';
-      html += '<div class="stat-row"><span class>剩余可用</span><span class="'+(low?'red':'green')+'">'+data.unused+' / '+data.total+'</span></div>';
-      html += '<div class="stat-row"><span class>已发行</span><span class="yellow">'+data.issued+'</span></div>';
-      html += '<div class="stat-row"><span class>已绑定</span><span class="blue">'+data.bound+'</span></div>';
-      html += '<div class="pool-bar">';
-      if(data.unused>0) html += '<div class="pool-seg" style="width:'+pct('unused')+'%;background:#22c55e"></div>';
-      if(data.issued>0) html += '<div class="pool-seg" style="width:'+pct('issued')+'%;background:#f59e0b"></div>';
-      if(data.bound>0) html += '<div class="pool-seg" style="width:'+pct('bound')+'%;background:#6366f1"></div>';
-      html += '</div></div>';
+  const plugins = poolStats.stats || {};
+  for(const [pid, plans] of Object.entries(plugins)) {
+    for(const [plan, data] of Object.entries(plans || {})) {
+      if(!data || data.total === 0) continue;
+      const pname = PLAN_NAMES[plan] || plan;
+      const name = PLUGIN_NAMES[pid] || pid;
+      const low = data.unused <= 10;
+      const pct = p => ((data[p] || 0) / data.total * 100).toFixed(1);
+      html += `<div class="stat-card">
+        <h3>${name} · ${pname}${low?' ⚠️':''}</h3>
+        <div class="stat-row"><span>剩余可用</span><span class="${low?'red':'green'}">${data.unused} / ${data.total}</span></div>
+        <div class="stat-row"><span>已发行</span><span class="yellow">${data.issued}</span></div>
+        <div class="stat-row"><span>已绑定</span><span class="blue">${data.bound}</span></div>
+        <div class="pool-bar">
+          ${data.unused>0?`<div class="pool-seg" style="width:${pct('unused')}%;background:#22c55e"></div>`:''}
+          ${data.issued>0?`<div class="pool-seg" style="width:${pct('issued')}%;background:#f59e0b"></div>`:''}
+          ${data.bound>0?`<div class="pool-seg" style="width:${pct('bound')}%;background:#6366f1"></div>`:''}
+        </div>
+      </div>`;
     }
   }
   document.getElementById('pool-grid').innerHTML = html;
 }
 
+// ===== 生成授权码 =====
 async function generateCodes() {
   const plugin = document.getElementById('gen-plugin').value;
   const plan = document.getElementById('gen-plan').value;
-  const count = parseInt(document.getElementById('gen-count').value)||50;
+  const count = parseInt(document.getElementById('gen-count').value) || 10;
   const btn = document.getElementById('gen-btn');
   const result = document.getElementById('gen-result');
-  btn.disabled=true; btn.textContent='生成中...';
-  result.innerHTML='<div class="loading">生成中...</div>';
+  btn.disabled = true; btn.textContent = '生成中...';
+  result.innerHTML = '<div class="loading">生成中...</div>';
   try {
-    const r = await fetch(BASE+'/api/license/generate', {
+    const token = getToken();
+    const r = await fetch(BASE + '/api/license/generate', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({pluginId:plugin, plan, count, token:getToken()})
+      body: JSON.stringify({pluginId:plugin, plan, count, token})
     });
     const d = await r.json();
     if(d.error) throw new Error(d.error);
-    result.innerHTML='<div class="alert success"><b>成功生成 '+d.codes.length+' 个授权码 ('+plugin+'/'+plan+')</b><br><br>'+
-      d.codes.map(c=>'<code>'+c+'</code>').join(' ')+'</div>';
+    result.innerHTML = `<div class="alert success">
+      <b>✅ 成功生成 ${d.codes.length} 个授权码（${PLUGIN_NAMES[plugin] || plugin} · ${PLAN_NAMES[plan] || plan}）</b>
+      <div style="margin-top:10px;line-height:2">${d.codes.map(c=>`<code>${c}</code>`).join(' ')}</div>
+    </div>`;
+    // 自动刷新码池
     await loadStats();
+    showAlert(`✅ 已生成 ${d.codes.length} 个授权码，码池数据已更新`,'success');
   } catch(e) {
-    result.innerHTML='<div class="alert error">生成失败：'+e.message+'</div>';
+    result.innerHTML = `<div class="alert error">生成失败：${e.message}</div>`;
   } finally {
-    btn.disabled=false; btn.textContent='开始生成';
+    btn.disabled = false; btn.textContent = '开始生成';
   }
 }
 
-// auto-load
-document.addEventListener('DOMContentLoaded', ()=>{
-  // 检查URL参数
-  const params = new URLSearchParams(location.search);
-  const t = params.get('token');
-  if(t) { document.getElementById('adminToken').value=t; }
-  showTab('pool');
-});
+// ===== 授权明细 =====
+let allLicenses = [];
+let filteredLicenses = [];
+let currentPage = 1;
+const PAGE_SIZE = 50;
+
+async function loadDetail() {
+  document.getElementById('detail-tbody').innerHTML = '<tr><td colspan="9" class="loading">加载中...</td></tr>';
+  try {
+    const data = await api('/api/license/pool-stats?action=list');
+    allLicenses = data.licenses || [];
+    renderSummary();
+    applyFilter();
+  } catch(e) {
+    if(e.message !== 'Unauthorized')
+      document.getElementById('detail-tbody').innerHTML = `<tr><td colspan="9"><div class="alert error" style="margin:12px">加载失败：${e.message}</div></td></tr>`;
+  }
+}
+
+function renderSummary() {
+  const total = allLicenses.length;
+  const bound = allLicenses.filter(l=>l.status==='bound').length;
+  const issued = allLicenses.filter(l=>l.status==='issued').length;
+  const unused = allLicenses.filter(l=>l.status==='unused').length;
+  document.getElementById('detail-summary').innerHTML = `
+    <div class="ds-item"><span class="gray">总授权码</span><b class="blue">${total}</b></div>
+    <div class="ds-item"><span class="gray">已绑定设备</span><b class="green">${bound}</b></div>
+    <div class="ds-item"><span class="gray">已发行未激活</span><b class="yellow">${issued}</b></div>
+    <div class="ds-item"><span class="gray">未发行库存</span><b class="gray">${unused}</b></div>
+  `;
+}
+
+function applyFilter() {
+  const fp = document.getElementById('f-plugin').value;
+  const fpl = document.getElementById('f-plan').value;
+  const fs = document.getElementById('f-status').value;
+  const fq = document.getElementById('f-search').value.trim().toLowerCase();
+
+  filteredLicenses = allLicenses.filter(l => {
+    if(fp && l.pluginId !== fp) return false;
+    if(fpl && l.plan !== fpl) return false;
+    if(fs && l.status !== fs) return false;
+    if(fq) {
+      const hay = [l.code, l.issuedEmail||'', l.boundEmail||'', l.machineCode||'', l.remark||'']
+        .join(' ').toLowerCase();
+      if(!hay.includes(fq)) return false;
+    }
+    return true;
+  });
+
+  // 排序：已绑定优先，再按绑定时间倒序
+  filteredLicenses.sort((a,b) => {
+    const order = {bound:0,issued:1,unused:2,revoked:3};
+    if(order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
+    return (b.boundAt||b.issuedAt||b.createdAt||'').localeCompare(a.boundAt||a.issuedAt||a.createdAt||'');
+  });
+
+  currentPage = 1;
+  document.getElementById('f-count').textContent = `共 ${filteredLicenses.length} 条`;
+  renderTable();
+}
+
+function renderTable() {
+  const start = (currentPage-1)*PAGE_SIZE;
+  const page = filteredLicenses.slice(start, start+PAGE_SIZE);
+
+  if(page.length === 0) {
+    document.getElementById('detail-tbody').innerHTML = '<tr><td colspan="9" style="text-align:center;padding:32px;color:#475569">暂无数据</td></tr>';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  const statusBadge = s => {
+    const map = {unused:'未发行 status-unused',issued:'已发行 status-issued',bound:'已绑定 status-bound',revoked:'已吊销 status-revoked'};
+    const [label,...cls] = (map[s]||'未知').split(' ');
+    return `<span class="status-badge ${cls.join(' ')}">${label}</span>`;
+  };
+  const fmt = d => d ? d.replace('T',' ').slice(0,16) : '—';
+
+  const rows = page.map(l => `
+    <tr>
+      <td><code>${l.code}</code></td>
+      <td>${PLUGIN_NAMES[l.pluginId]||l.pluginId}</td>
+      <td>${PLAN_NAMES[l.plan]||l.plan}</td>
+      <td>${statusBadge(l.status)}</td>
+      <td style="color:#94a3b8;font-size:12px">${l.issuedEmail||l.boundEmail||'—'}</td>
+      <td><code style="font-size:11px;color:#94a3b8">${l.machineCode ? l.machineCode.slice(0,16)+'…' : '—'}</code></td>
+      <td style="color:#64748b;font-size:12px">${fmt(l.boundAt||l.issuedAt)}</td>
+      <td><input class="remark-input" placeholder="添加备注…" value="${escHtml(l.remark||'')}"
+        onblur="saveRemark('${l.code}',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+      <td>${l.status!=='revoked'?`<button class="revoke-btn" onclick="revoke('${l.code}',this)">吊销</button>`:'<span style="color:#475569;font-size:11px">已吊销</span>'}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('detail-tbody').innerHTML = rows;
+  renderPagination();
+}
+
+function renderPagination() {
+  const total = filteredLicenses.length;
+  const pages = Math.ceil(total/PAGE_SIZE);
+  if(pages <= 1) { document.getElementById('pagination').innerHTML=''; return; }
+  let html = `<span style="color:#64748b">第 ${currentPage}/${pages} 页</span>`;
+  if(currentPage>1) html += `<button class="page-btn" onclick="goPage(${currentPage-1})">上一页</button>`;
+  // 显示附近页码
+  for(let i=Math.max(1,currentPage-2);i<=Math.min(pages,currentPage+2);i++) {
+    html += `<button class="page-btn${i===currentPage?' active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  if(currentPage<pages) html += `<button class="page-btn" onclick="goPage(${currentPage+1})">下一页</button>`;
+  document.getElementById('pagination').innerHTML = html;
+}
+
+function goPage(p) { currentPage=p; renderTable(); document.querySelector('.table-wrap').scrollTop=0; }
+
+function escHtml(s) { return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+async function saveRemark(code, remark) {
+  try {
+    await fetch(BASE + '/api/license/pool-stats', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'remark', code, remark, token: getToken()})
+    });
+    // 本地同步
+    const l = allLicenses.find(x=>x.code===code);
+    if(l) l.remark = remark;
+  } catch(e) { /* 静默失败 */ }
+}
+
+async function revoke(code, btn) {
+  if(!confirm(`确定要吊销授权码 ${code} 吗？吊销后该用户将无法继续使用插件。`)) return;
+  btn.disabled = true; btn.textContent = '...';
+  try {
+    const r = await fetch(BASE + '/api/license/pool-stats', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'revoke', code, token: getToken()})
+    });
+    const d = await r.json();
+    if(!r.ok) throw new Error(d.error||'操作失败');
+    showAlert(`✅ 已吊销 ${code}`,'success');
+    await loadDetail(); // 刷新
+  } catch(e) {
+    showAlert(`吊销失败：${e.message}`,'error');
+    btn.disabled=false; btn.textContent='吊销';
+  }
+}
+
+// ===== 初始化 =====
+(function init(){
+  const saved = getToken();
+  if(saved) {
+    enterApp();
+  } else {
+    document.getElementById('loginPage').style.display = 'flex';
+    document.getElementById('mainApp').style.display = 'none';
+    // 回车登录
+    document.getElementById('loginPass').focus();
+  }
+})();
 </script>
 </body>
 </html>

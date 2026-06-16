@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "AutoPhoto Chrome Plugin Store",
   "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
     "stripe": "^22.0.2"
   }
 }

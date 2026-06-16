@@ -219,8 +219,8 @@ async function handleCallback(req, res) {
 
     console.log('✅ Payment complete: ' + session.id + ' -> ' + pluginArr.join(',') + '/' + plan);
 
-    // 从码池分配授权码
-    const allocations = pool.allocateMultipleLicenses(pluginArr, plan, email, session.id);
+    // 从码池分配授权码（异步）
+    const allocations = await pool.allocateMultipleLicenses(pluginArr, plan, email, session.id);
     const successCount = allocations.filter(a => a.code).length;
     const failCount = allocations.filter(a => !a.code).length;
 
