@@ -309,6 +309,24 @@ async function bindLicense(code, machineCode, email) {
 }
 
 /**
+ * 解除授权码绑定（换绑用）：机器码清为空，状态改为 issued
+ */
+async function unbindLicense(code) {
+  const entry = await getLicenseByCode(code);
+  if (!entry) return { error: '授权码不存在' };
+  if (entry.status !== 'bound') return { error: '该授权码当前未处于绑定状态' };
+
+  await updateLicense(code, {
+    status: 'issued',
+    machine_code: null,
+    bound_email: null,
+    bound_at: null
+  });
+
+  return { success: true, machineCode: entry.machine_code };
+}
+
+/**
  * 在线验证授权码 + 机器码
  */
 async function validateLicense(code, machineCode) {
@@ -400,7 +418,7 @@ module.exports = {
   ADMIN_EMAIL,
   // 异步核心 API
   allocateLicense, allocateMultipleLicenses,
-  bindLicense, validateLicense, revokeLicense,
+  bindLicense, unbindLicense, validateLicense, revokeLicense,
   generateCodes, getPoolStats, getAllLicenses, findByOrderId,
   // 废弃同步 API（兼容用）
   readDB, writeDB,

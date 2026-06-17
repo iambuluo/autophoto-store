@@ -97,11 +97,11 @@ async function sendLicenseEmail(allocations, email, customerName, planLabel, amo
 
   await sendEmail({
     to: email,
-    subject: '🎉 支付成功！您的授权码已生成',
+    subject: '🎉 支付成功！您的 AutoPhoto 插件授权码及安装步骤',
     html: '<div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;padding:20px;color:#1e293b">' +
       '<div style="background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%);border-radius:16px 16px 0 0;padding:32px 28px;color:#fff">' +
       '<h1 style="font-size:24px;margin-bottom:8px">🎉 支付成功！</h1>' +
-      '<p style="opacity:0.9;font-size:15px;margin-bottom:4px">感谢您的购买！以下是你的授权码，请妥善保管。</p>' +
+      '<p style="opacity:0.9;font-size:15px;margin-bottom:4px">感谢您的购买！以下是您的授权码和安装激活指南。</p>' +
       '<p style="opacity:0.9;font-size:14px">实付金额：<b>$' + amount + '</b></p></div>' +
       '<div style="background:#fff;border:1px solid #e5e7eb;border-top:none;padding:28px;border-radius:0 0 16px 16px">' +
       warningBlock +
@@ -109,18 +109,42 @@ async function sendLicenseEmail(allocations, email, customerName, planLabel, amo
       '<div style="margin-bottom:20px">' + codeCards + '</div>' +
       '<h3 style="font-size:15px;margin-bottom:12px;color:#334155">📦 下载插件</h3>' +
       '<table style="width:100%;border-collapse:collapse;margin-bottom:14px;background:#f8fafc;border-radius:8px;overflow:hidden">' + dlLinks + '</table>' +
-      '<p style="font-size:12px;color:#94a3b8;margin-bottom:20px">💡 下载后将ZIP文件拖入Chrome（chrome://extensions → 开启开发者模式）即可安装</p>' +
-      '<div style="background:#fffbeb;border:1px solid #f59e0b;border-radius:10px;padding:20px;margin-bottom:16px">' +
-      '<h3 style="font-size:14px;margin-bottom:10px;color:#92400e">🚀 激活步骤（首次使用必读）</h3>' +
-      '<ol style="padding-left:18px;font-size:13px;line-height:2.2;color:#78350f;margin:0">' +
-      '<li>安装插件后，点击浏览器工具栏的 <b>AutoPhoto 图标</b></li>' +
-      '<li>在插件弹窗中粘贴您的 <b>授权码</b>（见上方）</li>' +
-      '<li>首次激活时，插件会自动采集并绑定您的机器码</li>' +
-      '<li>绑定成功后，插件即可正常使用 ✅</li></ol></div>' +
+      // ---- 安装步骤 ----
+      '<div style="background:#eff6ff;border:1px solid #3b82f6;border-radius:10px;padding:20px;margin-bottom:16px">' +
+      '<h3 style="font-size:14px;margin-bottom:10px;color:#1e40af">📥 安装插件（4步）</h3>' +
+      '<ol style="padding-left:18px;font-size:13px;line-height:2.2;color:#1e3a8a;margin:0">' +
+      '<li>点击下载链接，下载 ZIP 文件</li>' +
+      '<li>解压 ZIP 文件到任意文件夹</li>' +
+      '<li>打开 Chrome 浏览器，地址栏输入 <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px">chrome://extensions/</code> → 开启"开发者模式" → 点击"加载已解压的扩展程序" → 选择解压文件夹</li>' +
+      '<li>插件安装完成，工具栏会出现 AutoPhoto 图标 🎉</li></ol></div>' +
+      // ---- 激活步骤 ----
+      '<div style="background:#f0fdf4;border:1px solid #22c55e;border-radius:10px;padding:20px;margin-bottom:16px">' +
+      '<h3 style="font-size:14px;margin-bottom:10px;color:#166534">🔐 激活授权（关键步骤）</h3>' +
+      '<ol style="padding-left:18px;font-size:13px;line-height:2.2;color:#14532d;margin:0">' +
+      '<li>安装完成后，点击浏览器工具栏的 <b>AutoPhoto 图标</b></li>' +
+      '<li>在弹窗中看到"输入授权码"界面</li>' +
+      '<li>粘贴邮件中的授权码（如 <code style="background:#f0fdf4;padding:2px 6px;border-radius:4px">VCG-A1B2C3D4</code>）</li>' +
+      '<li>点击 <b>"激活"</b> 按钮</li>' +
+      '<li>系统自动采集机器码并绑定 → 提示"激活成功" ✅</li>' +
+      '<li>插件即可正常使用，无需联网验证</li></ol></div>' +
+      // ---- 换设备须知 ----
+      '<div style="background:#fffbeb;border:1px solid #f59e0b;border-radius:10px;padding:16px;margin-bottom:16px;font-size:13px;line-height:1.7">' +
+      '<b>📱 换设备 / 重装系统怎么办？</b><br>' +
+      '1. 用新电脑重新安装插件 → 粘贴<strong>同一个授权码</strong> → 提示"已绑定其他设备"<br>' +
+      '2. 联系微信 <b>auto_photo2025</b>，说明情况（提供购买邮箱）<br>' +
+      '3. 客服帮您解除旧设备绑定 → 新设备重新激活 → <b>剩余时间不变！</b><br>' +
+      '<b style="color:#92400e">💡 授权码是您永久拥有的，不会因为换设备而失效。</b></div>' +
+      // ---- 注意事项 ----
       '<div style="background:#fef2f2;border:1px solid #ef4444;border-radius:8px;padding:14px;font-size:13px;color:#991b1b;line-height:1.7">' +
-      '<b>⚠️ 每个授权码仅限一台设备使用</b><br>机器码绑定后无法更换。如需在新设备使用，请联系微信：<b>auto_photo2025</b></div>' +
+      '<b>⚠️ 注意事项</b><br>' +
+      '• 每个授权码仅限一台设备同时使用，请勿共享<br>' +
+      '• 如需卸载插件，可到管理后台解除绑定<br>' +
+      '• 授权码请勿泄露给他人</div>' +
+      // ---- Footer ----
       '<div style="margin-top:20px;padding-top:20px;border-top:1px solid #e5e7eb;font-size:13px;color:#64748b">' +
-      '<p>如有任何问题，请联系微信：<b style="color:#334155">auto_photo2025</b></p></div></div></div>'
+      '<p>如有任何问题，请联系：</p>' +
+      '<p>微信：<b style="color:#334155">auto_photo2025</b> ｜ 邮箱：<b style="color:#334155">contact@autophoto.store</b></p>' +
+      '<p style="margin-top:12px;font-size:11px;color:#94a3b8">Autophoto.store © 2026 · 专业图库自动化平台</p></div></div></div>'
   });
 }
 
